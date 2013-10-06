@@ -6,6 +6,11 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>fuwesta-sample</name>
+    <description>Sample-Project for fuwesta</description>
+    <organization>
+        <name>PPI AG</name>
+        <url>http://www.ppi.de</url>
+    </organization>
     <properties>
         <java.version>1.7</java.version>
         <org.springframework.version>3.2.4.RELEASE</org.springframework.version>
@@ -120,10 +125,10 @@
         </dependency>
 
         <dependency>
-           <groupId>org.assertj</groupId>
-           <artifactId>assertj-core</artifactId>
-           <version>1.4.0</version>
-           <scope>test</scope>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>1.4.0</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
@@ -309,9 +314,12 @@
         </plugins>
     </reporting>
 
-    <description>Sample-Project for fuwesta</description>
-    <organization>
-        <name>PPI AG</name>
-        <url>http://www.ppi.de</url>
-    </organization>
+
+    <repositories>
+        <repository>
+            <id>opensource21</id>
+            <url> http://opensource21.github.com/releases</url>
+        </repository>
+    </repositories>
+
 </project>
