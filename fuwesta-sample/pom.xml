@@ -29,7 +29,7 @@
         <dependency>
             <groupId>de.ppi.oss</groupId>
             <artifactId>fuwesta-core</artifactId>
-            <version>0.3-SNAPSHOT</version>
+            <version>0.3</version>
             <scope>compile</scope>
         </dependency>
         <!-- logging -->
@@ -311,7 +311,7 @@
 
     <description>Sample-Project for fuwesta</description>
     <organization>
-    	<name>PPI AG</name>
-    	<url>http://www.ppi.de</url>
+        <name>PPI AG</name>
+        <url>http://www.ppi.de</url>
     </organization>
 </project>

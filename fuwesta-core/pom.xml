@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.ppi.oss</groupId>
     <artifactId>fuwesta-core</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.3</version>
     <name>fuwesta-core</name>
     <properties>
         <java.version>1.7</java.version>
