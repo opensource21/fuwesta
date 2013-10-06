@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookmarks>
+   <site url="http://andrei.gmxhome.de/eclipse/" selected="true" name="AnyEdit"/>
+   <site url="http://download.eclipse.org/egit/updates" selected="true" name="Egit"/>
+   <site url="http://eclipse-cs.sf.net/update/" selected="true" name="Checkstyle"/>
+   <site url="http://update.eclemma.org/" selected="true" name="Eclemma"/>
+   <site url="http://infinitest.github.io/" selected="true" name="Infinitest"/>
+   <site url="http://jautodoc.sourceforge.net/update/" selected="true" name="JAutoDoc"/>
+   <site url="http://run-jetty-run.googlecode.com/svn/trunk/updatesite" selected="true" name="Jetty"/>
+   <site url="http://winterwell.com/software/updatesite/" selected="true" name="Markdown"/>
+   <site url="http://moreunit.sourceforge.net/update-site/" selected="true" name="MoreUnit"/>
+   <site url="http://www.thymeleaf.org/eclipse-plugin-update-site/" selected="true" name="Thymeleaf"/>
+</bookmarks>

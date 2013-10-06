@@ -1,0 +1,32 @@
+%TEMPLATE_MODE HTML5
+# ------------ separator comment -----------
+%CONTEXT
+
+title="Thymeleaftest"
+binding = {'title'}
+# ------------------------------------------
+%MESSAGES
+field.messageTitle=Title
+test.title=messageTitle
+# ------------------------------------------
+%INPUT
+<!DOCTYPE html>
+<html>
+  <body>
+      <form>
+          <input type="text" bs:name="#{test.title}" th:value="${title}"/>
+      </form>
+  </body>
+</html>
+# ------------------------------------------
+
+%OUTPUT
+<!DOCTYPE html>
+<html>
+  <body>
+      <form>
+          <div class="control-group"><label class="control-label" for="messageTitle">Title:</label><div class="controls"><input type="text" id="messageTitle" name="messageTitle" value="Thymeleaftest" /></div></div>
+      </form>
+  </body>
+</html>
+

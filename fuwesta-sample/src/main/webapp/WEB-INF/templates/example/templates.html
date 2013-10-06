@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="de-DE" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../../resources/css/bootstrap-ppi.css"
+    th:href="@{/resources/css/bootstrap-ppi.css}" />
+</head>
+<body>
+<!-- Pagination Bar -->
+  <div class="pagination pagination-centered" th:fragment="paginationbar">
+    <ul>
+      <li th:class="${page.firstPage}? 'disabled' : ''">
+        <span th:if="${page.firstPage}">&larr; First</span>
+        <a th:if="${not page.firstPage}" th:href="@{${page.url}(__#{pg.page.number_size(1,${page.size})}__)}">&larr; First</a>
+      </li>
+      <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
+        <span th:if="${not page.hasPreviousPage}">&laquo;</span>
+        <a th:if="${page.hasPreviousPage}" th:href="@{${page.url}(__#{pg.page.number_size(${page.number-1},${page.size})}__)}" title="Go to previous page">&laquo;</a>
+      </li>
+      <li th:each="item : ${page.items}" th:class="${item.current}? 'active' : ''">
+        <span th:if="${item.current}" th:text="${item.number}">1</span>
+        <a th:if="${not item.current}" th:href="@{${page.url}(__#{pg.page.number_size(${item.number},${page.size})}__)}"><span th:text="${item.number}">1</span></a>
+      </li>
+      <li th:class="${page.hasNextPage}? '' : 'disabled'">
+        <span th:if="${not page.hasNextPage}">&raquo;</span>
+        <a th:if="${page.hasNextPage}" th:href="@{${page.url}(__#{pg.page.number_size(${page.number+1},${page.size})}__)}" title="Go to next page">&raquo;</a>
+      </li>
+      <li th:class="${page.lastPage}? 'disabled' : ''">
+        <span th:if="${page.lastPage}">Last &rarr;</span>
+        <a th:if="${not page.lastPage}" th:href="@{${page.url}(__#{pg.page.number_size(${page.totalPages},${page.size})}__)}">Last &rarr;</a>
+      </li>
+    </ul>
+  </div>
+  <div th:fragment="textfield">
+      <div class="control-group"
+        th:classappend="${#fields.hasErrors('__${fId}__')}? 'error'">
+        <label class="control-label" th:for="${fId}"
+            th:text="#{model.__*{class.simpleName}__.__${fId}__}+':'">
+        FirstName </label>
+        <div class="controls">
+            <input type="text" th:class="${inputclass}" th:field="*{__${fId}__}" th:disabled="${disabled}"/>
+            <span class="help-inline" th:if="${#fields.hasErrors('__${fId}__')}"
+                th:errors="*{__${fId}__}"></span>
+        </div>
+      </div>
+  </div>
+  <div layout:fragment="bsfield">
+      <div class="control-group" th:classappend="${#fields.hasErrors('__${fId}__')}? 'error'">
+        <label class="control-label" th:for="${fId}"
+            th:text="#{model.__*{class.simpleName}__.__${fId}__}+':'">
+        FirstName </label>
+        <div class="controls">
+            <span layout:fragment="bsinput" th:remove="tag">
+            <input type="text" class="replace" th:field="*{__${fId}__}" th:disabled="${disabled}"/>
+            </span>
+            <span class="help-inline" th:if="${#fields.hasErrors('__${fId}__')}"
+                th:errors="*{__${fId}__}"></span>
+        </div>
+      </div>
+  </div>
+</body>
+</html>

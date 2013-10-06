@@ -1,0 +1,7 @@
+select[disabled="disabled"].show, input[disabled="disabled"].show {
+    background: none repeat scroll 0 0 white;
+    border: 0 solid black;
+    font-size: 1.05em;
+    font-weight: bold;
+    text-align: left;
+}

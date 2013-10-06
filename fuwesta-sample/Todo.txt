@@ -1,0 +1,122 @@
+Die GlobalErrors müssen angezeigt werden.!
+
+Security 1
+
+Mehr Tests 1,5 PT
+
+Doku/Schulung 3 PT
+
+Erweitertes Beispiel 5PT
+
+Basisbibliothek/OpenSource 1 PT
+
+
+
+NotNull erscheint doppelt: https://sourceforge.net/p/oval/bugs/84/
+
+
+Die Beschreibung der generellen Architektur könnte für mich gerne noch ausführlicher ausfallen
+(welche Art von Klassen spielt in welchem Layer, wo wird validiert,
+gibt es DTOs oder nicht, gibt es spezielle Klassen für Form-Daten,
+wie man sie aus anderen Frameworks kennt, ...)
+
+Mehr Doku zum Bidirektionalem ist sicher auch nicht verkehrt, nehm ich mal auf,
+
+Sortierung in Liste
+
+Sortierung in Thymeleaf https://github.com/thymeleaf/thymeleaf/issues/208
+
+-Ablage der Properties. Bei CDEF werden die Properties im WAR ausgetauscht
+ mit http://subway/rephh/cdef/trunk/Java/CdefShipping
+
+http://bootsnipp.com/
+
+http://parsleyjs.org/
+
+Bootstrap JS?
+
+Bauen eines TodoController auf den man verweisen kann mit entsprechender Seite.
+
+#Done BS-Field kann man auch mit http://forum.thymeleaf.org/Best-processor-for-wrapping-tags-td4025264.html machen.
+
+http://datatables.net/blog/Twitter_Bootstrap_2
+Choosen aktualisieren? https://github.com/harvesthq/chosen/issues/811#issuecomment-16974523
+
+- Prüfen ob man die JSR-Prüfung drin lässt oder komplett auf JPA geht. Mit
+http://oval.sourceforge.net/userguide.html#interpreting-ejb3-jpa-annotations
+kann man sich die Validierungsconstraints sparen und hat alles sauber in der
+DB-Definition, das funktioniert so gar für alle JPA-Provider.
+
+- https://github.com/bclozel/springmvc-router ermöglicht eine zentrale Router-Lösung und Reverse-Routing.
+
+- Datums-Beispiel http://blog.springsource.com/2009/11/17/spring-3-type-conversion-and-validation/
+
+###JSP und Bootstrap
+http://duckranger.com/2012/07/spring-mvc-and-twitter-bootstrap-customizing-the-input-fields/
+
+
+##Spring Security
+http://blog.springsource.com/2009/09/28/spring-security-kerberos/
+
+
+http://eclipse-rbe.sourceforge.net/
+
+Wieso geht das Stoppen mit
+            <plugin>
+               <groupId>org.eclipse.jetty</groupId>
+               <artifactId>jetty-maven-plugin</artifactId>
+               <version>8.1.7</version>
+               <configuration>
+                    <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <stopKey>foo</stopKey>
+                    <stopPort>8999</stopPort>
+                </configuration>
+            </plugin>
+            folgendes geht noch:Jetty  6 startet aber schneller.
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>8.0.4.v20111024</version>
+                <configuration>
+                    <webApp>
+                        <contextPath>/</contextPath>
+                    </webApp>
+                    <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <stopPort>9966</stopPort>
+                    <stopKey>foo</stopKey>
+                </configuration>
+            </plugin>
+
+nicht
+
+* Spring 3.1 um XML vermeiden erfordert Jetty8 oder Tomcat 7
+  http://blog.springsource.com/2011/06/13/spring-3-1-m2-spring-mvc-enhancements-2/
+  C:\seu\sandboxes\ppi\spring-mvc-noxml-sample
+  Wenn man die Web.xml lässt geht es mit dem alten Server siehe
+  http://www.theserverside.com/tutorial/How-to-Use-Spring-30-In-a-Servlet-Based-Web-Application
+
+https://github.com/eller86/findbugs-slf4j
+
+INFOS
+=====
+
+
+* Spring-Data
+fehler bei Findern findByUnknownColumn! werden sofort bemerkt beim Starten der Anwendung!
+
+Bei JSR-303 würde Hibernate in die DDL-Gnerierung eingreifen.
+http://docs.jboss.org/hibernate/validator/4.0.1/reference/en/html/validator-usingvalidator.html#table-builtin-constraints
+
+
+
+Erledigt
+============
+##Konfiguration zur Laufzeit
+Man kann normales XML nehmen und dann
+<bean class="com.acme.AppConfig"/>
+nutzen. Das XML kann man dann aus dem Classpath laden. Ist vermutlich die flexiblere Kombination.
+
+-> Das macht in wenigen Fällen Sinn. I.A: sollte eine Property reichen.
+
+Man sollte packagesToScan mit Properties auf einen Basis-Packagename definieren. -> Ging nicht so leicht
+Klären, ob man da mit * arbeitet. -> Nein

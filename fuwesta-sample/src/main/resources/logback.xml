@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+
+        <!-- encoders are assigned by default the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+        <encoder>
+            <pattern>
+                %d [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="THYMELEAF"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>thyemleaf.log</file>
+        <append>false</append>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>tests.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>3</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy
+            class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>50MB</maxFileSize>
+        </triggeringPolicy>
+
+
+        <!-- encoders are assigned by default the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+        <encoder>
+            <pattern>
+                %d [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <!-- Application Loggers -->
+
+    <!-- 3rdparty Loggers -->
+    <logger name="org.springframework.core" level="WARN" />
+
+    <logger name="org.springframework.beans" level="WARN" />
+
+    <logger name="org.springframework.aop" level="WARN" />
+
+    <logger name="org.springframework.context" level="WARN" />
+
+    <logger name="org.springframework.orm" level="WARN" />
+
+    <logger name="org.springframework.web" level="WARN" />
+
+    <logger name="org.springframework.data" level="WARN" />
+
+    <logger name="org.springframework" level="WARN" />
+
+    <logger name="org.hibernate" level="WARN" />
+
+    <logger name="org.thymeleaf" level="TRACE" additivity="FALSE">
+        <appender-ref ref="THYMELEAF" />
+    </logger>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>
