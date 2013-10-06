@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="de-DE" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title th:text="#{App.Title} + ' - ' + #{tag.form.title}">
+    SpringMVC-Sample - Form of tags</title>
+<link rel="stylesheet" href="../../../../resources/css/bootstrap-ppi.css"
+    th:href="@{/resources/css/bootstrap-ppi.css}" />
+<link rel="stylesheet"
+    href="../../../../resources/css/smoothness/jquery-ui-1.9.1.custom.css"
+    th:href="@{/resources/css/smoothness/jquery-ui-1.9.1.custom.css}" />
+<link rel="stylesheet"
+    href="../../../../resources/css/smoothness/datetimepicker.css"
+    th:href="@{/resources/css/smoothness/datetimepicker.css}" />
+<script type="text/javascript"
+    src="../../../../resources/js/jquery-1.8.2.js"
+    th:src="@{/resources/js/jquery-1.8.2.js}"></script>
+<script type="text/javascript"
+    src="../../../../resources/js/jquery-ui-1.9.1.custom.js"
+    th:src="@{/resources/js/jquery-ui-1.9.1.custom.js}"></script>
+<script type="text/javascript"
+    src="../../../../resources/js/chosen.jquery.js"
+    th:src="@{/resources/js/chosen.jquery.js}"></script>
+<script type="text/javascript"
+    src="../../../../resources/js/jquery-ui-timepicker-addon.js"
+    th:src="@{/resources/js/jquery-ui-timepicker-addon.js}"></script>
+</head>
+<body>
+    <h3 th:text="#{tag.form.title}">Form of tags</h3>
+    <a class="btn" href="/" th:href="@{/}"><i class="icon-home"></i>Home</a>
+    <a class="btn" th:href="@{__#{url.tag.list}__}">Goto list</a>
+    <form th:action="@{${url}}" class="well form-horizontal" method="post" th:object="${tag}">
+        <input id="id" type="hidden" th:value="*{id}" name="id"/>
+        <input id="version" type="hidden" th:value="*{version}" name="version"/>
+        <!-- Standard include -->
+        <div class="control-group  replace" th:include="example/templates::textfield" th:with="fId='name'" th:remove="tag">
+            <label class="control-label">Title</label>
+            <div class="controls replace">
+                <input  type="text" value=""/>
+            </div>
+        </div>
+
+        <!-- Layout with prototyping idea.-->
+        <div class="control-group" layout:include="example/templates::bsfield" th:with="fId='active'" th:remove="tag">
+            <label class="control-label" th:remove="all">Last Name</label>
+            <div class="controls" th:remove="tag">
+                <div layout:fragment="bsinput">
+                <input type="checkbox" th:field="*{__${fId}__}"  th:disabled="${disabled}"></input>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group" layout:include="example/templates::bsfield" th:with="fId='postings'"  th:remove="tag">
+            <label class="control-label">
+                Postings:
+            </label>
+            <div class="controls">
+                <span layout:fragment="bsinput">
+                    <select th:field="*{__${fId}__}" multiple="multiple" th:unless="${disabled}">
+                        <option th:each="item : ${posts}" th:value="${item.id}" th:text="${item.title}"></option>
+                    </select>
+                    <ul th:if="${disabled}">
+                        <li th:each="item : *{__${fId}__}"  >
+                            <a th:href="@{#{url.post.show(${item.id})}}" th:text="${item.title}">Postingx</a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+
+        </div>
+        <input name="" value="Save" type="submit" th:if="${not disabled}"/>
+        <input name="" value="Reset" type="reset" th:if="${not disabled}"/>
+    </form>
+
+
+
+
+</body>
+</html>

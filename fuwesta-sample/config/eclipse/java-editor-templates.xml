@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="java" deleted="false" description="Test pattern A A A" enabled="true" name="aaa">//Arrange&#13;
+//Act&#13;
+//Assert</template><template autoinsert="true" context="java" deleted="false" description="Schaltet Checkstyle an oder aus." enabled="true" name="CSOFF">//CSOFF: module_name ${todo} REASON&#13;
+//CSON: module_name</template></templates>

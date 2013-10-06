@@ -1,0 +1,317 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.ppi.samples</groupId>
+    <artifactId>fuwesta-sample</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>fuwesta-sample</name>
+    <properties>
+        <java.version>1.7</java.version>
+        <org.springframework.version>3.2.4.RELEASE</org.springframework.version>
+        <springsecurity.version>3.1.4.RELEASE</springsecurity.version>
+        <org.slf4j.version>1.7.3</org.slf4j.version>
+        <junit.version>4.11</junit.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <db.username>sa</db.username>
+        <db.password />
+        <db.driver>org.h2.Driver</db.driver>
+        <db.url>jdbc:h2:dbs/dev;MODE=PostgreSQL;AUTO_SERVER=TRUE</db.url>
+        <db.dialect>org.hibernate.dialect.H2Dialect</db.dialect>
+        <db.generateDdl>true</db.generateDdl>
+        <db.schema>PUBLIC</db.schema>
+        <db.hbm2ddl.auto>update</db.hbm2ddl.auto>
+
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.ppi.oss</groupId>
+            <artifactId>fuwesta-core</artifactId>
+            <version>0.3-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- logging -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.0.10</version>
+            <scope>runtime</scope>
+        </dependency>
+
+
+        <!-- Spring -->
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${org.springframework.version}</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <!-- Necessary because the WebMvcConfigurationSupport reference it -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+
+        <!-- Thymeleaf -->
+        <dependency>
+            <groupId>nz.net.ultraq.web.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
+            <version>1.0.6</version>
+            <scope>compile</scope>
+        </dependency>
+
+
+        <!-- Security
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity3</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${springsecurity.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${springsecurity.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-acl</artifactId>
+            <version>${springsecurity.version}</version>
+        </dependency>-->
+
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${org.springframework.version}</version>
+            <type>jar</type>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+           <groupId>org.assertj</groupId>
+           <artifactId>assertj-core</artifactId>
+           <version>1.4.0</version>
+           <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <!-- Files in resources should be added -->
+        <resources>
+            <resource>
+                <!-- and variables should be replaced. Have in mind that db.properties
+                    are written as UTF-8 but is initial ISO-8859-1 -->
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>db.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>db.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- Facilitates downloading source and javadoc in Eclipse -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.8</version>
+                <configuration>
+                    <wtpversion>2.0</wtpversion>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                </configuration>
+            </plugin>
+
+            <!-- Plugin to run and test through maven -->
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.25</version>
+                <configuration>
+                    <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <stopKey>foo</stopKey>
+                    <stopPort>9999</stopPort>
+                </configuration>
+            </plugin>
+
+
+            <!-- Definition des Checkstyle-Plugins mit Aufloesung der Referenz -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <configLocation>config/checkstyleChecks.xml</configLocation>
+                    <propertyExpansion>samedir=${basedir}/config/</propertyExpansion>
+                    <excludes>NOTHING_AT_THE_MOMENT</excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <findbugsXmlOutput>true</findbugsXmlOutput>
+                    <onlyAnalyze>${basePackage}</onlyAnalyze>
+                </configuration>
+            </plugin>
+
+
+            <!-- Maven JAR Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <!-- Implementations- und Spezifikations-Details in MANIFEST.MF schreiben -->
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!-- Maven WAR Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <warSourceExcludes>less/**</warSourceExcludes>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <!-- Implementations- und Spezifikations-Details in MANIFEST.MF schreiben -->
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.1</version>
+            </plugin>
+            <!-- wro4j-plugin see http://code.google.com/p/wro4j/ -->
+            <plugin>
+                <groupId>ro.isdc.wro4j</groupId>
+                <artifactId>wro4j-maven-plugin</artifactId>
+                <version>1.6.3</version>
+                <configuration>
+                    <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
+                    <wroFile>${basedir}/config/wro4j/wro.xml</wroFile>
+                    <extraConfigFile>${basedir}/config/wro4j/wro.properties</extraConfigFile>
+                    <targetGroups></targetGroups>
+                    <!-- <cssDestinationFolder>${project.build.directory}/${project.build.finalName}/style/</cssDestinationFolder> -->
+                    <cssDestinationFolder>${basedir}/src/main/webapp/resources/css</cssDestinationFolder>
+                    <jsDestinationFolder>${project.build.directory}/${project.build.finalName}/script/</jsDestinationFolder>
+                    <contextFolder>${basedir}/src/main/webapp/</contextFolder>
+                    <ignoreMissingResources>false</ignoreMissingResources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>install</phase><!-- generate-resources -->
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.sommeri</groupId>
+                        <artifactId>less4j</artifactId>
+                        <version>1.0.4</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>com.beust</groupId>
+                                <artifactId>jcommander</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+        </plugins>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.3</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <description>Sample-Project for fuwesta</description>
+    <organization>
+    	<name>PPI AG</name>
+    	<url>http://www.ppi.de</url>
+    </organization>
+</project>

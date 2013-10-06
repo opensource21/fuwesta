@@ -1,1 +1,6 @@
-target/
+bin
+dbs
+target
+.svn
+*.log
+

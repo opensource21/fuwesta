@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="html_all" deleted="false" description="Field mit Layout-Technik" enabled="true" name="#l_field">        &lt;div class="control-group" layout:include="templates::bsfield" th:with="fId='${cursor}'" th:remove="tag"&gt;&#13;
+            &lt;label class="control-label" th:remove="all"&gt;Last Name&lt;/label&gt;&#13;
+            &lt;div class="controls" th:remove="tag"&gt;&#13;
+                &lt;div layout:fragment="bsinput"&gt;&#13;
+                &lt;input type="text" th:field="*{__$${fId}__}"  th:disabled="$${disabled}"/&gt;&#13;
+                &lt;/div&gt;&#13;
+            &lt;/div&gt;&#13;
+        &lt;/div&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="Textfield welches ein template benutzt" enabled="true" name="#t_textfield">        &lt;div class="control-group" th:include="templates::textfield" th:with="fId='userId'"&#13;
+                th:classappend="$${#fields.hasErrors('__$${fId}__')}? 'error'"&gt;&#13;
+            &lt;label class="control-label"&gt;Benutzer-Id&lt;/label&gt;&#13;
+            &lt;div class="controls"&gt;&#13;
+                &lt;input  type="text" value=""/&gt;&#13;
+            &lt;/div&gt;&#13;
+        &lt;/div&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="Bootstrapfield" enabled="true" name="#textfield">        &lt;div class="control-group" th:with="fId='${cursor}'" th:classappend="$${#fields.hasErrors('__$${fId}__')}? 'error'"&gt;&#13;
+            &lt;label class="control-label" th:for="$${fId}" th:text="#{__*{class.name}__.__$${fId}__}+':'"&gt;&#13;
+                User Id&#13;
+            &lt;/label&gt;&#13;
+            &lt;div class="controls"&gt;&#13;
+                &lt;input type="text" th:field="*{__$${fId}__}" th:class="$${#fields.hasErrors('__$${fId}__')}? 'fieldError'" /&gt;&#13;
+                &lt;span class="help-inline" th:if="$${#fields.hasErrors('__$${fId}__')}" th:errors="*{__$${fId}__}"&gt;&lt;/span&gt;&#13;
+                &lt;span class="help-block"&gt;&lt;/span&gt;&#13;
+            &lt;/div&gt;&#13;
+        &lt;/div&gt;&#13;
+</template></templates>

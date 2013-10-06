@@ -1,0 +1,3 @@
+#Tests that not run with Infinitest, as Regexp.
+#Test with DB-Operations makes the trouble.
+
