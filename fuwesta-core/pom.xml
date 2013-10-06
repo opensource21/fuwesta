@@ -5,6 +5,12 @@
     <artifactId>fuwesta-core</artifactId>
     <version>0.3</version>
     <name>fuwesta-core</name>
+    <description>A full web stack based on spring mvc. This project contains some helper to make the life easier.</description>
+    <organization>
+        <name>PPI AG</name>
+        <url>http://www.ppi.de</url>
+    </organization>
+
     <properties>
         <java.version>1.7</java.version>
         <org.springframework.version>3.2.4.RELEASE</org.springframework.version>
@@ -14,7 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
-         <!-- logging -->
+        <!-- logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -78,7 +84,7 @@
             <version>1.83</version>
         </dependency>
 
-        <!--  Spring -->
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -148,10 +154,10 @@
         </dependency>
 
         <dependency>
-           <groupId>org.assertj</groupId>
-           <artifactId>assertj-core</artifactId>
-           <version>1.4.0</version>
-           <scope>test</scope>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>1.4.0</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
@@ -238,9 +244,26 @@
         </plugins>
     </build>
 
-    <description>A full web stack based on spring mvc. This project contains some helper to make the life easier.</description>
-    <organization>
-    	<name>PPI AG</name>
-    	<url>http://www.ppi.de</url>
-    </organization>
+
+    <distributionManagement>
+        <repository>
+            <id>github.repository</id>
+            <name>Github Maven Repository</name>
+            <url>file:///home/niels/seu/github/opensource21.github.com/releases/</url>
+        </repository>
+    </distributionManagement>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <url>scm:git:git@github.com:opensource21/fuwesta.git</url>
+        <connection>scm:git:git@github.com:opensource21/fuwesta.git</connection>
+        <developerConnection>scm:git:git@github.com:opensource21/fuwesta.git</developerConnection>
+    </scm>
 </project>
+
