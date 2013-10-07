@@ -16,7 +16,7 @@
         </init-param>
     </filter>
     <servlet>
-        <servlet-name>var_blog</servlet-name>
+        <servlet-name>FuWeSta-Sample</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextClass</param-name>
@@ -36,7 +36,7 @@
     <!--<start id="servletmapping_DispatcherServlet" /> -->
     <!--the servlet deliver resources. -->
     <servlet-mapping>
-        <servlet-name>var_blog</servlet-name>
+        <servlet-name>FuWeSta-Sample</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     <!--<end id="servletmapping_DispatcherServlet" /> -->
