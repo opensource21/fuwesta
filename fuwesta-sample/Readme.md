@@ -79,9 +79,9 @@ You'll find a lot of tests for UserDao which were written to play around with
 Spring-Data. Normally I wouldn't test generated methods.
 
 You can start with it. If you don't need the example, just remove everything
-under `*/example/` and `*/samples/springmvc` except `*/samples/springmvc/config`
+under `*/samples/` except `*/samples/fuwesta/config`
 and the class
-`/spring-mvc-sample/src/main/java/de/ppi/samples/springmvc/frontend/URL.java`
+`/src/main/java/de/ppi/samples/fuwesta/frontend/URL.java`
 You must then adjust `*Config`, `web.xml` and `URL`.
 
 ##Eclipse
@@ -102,7 +102,7 @@ In preferences, choose `Java -> Code Coverage` and set
 ####Maven
 Make sure your Maven settings are correct!
 In preferences change `Maven -> Lifecycle Settings` make sure that it contains the content of
-`/spring-mvc-sample/config/eclipse/lifecycle-mapping-metadata.xml`.
+`/fuwesta-sample/config/eclipse/lifecycle-mapping-metadata.xml`.
 
 ###Plugins
 You can find the sources /config/eclipse/bookmarks.xml
