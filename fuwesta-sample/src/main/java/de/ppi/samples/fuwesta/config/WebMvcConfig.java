@@ -119,8 +119,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         urlDefinitions.addUrlsAsMessages();
         Properties staticMessages = urlDefinitions.getMessages();
         final EntityPropertiesToMessages epm =
-                new EntityPropertiesToMessages(
-                        "de.ppi.fuwesta.samples.springmvc.model");
+                new EntityPropertiesToMessages("de.ppi.samples.fuwesta.model");
         staticMessages.putAll(epm.getProperties());
         messageSource.setCommonMessages(staticMessages);
         return messageSource;
