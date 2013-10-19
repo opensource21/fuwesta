@@ -1,5 +1,7 @@
 Die GlobalErrors müssen angezeigt werden.!
 
+
+
 Security 1
 
 Mehr Tests 1,5 PT
@@ -8,11 +10,19 @@ Doku/Schulung 3 PT
 
 Erweitertes Beispiel 5PT
 
-Basisbibliothek/OpenSource 1 PT
 
 
+NotNull erscheint doppelt: https://sourceforge.net/p/oval/bugs/84/ und
+https://sourceforge.net/p/oval/discussion/488109/thread/90959bb7/ siehe auch
+@Valid bei @One-ToMany etc ist oft tückisch. Lieber weglassen.
+Siehe auch https://sourceforge.net/p/oval/discussion/488110/thread/6ec11584/#4ae0
+und https://sourceforge.net/p/oval/discussion/488109/thread/90959bb7/
+wie man es vermeiden kann.
 
-NotNull erscheint doppelt: https://sourceforge.net/p/oval/bugs/84/
+Nutzen der mitgelieferten messsage-properties?
+Beispiel mit include statt Layout.
+
+
 
 
 Die Beschreibung der generellen Architektur könnte für mich gerne noch ausführlicher ausfallen
