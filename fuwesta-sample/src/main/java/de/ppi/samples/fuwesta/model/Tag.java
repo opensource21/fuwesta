@@ -4,14 +4,12 @@
 
 package de.ppi.samples.fuwesta.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
-import de.ppi.fuwesta.jpa.helper.JPAList;
 import de.ppi.fuwesta.jpa.helper.VersionedModel;
 
 /**
@@ -78,7 +76,7 @@ public class Tag extends VersionedModel {
      * @return the list of postings which have this tag
      */
     public List<Post> getPostings() {
-        return getPostingsInternal();
+        return postings;
     }
 
     /**
@@ -87,53 +85,6 @@ public class Tag extends VersionedModel {
      * @param postings the new list of postings which have this tag
      */
     public void setPostings(final List<Post> postings) {
-        getPostingsInternal().set(postings);
-    }
-
-    /**
-     * Delivers definitely a {@link PostList}.
-     * 
-     * @return a PostList which wraps the internal list.
-     */
-    private PostList getPostingsInternal() {
-        if (postings == null) {
-            postings = new ArrayList<Post>();
-        }
-        return new PostList(postings, this);
-    }
-
-    /**
-     * List which handles the association between {@link Tag} and {@link Post}.
-     * 
-     */
-    private static final class PostList extends JPAList<Post, Tag> {
-
-        /**
-         * Initiates an object of type TagList.
-         * 
-         * @param internalList the internal list
-         * @param associatedEntity the entity which holds the list
-         */
-        public PostList(List<Post> internalList, Tag associatedEntity) {
-            super(internalList, associatedEntity);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void add(Post entity, Tag associatedEntity) {
-            entity.getTags().add(associatedEntity);
-
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void remove(Post entity, Tag associatedEntity) {
-            entity.getTags().remove(associatedEntity);
-        }
-
+        this.postings = postings;
     }
 }
