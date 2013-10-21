@@ -59,12 +59,37 @@ import net.sf.oval.internal.util.ReflectionUtils;
  * net.sf.oval.constraint.NotNullCheck
  * <li>javax.persistence.Column(length=5) => net.sf.oval.constraint.LengthCheck
  * </ul>
+ * <b>Hint</b> if you add AssertValidCheck, read <a href=
+ * "http://sourceforge.net/p/oval/discussion/488110/thread/6ec11584/#4ae0">this
+ * post</a> carefully. You can suppress to add this check with the constructor
+ * {@link JPAAnnotationsConfigurer#JPAAnnotationsConfigurer(boolean)} and false
+ * as argument.
  * 
  * @author Sebastian Thomschke
  */
 public class JPAAnnotationsConfigurer implements Configurer {
     protected Boolean applyFieldConstraintsToSetters;
     protected Boolean applyFieldConstraintsToConstructors;
+
+    private final boolean addValidConstraint;
+
+    /**
+     * Initiates an object of type JPAAnnotationsConfigurer.
+     * 
+     * @param addValidConstraint true if the @Valid should be added.
+     */
+    public JPAAnnotationsConfigurer(boolean addValidConstraint) {
+        super();
+        this.addValidConstraint = addValidConstraint;
+    }
+
+    /**
+     * Initiates an object of type JPAAnnotationsConfigurer.
+     * 
+     */
+    public JPAAnnotationsConfigurer() {
+        this(true);
+    }
 
     public Boolean getApplyFieldConstraintsToConstructors() {
         return applyFieldConstraintsToConstructors;
@@ -151,7 +176,7 @@ public class JPAAnnotationsConfigurer implements Configurer {
 
                 final MethodConfiguration mc = new MethodConfiguration();
                 mc.name = method.getName();
-                mc.isInvariant = true;
+                mc.isInvariant = Boolean.TRUE;
                 mc.returnValueConfiguration =
                         new MethodReturnValueConfiguration();
                 mc.returnValueConfiguration.checks = checks;
@@ -232,7 +257,9 @@ public class JPAAnnotationsConfigurer implements Configurer {
         assert annotation != null;
         assert checks != null;
 
-        checks.add(new AssertValidCheck());
+        if (addValidConstraint) {
+            checks.add(new AssertValidCheck());
+        }
     }
 
     protected void initializeChecks(final ManyToOne annotation,
@@ -243,7 +270,9 @@ public class JPAAnnotationsConfigurer implements Configurer {
         if (!annotation.optional()) {
             checks.add(new NotNullCheck());
         }
-        checks.add(new AssertValidCheck());
+        if (addValidConstraint) {
+            checks.add(new AssertValidCheck());
+        }
     }
 
     protected void initializeChecks(final OneToMany annotation,
@@ -251,7 +280,9 @@ public class JPAAnnotationsConfigurer implements Configurer {
         assert annotation != null;
         assert checks != null;
 
-        checks.add(new AssertValidCheck());
+        if (addValidConstraint) {
+            checks.add(new AssertValidCheck());
+        }
     }
 
     protected void initializeChecks(final OneToOne annotation,
@@ -262,7 +293,9 @@ public class JPAAnnotationsConfigurer implements Configurer {
         if (!annotation.optional()) {
             checks.add(new NotNullCheck());
         }
-        checks.add(new AssertValidCheck());
+        if (addValidConstraint) {
+            checks.add(new AssertValidCheck());
+        }
     }
 
     public Boolean isApplyFieldConstraintsToSetter() {
