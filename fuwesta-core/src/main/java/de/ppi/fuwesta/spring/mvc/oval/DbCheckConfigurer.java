@@ -29,6 +29,7 @@ import net.sf.oval.integration.spring.SpringCheckInitializationListener;
 import net.sf.oval.internal.util.Assert;
 import net.sf.oval.internal.util.ReflectionUtils;
 import de.ppi.fuwesta.oval.validation.DBConstraint;
+import de.ppi.fuwesta.oval.validation.Unique;
 import de.ppi.fuwesta.oval.validation.UniqueCheck;
 
 /**
@@ -87,7 +88,8 @@ public class DbCheckConfigurer implements Configurer {
                         DBConstraint.class)) {
                     checks.add(initializeCheck(annotation));
                 } else if (annotation instanceof Column) {
-                    if (((Column) annotation).unique()) {
+                    if (((Column) annotation).unique()
+                            && !field.isAnnotationPresent(Unique.class)) {
                         Check uniqueCheck = new UniqueCheck();
                         SpringCheckInitializationListener.INSTANCE
                                 .onCheckInitialized(uniqueCheck);

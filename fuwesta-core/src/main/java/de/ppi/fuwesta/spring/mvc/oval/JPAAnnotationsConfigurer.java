@@ -23,6 +23,7 @@ import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
@@ -40,8 +41,11 @@ import net.sf.oval.configuration.pojo.elements.FieldConfiguration;
 import net.sf.oval.configuration.pojo.elements.MethodConfiguration;
 import net.sf.oval.configuration.pojo.elements.MethodReturnValueConfiguration;
 import net.sf.oval.constraint.AssertValidCheck;
+import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.LengthCheck;
+import net.sf.oval.constraint.NotNull;
 import net.sf.oval.constraint.NotNullCheck;
+import net.sf.oval.constraint.Range;
 import net.sf.oval.constraint.RangeCheck;
 import net.sf.oval.internal.util.ReflectionUtils;
 
@@ -58,6 +62,8 @@ import net.sf.oval.internal.util.ReflectionUtils;
  * <li>javax.persistence.Column(nullable=false) =>
  * net.sf.oval.constraint.NotNullCheck
  * <li>javax.persistence.Column(length=5) => net.sf.oval.constraint.LengthCheck
+ * <li>javax.persistence.Column(precision>0) on Numbers =>
+ * net.sf.oval.constraint.RangeCheck
  * </ul>
  * <b>Hint</b> if you add AssertValidCheck, read <a href=
  * "http://sourceforge.net/p/oval/discussion/488110/thread/6ec11584/#4ae0">this
@@ -222,23 +228,31 @@ public class JPAAnnotationsConfigurer implements Configurer {
          */
         if (!annotation.nullable()
                 && !fieldOrMethod.isAnnotationPresent(GeneratedValue.class)
-                && !fieldOrMethod.isAnnotationPresent(Version.class)) {
+                && !fieldOrMethod.isAnnotationPresent(Version.class)
+                && !fieldOrMethod.isAnnotationPresent(NotNull.class)) {
             checks.add(new NotNullCheck());
         }
 
         // only consider length parameter if @Lob is not present
-        if (!fieldOrMethod.isAnnotationPresent(Lob.class)) {
+        // and not an Enumerated (which makes at least for ordinal problems
+        if (!fieldOrMethod.isAnnotationPresent(Lob.class)
+                && !fieldOrMethod.isAnnotationPresent(Enumerated.class)
+                && !fieldOrMethod.isAnnotationPresent(Length.class)) {
             final LengthCheck lengthCheck = new LengthCheck();
             lengthCheck.setMax(annotation.length());
             checks.add(lengthCheck);
         }
 
+        final Class<?> type;
+        if (fieldOrMethod instanceof Field) {
+            type = ((Field) fieldOrMethod).getType();
+        } else {
+            type = ((Method) fieldOrMethod).getReturnType();
+        }
         // only consider precision/scale for numeric fields
-        if (annotation.precision() > 0
-                && Number.class
-                        .isAssignableFrom(fieldOrMethod instanceof Field ? ((Field) fieldOrMethod)
-                                .getType() : ((Method) fieldOrMethod)
-                                .getReturnType())) {
+        if (!fieldOrMethod.isAnnotationPresent(Range.class)
+                && annotation.precision() > 0
+                && Number.class.isAssignableFrom(type)) {
             /*
              * precision = 6, scale = 2 => -9999.99<=x<=9999.99 precision = 4,
              * scale = 1 => -999.9<=x<=999.9
