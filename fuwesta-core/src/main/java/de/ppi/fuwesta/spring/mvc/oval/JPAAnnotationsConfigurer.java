@@ -9,6 +9,8 @@
  *
  * Contributors:
  *     Sebastian Thomschke - initial implementation.
+ *     Niels - add the possiblities to don't add AssertValidCheck, make sure
+ *     a check isn't added if it defined directly.
  *******************************************************************************/
 package de.ppi.fuwesta.spring.mvc.oval;
 
