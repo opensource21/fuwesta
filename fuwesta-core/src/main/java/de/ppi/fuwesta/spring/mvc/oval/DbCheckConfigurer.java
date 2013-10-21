@@ -8,6 +8,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.sf.oval.Check;
 import net.sf.oval.collection.CollectionFactory;
 import net.sf.oval.configuration.CheckInitializationListener;
@@ -20,13 +25,17 @@ import net.sf.oval.configuration.pojo.elements.FieldConfiguration;
 import net.sf.oval.configuration.pojo.elements.ObjectConfiguration;
 import net.sf.oval.exception.ReflectionException;
 import net.sf.oval.guard.Guarded;
+import net.sf.oval.integration.spring.SpringCheckInitializationListener;
 import net.sf.oval.internal.util.Assert;
 import net.sf.oval.internal.util.ReflectionUtils;
 import de.ppi.fuwesta.oval.validation.DBConstraint;
+import de.ppi.fuwesta.oval.validation.Unique;
+import de.ppi.fuwesta.oval.validation.UniqueCheck;
 
 /**
  * Configurer that configures constraints based on annotations tagged with
- * {@link DBConstraint}. Based on {@link AnnotationsConfigurer}.
+ * {@link DBConstraint} or a Unique-Check, bases on {@link Column}. Based on
+ * {@link AnnotationsConfigurer}.
  * 
  * @author niels
  * 
@@ -34,6 +43,12 @@ import de.ppi.fuwesta.oval.validation.DBConstraint;
  * @see AnnotationsConfigurer
  */
 public class DbCheckConfigurer implements Configurer {
+
+    /**
+     * The Logger for the controller.
+     */
+    private static final Logger LOG = LoggerFactory
+            .getLogger(DbCheckConfigurer.class);
 
     /**
      * Set of {@link CheckInitializationListener} to give Spring or Guice a
@@ -72,6 +87,16 @@ public class DbCheckConfigurer implements Configurer {
                 if (annotation.annotationType().isAnnotationPresent(
                         DBConstraint.class)) {
                     checks.add(initializeCheck(annotation));
+                } else if (annotation instanceof Column) {
+                    if (((Column) annotation).unique()
+                            && !field.isAnnotationPresent(Unique.class)) {
+                        Check uniqueCheck = new UniqueCheck();
+                        SpringCheckInitializationListener.INSTANCE
+                                .onCheckInitialized(uniqueCheck);
+                        checks.add(uniqueCheck);
+                        LOG.info("Adding a uniqueCheck to field >{}<!",
+                                field.toString());
+                    }
                 }
             }
 
