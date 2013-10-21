@@ -37,7 +37,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import de.ppi.fuwesta.spring.mvc.formatter.NonEmptyStringAnnotationFormatterFactory;
 import de.ppi.fuwesta.spring.mvc.oval.DbCheckConfigurer;
-import de.ppi.fuwesta.spring.mvc.oval.JPAAnnotationConfigLazy;
+import de.ppi.fuwesta.spring.mvc.oval.JPAAnnotationsConfigurer;
 import de.ppi.fuwesta.spring.mvc.oval.MessageLookupContextRenderer;
 import de.ppi.fuwesta.spring.mvc.oval.MessageLookupMessageValueFormatter;
 import de.ppi.fuwesta.spring.mvc.oval.SpringMvcMessageResolver;
@@ -254,8 +254,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         final DbCheckConfigurer dbConfig = new DbCheckConfigurer();
         dbConfig.addCheckInitializationListener(SpringCheckInitializationListener.INSTANCE);
         final Validator ovalValidator =
-                new Validator(annConfig, dbConfig, new JPAAnnotationConfigLazy(
-                        true));
+                new Validator(annConfig, dbConfig,
+                        new JPAAnnotationsConfigurer());
         Validator
                 .setMessageValueFormatter(new MessageLookupMessageValueFormatter(
                         configureMessageSource()));
