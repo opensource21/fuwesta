@@ -99,6 +99,29 @@ public class JPAAnnotationsConfigurer implements Configurer {
         this(true);
     }
 
+    protected void
+            addAssertValidCheckIfRequired(
+                    final Annotation constraintAnnotation,
+                    final Collection<Check> checks,
+                    final AccessibleObject fieldOrMethod) {
+        if (addValidConstraint
+                && (constraintAnnotation instanceof OneToOne
+                        || constraintAnnotation instanceof OneToMany
+                        || constraintAnnotation instanceof ManyToOne || constraintAnnotation instanceof ManyToMany)) {
+            checks.add(new AssertValidCheck());
+        }
+    }
+
+    protected boolean containsCheckOfType(final Collection<Check> checks,
+            final Class<? extends Check> checkClass) {
+        for (final Check check : checks) {
+            if (checkClass.isInstance(check)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Boolean getApplyFieldConstraintsToConstructors() {
         return applyFieldConstraintsToConstructors;
     }
@@ -135,7 +158,10 @@ public class JPAAnnotationsConfigurer implements Configurer {
                 } else if (annotation instanceof OneToMany) {
                     initializeChecks((OneToMany) annotation, checks);
                 }
+
+                addAssertValidCheckIfRequired(annotation, checks, field);
             }
+
             if (checks.size() > 0) {
                 if (config.fieldConfigurations == null) {
                     config.fieldConfigurations = cf.createSet(8);
@@ -174,6 +200,8 @@ public class JPAAnnotationsConfigurer implements Configurer {
                 } else if (annotation instanceof OneToMany) {
                     initializeChecks((OneToMany) annotation, checks);
                 }
+
+                addAssertValidCheckIfRequired(annotation, checks, method);
             }
 
             // check if anything has been configured for this method at all
@@ -204,10 +232,8 @@ public class JPAAnnotationsConfigurer implements Configurer {
 
     protected void initializeChecks(final Basic annotation,
             final Collection<Check> checks) {
-        assert annotation != null;
-        assert checks != null;
-
-        if (!annotation.optional()) {
+        if (!annotation.optional()
+                && !containsCheckOfType(checks, NotNullCheck.class)) {
             checks.add(new NotNullCheck());
         }
     }
@@ -216,9 +242,6 @@ public class JPAAnnotationsConfigurer implements Configurer {
             initializeChecks(final Column annotation,
                     final Collection<Check> checks,
                     final AccessibleObject fieldOrMethod) {
-        assert annotation != null;
-        assert checks != null;
-
         /*
          * If the value is generated (annotated with @GeneratedValue) it is
          * allowed to be null before the entity has been persisted, same is true
@@ -232,11 +255,12 @@ public class JPAAnnotationsConfigurer implements Configurer {
                 && !fieldOrMethod.isAnnotationPresent(GeneratedValue.class)
                 && !fieldOrMethod.isAnnotationPresent(Version.class)
                 && !fieldOrMethod.isAnnotationPresent(NotNull.class)) {
-            checks.add(new NotNullCheck());
+            if (!containsCheckOfType(checks, NotNullCheck.class)) {
+                checks.add(new NotNullCheck());
+            }
         }
-
         // only consider length parameter if @Lob is not present
-        // and not an Enumerated (which makes at least for ordinal problems
+        // and not an Enumerated (which makes at least for ordinal problems)
         if (!fieldOrMethod.isAnnotationPresent(Lob.class)
                 && !fieldOrMethod.isAnnotationPresent(Enumerated.class)
                 && !fieldOrMethod.isAnnotationPresent(Length.class)) {
@@ -270,47 +294,27 @@ public class JPAAnnotationsConfigurer implements Configurer {
 
     protected void initializeChecks(final ManyToMany annotation,
             final Collection<Check> checks) {
-        assert annotation != null;
-        assert checks != null;
-
-        if (addValidConstraint) {
-            checks.add(new AssertValidCheck());
-        }
+        // override if required
     }
 
     protected void initializeChecks(final ManyToOne annotation,
             final Collection<Check> checks) {
-        assert annotation != null;
-        assert checks != null;
-
-        if (!annotation.optional()) {
+        if (!annotation.optional()
+                && !containsCheckOfType(checks, NotNullCheck.class)) {
             checks.add(new NotNullCheck());
-        }
-        if (addValidConstraint) {
-            checks.add(new AssertValidCheck());
         }
     }
 
     protected void initializeChecks(final OneToMany annotation,
             final Collection<Check> checks) {
-        assert annotation != null;
-        assert checks != null;
-
-        if (addValidConstraint) {
-            checks.add(new AssertValidCheck());
-        }
+        // override if required
     }
 
     protected void initializeChecks(final OneToOne annotation,
             final Collection<Check> checks) {
-        assert annotation != null;
-        assert checks != null;
-
-        if (!annotation.optional()) {
+        if (!annotation.optional()
+                && !containsCheckOfType(checks, NotNullCheck.class)) {
             checks.add(new NotNullCheck());
-        }
-        if (addValidConstraint) {
-            checks.add(new AssertValidCheck());
         }
     }
 
