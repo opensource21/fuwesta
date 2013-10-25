@@ -73,7 +73,7 @@ tags - a list of selectable tag
         <input id="id" type="hidden" th:value="*{id}" name="id"/>
         <input id="version" type="hidden" th:value="*{version}" name="version"/>
 
-        <input type="text" bs:field="title" bs:label="#{'model.' + ${post.class.simpleName} +'.title'}" th:disabled="${disabled}"/>
+        <input type="text" bs:field="title" bs:label="#{${post.class.name} +'.title'}" th:disabled="${disabled}"/>
 
         <textarea rows="4" bs:field="content" th:disabled="${disabled}"></textarea>
 

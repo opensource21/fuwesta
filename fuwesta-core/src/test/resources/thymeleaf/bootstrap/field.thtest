@@ -6,7 +6,7 @@ book.title="Thymeleaftest"
 binding = {'book'}
 # ------------------------------------------
 %MESSAGES
-model.Book.title=Title
+testdata.Book.title=Title
 # ------------------------------------------
 %INPUT
 <!DOCTYPE html>

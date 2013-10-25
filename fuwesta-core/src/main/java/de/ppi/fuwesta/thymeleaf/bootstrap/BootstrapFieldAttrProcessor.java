@@ -90,8 +90,7 @@ public class BootstrapFieldAttrProcessor extends AbstractAttrProcessor {
         element.removeAttribute(attributeName);
         String labelExpr = element.getAttributeValue(BS_LABEL);
         if (labelExpr == null) {
-            labelExpr =
-                    "#{model.__*{class.simpleName}__." + fieldName + "}+':'";
+            labelExpr = "#{__*{class.name}__." + fieldName + "}+':'";
         }
         final String label;
         if (labelExpr.contains("#") || labelExpr.contains("$")) {
