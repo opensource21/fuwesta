@@ -12,8 +12,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.ui.ExtendedModelMap;
@@ -29,12 +27,6 @@ import de.ppi.samples.fuwesta.service.api.PostService;
  * 
  */
 public class PostCRUDControllerTest {
-
-    /**
-     * The Logger for the controller.
-     */
-    private static final Logger LOG = LoggerFactory
-            .getLogger(PostCRUDControllerTest.class);
 
     /**
      * The PostService instance.
