@@ -38,9 +38,11 @@ errors - eine Liste mit Fehlermeldungen.
     <div class="navbar">
         <div class="navbar-inner">
             <ul class="nav">
-                <li><a href="#" th:href="@{/post/list}">Post</a></li>
-                <li><a href="#" th:href="@{/tag/list}">Tag</a></li>
-                <li class="active">
+                <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/post/')?'active':''}">
+                    <a href="#" th:href="@{/post/list}">Post</a></li>
+                <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/tag/')?'active':''}">
+                    <a href="#" th:href="@{/tag/list}">Tag</a></li>
+                <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/user/')?'active':''}">
                     <a href="#" th:href="@{/user/list}">User</a></li>
             </ul>
         </div>
