@@ -72,6 +72,25 @@ However there are some disadvantages:
  * [Getting started with Spring-Data](http://blog.springsource.org/2011/02/10/getting-started-with-spring-data-jpa/)
  * [Thymeleaf](http://www.thymeleaf.org/)
 
+### Thymeleaf and layouts
+You often have a standard way your pages are build. Thymeleaf provides 4
+solutions for the problem. At the moment I don't have a favorite.
+
+ * Official:
+   * Using fragments and includes: You can use th:include or th:replace and
+   include so fragments which are declared in a central file.
+   * Using [Apache Tiles 2](https://github.com/thymeleaf/thymeleaf-extras-tiles2)
+ * Inofficial:
+   * There exists a [Layout-Dialect](https://github.com/ultraq/thymeleaf-layout-dialect)
+   which is written from one of the thymeleaf committer. How ever it has
+   different version mechanism and if you try beta-version you can come in trouble.
+   * Do it manually with Spring interceptor. This is described in a
+   [Blog](http://blog.codeleak.pl/2013/11/thymeleaf-template-layouts-in-spring.html).
+   It's well documented and easy to understand. The main drawback are that
+   it will not work outside spring and that in the post your declare the
+   layout in the controller. This is from architectural point of view not so
+   nice.
+
 ###About the example
 The example shows the possibilities you have with Spring-Data. It contains all
 possible bidirectional relations between entities.
