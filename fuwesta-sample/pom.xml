@@ -74,8 +74,7 @@
         <dependency>
             <groupId>nz.net.ultraq.web.thymeleaf</groupId>
             <artifactId>thymeleaf-layout-dialect</artifactId>
-            <version>1.0.6</version>
-            <scope>compile</scope>
+            <version>1.2</version>
         </dependency>
 
 

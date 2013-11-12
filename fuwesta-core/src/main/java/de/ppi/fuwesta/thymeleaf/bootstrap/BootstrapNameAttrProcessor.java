@@ -1,20 +1,22 @@
 package de.ppi.fuwesta.thymeleaf.bootstrap;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.thymeleaf.Arguments;
+import org.thymeleaf.Configuration;
 import org.thymeleaf.dom.Element;
 import org.thymeleaf.dom.NestableNode;
 import org.thymeleaf.dom.Node;
 import org.thymeleaf.dom.Text;
 import org.thymeleaf.processor.ProcessorResult;
 import org.thymeleaf.processor.attr.AbstractAttrProcessor;
-import org.thymeleaf.standard.expression.StandardExpressionProcessor;
+import org.thymeleaf.standard.expression.IStandardExpression;
+import org.thymeleaf.standard.expression.IStandardExpressionParser;
+import org.thymeleaf.standard.expression.StandardExpressions;
 import org.thymeleaf.util.Validate;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Attribute processor which makes the work easier with Twitter Bootstrap.
@@ -75,9 +77,7 @@ public class BootstrapNameAttrProcessor extends AbstractAttrProcessor {
         final String fieldNameExpr = element.getAttributeValue(attributeName);
         final String fieldName;
         if (fieldNameExpr.contains("#") || fieldNameExpr.contains("$")) {
-            fieldName =
-                    (String) StandardExpressionProcessor.processExpression(
-                            arguments, fieldNameExpr);
+            fieldName = parse(arguments, fieldNameExpr);
         } else {
             fieldName = fieldNameExpr;
         }
@@ -96,9 +96,7 @@ public class BootstrapNameAttrProcessor extends AbstractAttrProcessor {
 
         final String label;
         if (labelExpr.contains("#") || labelExpr.contains("$")) {
-            label =
-                    (String) StandardExpressionProcessor.processExpression(
-                            arguments, labelExpr);
+            label = parse(arguments, labelExpr);
         } else {
             label = labelExpr;
         }
@@ -170,5 +168,17 @@ public class BootstrapNameAttrProcessor extends AbstractAttrProcessor {
     @Override
     public int getPrecedence() {
         return PRECEDENCE;
+    }
+
+    private String parse(final Arguments arguments, String input) {
+        final Configuration configuration = arguments.getConfiguration();
+
+        final IStandardExpressionParser parser =
+                StandardExpressions.getExpressionParser(configuration);
+
+        final IStandardExpression expression =
+                parser.parseExpression(configuration, arguments, input);
+
+        return (String) expression.execute(configuration, arguments);
     }
 }
