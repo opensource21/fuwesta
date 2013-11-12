@@ -9,6 +9,8 @@ tags - a list of selectable tag
 <!DOCTYPE HTML>
 <html lang="de-DE" xmlns:th="http://www.thymeleaf.org">
 <head >
+<title th:text="#{App.Title} + ' - ' + #{post.form.title}">
+    SpringMVC-Sample - Form of posts</title>
 <th:block th:include="/example/main::head"/>
 <script th:inline="javascript">
     $(function() {
