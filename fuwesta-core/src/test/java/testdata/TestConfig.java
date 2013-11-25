@@ -145,7 +145,7 @@ public class TestConfig implements TransactionManagementConfigurer {
         dbConfig.addCheckInitializationListener(SpringCheckInitializationListener.INSTANCE);
         final Validator ovalValidator =
                 new Validator(annConfig, dbConfig,
-                        new JPAAnnotationsConfigurer());
+                        new JPAAnnotationsConfigurer(false));
         Validator
                 .setMessageValueFormatter(new MessageLookupMessageValueFormatter(
                         configureMessageSource()));
