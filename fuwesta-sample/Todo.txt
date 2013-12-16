@@ -1,6 +1,4 @@
-Die GlobalErrors müssen angezeigt werden.!
-
-
+Der Layout-Dialect kann mal ausgebaut werden.
 
 Security 1
 

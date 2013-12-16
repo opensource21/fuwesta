@@ -7,6 +7,7 @@ import net.sf.oval.Validator;
 import net.sf.oval.configuration.annotation.AnnotationsConfigurer;
 import net.sf.oval.integration.spring.SpringCheckInitializationListener;
 import net.sf.oval.integration.spring.SpringValidator;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -203,7 +204,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine ste = new SpringTemplateEngine();
         ste.setTemplateResolver(templateResolver());
-        // ste.addDialect(new LayoutDialect());
+        // Only necessary if you use LayoutDialect.
+        ste.addDialect(new LayoutDialect());
         ste.addDialect(new BootstrapDialect());
         return ste;
     }

@@ -67,8 +67,13 @@
             <version>2.5</version>
             <scope>provided</scope>
         </dependency>
-
-
+        <!--  If you use Layout-Dialect. Here for demonstration in some masks. -->
+        <dependency>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
+            <version>1.2</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- Security
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
