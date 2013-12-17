@@ -7,7 +7,6 @@ import net.sf.oval.Validator;
 import net.sf.oval.configuration.annotation.AnnotationsConfigurer;
 import net.sf.oval.integration.spring.SpringCheckInitializationListener;
 import net.sf.oval.integration.spring.SpringValidator;
-import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +20,6 @@ import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.support.FormattingConversionService;
-import org.springframework.http.MediaType;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor;
 import org.springframework.web.context.request.WebRequestInterceptor;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -31,9 +29,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.thymeleaf.spring3.SpringTemplateEngine;
-import org.thymeleaf.spring3.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import de.ppi.fuwesta.spring.mvc.formatter.NonEmptyStringAnnotationFormatterFactory;
 import de.ppi.fuwesta.spring.mvc.oval.DbCheckConfigurer;
@@ -44,7 +39,6 @@ import de.ppi.fuwesta.spring.mvc.oval.SpringMvcMessageResolver;
 import de.ppi.fuwesta.spring.mvc.util.ApostropheEscapingPropertiesPersister;
 import de.ppi.fuwesta.spring.mvc.util.EntityPropertiesToMessages;
 import de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages;
-import de.ppi.fuwesta.thymeleaf.bootstrap.BootstrapDialect;
 import de.ppi.samples.fuwesta.frontend.URL;
 
 /**
@@ -54,13 +48,8 @@ import de.ppi.samples.fuwesta.frontend.URL;
 @Configuration
 @ComponentScan(basePackages = { "de.ppi.samples.fuwesta.frontend",
         "net.sf.oval.integration.spring", "de.ppi.fuwesta.jpa.helper" })
-@Import(RootConfig.class)
+@Import({ RootConfig.class, ThymeleafConfig.class })
 public class WebMvcConfig extends WebMvcConfigurationSupport {
-
-    /**
-     * The default encoding.
-     */
-    private static final String ENCODING = "UTF-8";
 
     /**
      * Page size if no other information is given.
@@ -173,59 +162,6 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     public void configureDefaultServletHandling(
             DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
-    }
-
-    /**
-     * Configures the Thymeleaf view resolver.
-     * 
-     * @return the view resolver.
-     */
-    @Bean
-    public ThymeleafViewResolver
-            configureInternalThymeLeafResourceViewResolver() {
-        final ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setTemplateEngine(templateEngine());
-        resolver.setOrder(1);
-        resolver.setContentType(MediaType.TEXT_HTML_VALUE);
-        resolver.setCharacterEncoding(ENCODING);
-        resolver.setViewNames(new String[] { "example/user/list",
-                "example/user/userform", "example/post/list",
-                "example/post/postform", "example/tag/list",
-                "example/tag/tagform" });
-        return resolver;
-    }
-
-    /**
-     * Thymeleaf template engine.
-     * 
-     * @return Thymeleaf template engine.
-     */
-    @Bean()
-    public SpringTemplateEngine templateEngine() {
-        SpringTemplateEngine ste = new SpringTemplateEngine();
-        ste.setTemplateResolver(templateResolver());
-        // Only necessary if you use LayoutDialect.
-        ste.addDialect(new LayoutDialect());
-        ste.addDialect(new BootstrapDialect());
-        return ste;
-    }
-
-    /**
-     * Thymeleaf template resolver.
-     * 
-     * @return Thymeleaf template resolver.
-     */
-    @Bean()
-    public ServletContextTemplateResolver templateResolver() {
-        final ServletContextTemplateResolver resolver =
-                new ServletContextTemplateResolver();
-        resolver.setPrefix("/WEB-INF/templates/");
-        resolver.setSuffix(".html");
-        resolver.setTemplateMode("HTML5");
-        // TODO in Production cachable should be true.
-        resolver.setCacheable(false);
-        resolver.setCharacterEncoding(ENCODING);
-        return resolver;
     }
 
     /**
