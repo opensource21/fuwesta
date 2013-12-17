@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
+import org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring3.SpringTemplateEngine;
 import org.thymeleaf.spring3.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
@@ -64,6 +65,7 @@ public class ThymeleafConfig {
         ste.setTemplateResolver(templateResolver());
         // Only necessary if you use LayoutDialect.
         ste.addDialect(new LayoutDialect());
+        ste.addDialect(new SpringSecurityDialect());
         ste.addDialect(new BootstrapDialect());
         return ste;
     }

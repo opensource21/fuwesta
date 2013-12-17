@@ -48,7 +48,8 @@ import de.ppi.samples.fuwesta.frontend.URL;
 @Configuration
 @ComponentScan(basePackages = { "de.ppi.samples.fuwesta.frontend",
         "net.sf.oval.integration.spring", "de.ppi.fuwesta.jpa.helper" })
-@Import({ RootConfig.class, ThymeleafConfig.class })
+@Import({ RootConfig.class, ThymeleafConfig.class, FilterConfig.class,
+        SecurityConfig.class })
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     /**
@@ -67,6 +68,10 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     /** The Constant MESSAGE_SOURCE_FOR_OVAL. */
     private static final String MESSAGE_SOURCE_OVAL =
             "classpath:/net/sf/oval/Messages";
+
+    /** Messages from Spring-Security. */
+    private static final String MESSAGE_SOURCE_SPRING_SECURITY =
+            "classpath:org/springframework/security/messages";
 
     /** The Constant RESOURCES_HANDLER. */
     private static final String RESOURCES_HANDLER = "/resources/";
@@ -92,7 +97,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     public MessageSource configureMessageSource() {
         ReloadableResourceBundleMessageSource messageSource =
                 new ReloadableResourceBundleMessageSource();
-        messageSource.setBasenames(MESSAGE_SOURCE, MESSAGE_SOURCE_OVAL);
+        messageSource.setBasenames(MESSAGE_SOURCE, MESSAGE_SOURCE_OVAL,
+                MESSAGE_SOURCE_SPRING_SECURITY);
         messageSource.setCacheSeconds(MESSAGE_CACHE);
         messageSource.setFallbackToSystemLocale(false);
         // Make sure Apostrophs must always be doubled..
