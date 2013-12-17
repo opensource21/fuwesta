@@ -135,16 +135,17 @@
                     are written as UTF-8 but is initial ISO-8859-1 -->
                 <directory>src/main/resources</directory>
                 <includes>
-                    <include>db.properties</include>
+                    <include>*.properties</include>
                 </includes>
                 <filtering>true</filtering>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
-                <excludes>
-                    <exclude>db.properties</exclude>
-                </excludes>
+                <includes>
+                    <include>i18n/*</include>
+                    <include>*</include>
+                </includes>
             </resource>
         </resources>
 

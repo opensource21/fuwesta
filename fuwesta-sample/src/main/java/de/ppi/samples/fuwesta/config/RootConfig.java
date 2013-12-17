@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.io.ClassPathResource;
 
 /**
  * Spring base configuration.
@@ -27,7 +26,7 @@ public class RootConfig {
             propertyPlaceholderConfigurer() {
         final PropertySourcesPlaceholderConfigurer ppc =
                 new PropertySourcesPlaceholderConfigurer();
-        ppc.setLocation(new ClassPathResource("/db.properties"));
+        // The Property-File is defined with @PropertySource!
         ppc.setIgnoreUnresolvablePlaceholders(true);
         ppc.setFileEncoding("UTF-8");
         return ppc;

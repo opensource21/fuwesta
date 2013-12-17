@@ -18,7 +18,7 @@ import de.ppi.fuwesta.thymeleaf.bootstrap.BootstrapDialect;
  * 
  */
 @Configuration
-@PropertySource("classpath:thymeleaf.properties")
+@PropertySource("classpath:/thymeleaf.properties")
 public class ThymeleafConfig {
 
     /**
