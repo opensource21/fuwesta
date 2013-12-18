@@ -6,7 +6,8 @@ messages - eine Liste mit Meldungen.
 errors - eine Liste mit Fehlermeldungen.
  -->
 <html lang="de-DE" xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head  th:remove="tag">
 
     <meta charset="UTF-8" />
@@ -36,14 +37,20 @@ errors - eine Liste mit Fehlermeldungen.
 </head>
 <body>
     <div class="navbar">
+        <div>Sie sind angemeldet als <th:block sec:authentication="name"></th:block></div>
         <div class="navbar-inner">
             <ul class="nav">
-                <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/post/')?'active':''}">
+                <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/post/')?'active':''}"
+                        sec:authorize-url="/post/list">
                     <a href="#" th:href="@{/post/list}">Post</a></li>
-                <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/tag/')?'active':''}">
+                <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/tag/')?'active':''}"
+                        sec:authorize-url="/tag/list">
                     <a href="#" th:href="@{/tag/list}">Tag</a></li>
-                <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/user/')?'active':''}">
+                <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/user/')?'active':''}"
+                        sec:authorize-url="/user/list">
                     <a href="#" th:href="@{/user/list}">User</a></li>
+                <li sec:authorize-url="/logout">
+                    <a href="#" th:href="@{/logout}">Logout</a></li>
             </ul>
         </div>
     </div>
