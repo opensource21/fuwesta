@@ -50,7 +50,7 @@ public class ThymeleafConfig {
         resolver.setViewNames(new String[] { "example/user/list",
                 "example/user/userform", "example/post/list",
                 "example/post/postform", "example/tag/list",
-                "example/tag/tagform" });
+                "example/tag/tagform", "example/login" });
         return resolver;
     }
 

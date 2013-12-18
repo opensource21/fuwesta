@@ -28,6 +28,11 @@ public final class URL {
     public static final String HOME = "/home";
 
     /**
+     * Login-Url.
+     */
+    public static final String LOGIN = "/login";
+
+    /**
      * Definition for paginating.
      * 
      */

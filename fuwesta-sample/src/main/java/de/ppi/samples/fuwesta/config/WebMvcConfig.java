@@ -48,8 +48,7 @@ import de.ppi.samples.fuwesta.frontend.URL;
 @Configuration
 @ComponentScan(basePackages = { "de.ppi.samples.fuwesta.frontend",
         "net.sf.oval.integration.spring", "de.ppi.fuwesta.jpa.helper" })
-@Import({ RootConfig.class, ThymeleafConfig.class, FilterConfig.class,
-        SecurityConfig.class })
+@Import({ RootConfig.class, ThymeleafConfig.class, SecurityConfig.class })
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     /**

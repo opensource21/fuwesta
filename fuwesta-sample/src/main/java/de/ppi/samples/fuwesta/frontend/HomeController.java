@@ -48,4 +48,14 @@ public class HomeController {
         model.addAttribute("userId", userId);
         return "example/editBootstrap";
     }
+
+    /**
+     * Shows the login-view.
+     * 
+     * @return the login-view.
+     */
+    @RequestMapping(value = URL.LOGIN, method = RequestMethod.GET)
+    public String loginPage() {
+        return "example/login";
+    }
 }
