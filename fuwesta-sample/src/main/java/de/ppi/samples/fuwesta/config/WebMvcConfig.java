@@ -111,6 +111,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         urlDefinitions.addParamGroupAsMessages();
         urlDefinitions.addParamsAsMessages();
         urlDefinitions.addUrlsAsMessagesWithPositionedParameters();
+        urlDefinitions.addUrlsAsMessagesWithNamedParameters();
         Properties staticMessages = urlDefinitions.getMessages();
         final EntityPropertiesToMessages epm =
                 new EntityPropertiesToMessages("de.ppi.samples.fuwesta.model");

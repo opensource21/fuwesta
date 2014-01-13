@@ -17,7 +17,7 @@ pageRequest - the parameter of this search.
 
     <h3 th:text="#{post.list.title}">List of posts</h3>
     <a class="btn" href="/" th:href="@{/}"><i class="icon-home"></i>Home</a>
-    <a class="btn" href="/" th:href="@{__#{url.post.create}__}" th:text="#{label.action.create}">Create a new post</a>
+    <a class="btn" href="/" th:href="@{__#{purl.post.create}__}" th:text="#{label.action.create}">Create a new post</a>
     <div id="data">
         <span th:if="${#lists.isEmpty(postList)}" th:text="#{label.no_data_found}"></span>
         <table class="table table-striped table-hover">
@@ -33,9 +33,10 @@ pageRequest - the parameter of this search.
                 <tr th:each="post : ${postList.content}">
                     <td th:text="${post.id}">1</td>
                     <td th:text="${post.title}">A post</td>
-                    <td><a class="btn" href="show/1" th:href="@{__#{url.post.show(${post.id})}__}" th:text="#{label.action.show}">Show</a>
-                        <a class="btn" href="edit/1" th:href="@{__#{url.post.edit(${post.id})}__}" th:text="#{label.action.edit}">Update</a>
-                        <a class="btn" href="delete/1" th:href="@{__#{url.post.delete(${post.id})}__}" th:text="#{label.action.delete}">Delete</a>
+                    <td th:with="#{par.post.postid}=${post.id}">
+                        <a class="btn" href="show/1" th:href="@{|__#{nurl.post.show}__|}" th:text="#{label.action.show}">Show</a>
+                        <a class="btn" href="edit/1" th:href="@{|__#{nurl.post.edit}__|}" th:text="#{label.action.edit}">Update</a>
+                        <a class="btn" href="delete/1" th:href="@{|__#{nurl.post.delete}__|}" th:text="#{label.action.delete}">Delete</a>
                     </td>
                 </tr>
             </tbody>
