@@ -111,20 +111,20 @@ public class UrlDefinitionsToMessages {
      * Add all URL constants to a {@link Properties} with prefix 'url'.
      * 
      * @deprecated Use {@link #addUrlsAsMessagesWithPositionedParameters()}
-     *             instead
+     *             instead, have in mind that url -> purl
      * 
      */
     @Deprecated
     public void addUrlsAsMessages() {
-        addUrlsAsMessagesWithPositionedParameters();
+        addConstantInfosFromClass("url", classesWithUrlInfos);
     }
 
     /**
-     * Add all URL constants to a {@link Properties} with prefix 'url'.
+     * Add all URL constants to a {@link Properties} with prefix 'purl'.
      * 
      */
     public void addUrlsAsMessagesWithPositionedParameters() {
-        addConstantInfosFromClass("url", classesWithUrlInfos);
+        addConstantInfosFromClass("purl", classesWithUrlInfos);
     }
 
     /**
@@ -246,7 +246,7 @@ public class UrlDefinitionsToMessages {
     private void addFieldInformation(String prefix,
             Map<String, String> formatDefinition, Field field) {
         try {
-            if (prefix.startsWith("url")) {
+            if (prefix.startsWith("url") || prefix.startsWith("purl")) {
                 if (!field.getName().startsWith(PRAEFIX_PARAMETER)
                         && !field.getName().startsWith(PRAEFIX_PARAMETER_GROUP)) {
                     final String keyName =

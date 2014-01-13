@@ -7,13 +7,13 @@ binding = {'book'}
 # ------------------------------------------
 %MESSAGES
 testdata.Book.title=Title
-url.book.edit=edit/{0,number,##}
+purl.book.edit=edit/{0,number,##}
 # ------------------------------------------
 %INPUT
 <!DOCTYPE html>
 <html>
   <body>
-      <form  th:with="book_id=${book.id}" th:object="${book}" th:href="@{#{url.book.edit(${book_id})}(furtherParam='foo')}">
+      <form  th:with="book_id=${book.id}" th:object="${book}" th:href="@{#{purl.book.edit(${book_id})}(furtherParam='foo')}">
       </form>
   </body>
 </html>

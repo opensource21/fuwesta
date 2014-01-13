@@ -151,15 +151,15 @@ public class UrlDefinitionsToMessagesTest {
         final Properties messages = testee.getMessages();
         // Assert
         assertThat(messages).hasSize(NUMBER_OF_URLS);
-        assertThat(messages.getProperty("url.testclass.home")).isEqualTo(
+        assertThat(messages.getProperty("purl.testclass.home")).isEqualTo(
                 TestClass.HOME);
-        assertThat(messages.getProperty("url.testclass.list")).isEqualTo(
+        assertThat(messages.getProperty("purl.testclass.list")).isEqualTo(
                 TestClass.LIST);
-        assertThat(messages.getProperty("url.testclass.edit")).isEqualTo(
+        assertThat(messages.getProperty("purl.testclass.edit")).isEqualTo(
                 "/user/edit/{0,number,##}");
-        assertThat(messages.getProperty("url.testclass.strange")).isEqualTo(
+        assertThat(messages.getProperty("purl.testclass.strange")).isEqualTo(
                 "/user/show/{0}/{1,xyz}");
-        assertThat(messages.getProperty("url.testclass.show")).isEqualTo(
+        assertThat(messages.getProperty("purl.testclass.show")).isEqualTo(
                 "/user/show/{0}");
     }
 
@@ -202,12 +202,12 @@ public class UrlDefinitionsToMessagesTest {
 
         messageSource.setCommonMessages(testee.getMessages());
         assertThat(
-                messageSource.getMessage("url.testclass.edit",
+                messageSource.getMessage("purl.testclass.edit",
                         new Object[] { longValue }, Locale.CANADA)).isEqualTo(
                 TestClass.EDIT.replaceAll("\\{" + TestClass.P_USERID + "\\}",
                         "1100"));
         assertThat(
-                messageSource.getMessage("url.testclass.show", new Object[] {
+                messageSource.getMessage("purl.testclass.show", new Object[] {
                         longValue, longValue }, Locale.CANADA)).isEqualTo(
                 TestClass.SHOW.replaceAll("\\{" + TestClass.P_USERNAME + "\\}",
                         "1,100"));
