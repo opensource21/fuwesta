@@ -140,8 +140,8 @@ public class UrlDefinitionsToMessagesTest {
 
     /**
      * Test method for {@link
-     * de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages#urlsAsMessages(java.lang.
-     * Class<?>[])}.
+     * de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages#urlsAsMessages(
+     * java.lang. Class<?>[])}.
      */
     @Test
     public void testUrlsAsMessages() {
@@ -161,6 +161,31 @@ public class UrlDefinitionsToMessagesTest {
                 "/user/show/{0}/{1,xyz}");
         assertThat(messages.getProperty("url.testclass.show")).isEqualTo(
                 "/user/show/{0}");
+    }
+
+    /**
+     * Test method for {@link
+     * de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages#urlsAsMessages(
+     * java.lang. Class<?>[])}.
+     */
+    @Test
+    public void testUrlsAsMessagesWithParameters() {
+        // Arrange
+        // Act
+        testee.addUrlsAsMessagesWithNamedParameters();
+        final Properties messages = testee.getMessages();
+        // Assert
+        assertThat(messages).hasSize(NUMBER_OF_URLS);
+        assertThat(messages.getProperty("nurl.testclass.home")).isEqualTo(
+                TestClass.HOME);
+        assertThat(messages.getProperty("nurl.testclass.list")).isEqualTo(
+                TestClass.LIST);
+        assertThat(messages.getProperty("nurl.testclass.edit")).isEqualTo(
+                "/user/edit/$'{'user_idn'}'");
+        assertThat(messages.getProperty("nurl.testclass.strange")).isEqualTo(
+                "/user/show/$'{'user_name'}'/$'{'strange_format'}'");
+        assertThat(messages.getProperty("nurl.testclass.show")).isEqualTo(
+                "/user/show/$'{'user_name'}'");
     }
 
     /**
@@ -190,8 +215,8 @@ public class UrlDefinitionsToMessagesTest {
 
     /**
      * Test method for {@link
-     * de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages#paramsAsMessages(java.
-     * lang.Class<?>[])}.
+     * de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages#paramsAsMessages(
+     * java. lang.Class<?>[])}.
      */
     @Test
     public void testParamsAsMessages() {
@@ -213,8 +238,8 @@ public class UrlDefinitionsToMessagesTest {
 
     /**
      * Test method for {@link
-     * de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages#paramGroupAsMessages(java
-     * .lang.Class<?>[])}.
+     * de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages#
+     * paramGroupAsMessages(java .lang.Class<?>[])}.
      */
     @Test
     public void testParamGroupAsMessages() {
@@ -232,8 +257,8 @@ public class UrlDefinitionsToMessagesTest {
 
     /**
      * Test method for {@link
-     * de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages#fillFormatDefinitions(
-     * java.lang.Class<?>[], java.util.Map)}.
+     * de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages#
+     * fillFormatDefinitions( java.lang.Class<?>[], java.util.Map)}.
      */
     @Test
     public void testFillFormatDefinitions() {

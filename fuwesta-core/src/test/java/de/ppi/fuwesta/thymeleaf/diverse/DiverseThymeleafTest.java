@@ -1,4 +1,4 @@
-package de.ppi.fuwesta.thymeleaf.bootstrap;
+package de.ppi.fuwesta.thymeleaf.diverse;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,19 +11,26 @@ import org.junit.runners.Parameterized.Parameters;
 import de.ppi.fuwesta.thymeleaf.basic.ThymeleafTest;
 
 /**
- * Test for {@link BootstrapDialect}.
+ * Class DiverseThymeleafTest
  * 
  */
 @RunWith(Parameterized.class)
-public class BootstrapDialectThymeleafTest extends ThymeleafTest {
+public class DiverseThymeleafTest extends ThymeleafTest {
 
     @Parameters(name = "{0}")
     public static Collection<Object[]> getFilenames() throws IOException {
         return ThymeleafTest
-                .getFilenames("classpath:/thymeleaf/bootstrap/**/*.thtest");
+                .getFilenames("classpath:/thymeleaf/div/**/*.thtest");
     }
 
-    public BootstrapDialectThymeleafTest(String name, File testSpec) {
+    /**
+     * Initiates an object of type DiverseThymeleafTest.
+     * 
+     * @param name
+     * @param testSpec
+     */
+    public DiverseThymeleafTest(String name, File testSpec) {
         super(name, testSpec);
     }
+
 }
