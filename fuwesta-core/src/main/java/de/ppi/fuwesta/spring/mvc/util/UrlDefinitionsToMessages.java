@@ -24,11 +24,14 @@ import org.slf4j.LoggerFactory;
  * <li>Fieldname starts with "PG_" it is define a Parameter-Group. It will added
  * with {@link #paramGroupAsMessages(Class[])}</li>
  * 
- * <li>All other fields will be added with {@link #urlsAsMessages(Class[])}</li>
+ * <li>All other fields will be added with
+ * {@link #addUrlsAsMessagesWithPositionedParameters()(Class[])} and
+ * {@link #addUrlsAsMessagesWithNamedParameters (Class[])}</li>
  * </ul>
  * 
- * If your parameter isn't a String you should use {@link ParamFormat}, which
- * defines a parameter as a integer, but you can overwrite it.
+ * If your parameter isn't a String and you use it via positioned parameter you
+ * should use {@link ParamFormat}, which defines a parameter as a integer, but
+ * you can overwrite it.
  * 
  */
 public class UrlDefinitionsToMessages {
@@ -105,15 +108,27 @@ public class UrlDefinitionsToMessages {
     }
 
     /**
-     * Add all URL constants to a {@link Properties}.
+     * Add all URL constants to a {@link Properties} with prefix 'url'.
+     * 
+     * @deprecated Use {@link #addUrlsAsMessagesWithPositionedParameters()}
+     *             instead
      * 
      */
+    @Deprecated
     public void addUrlsAsMessages() {
+        addUrlsAsMessagesWithPositionedParameters();
+    }
+
+    /**
+     * Add all URL constants to a {@link Properties} with prefix 'url'.
+     * 
+     */
+    public void addUrlsAsMessagesWithPositionedParameters() {
         addConstantInfosFromClass("url", classesWithUrlInfos);
     }
 
     /**
-     * Add all URL constants to a {@link Properties}.
+     * Add all URL constants to a {@link Properties} with prefix 'nurl'.
      * 
      */
     public void addUrlsAsMessagesWithNamedParameters() {

@@ -147,7 +147,7 @@ public class UrlDefinitionsToMessagesTest {
     public void testUrlsAsMessages() {
         // Arrange
         // Act
-        testee.addUrlsAsMessages();
+        testee.addUrlsAsMessagesWithPositionedParameters();
         final Properties messages = testee.getMessages();
         // Assert
         assertThat(messages).hasSize(NUMBER_OF_URLS);
@@ -198,7 +198,7 @@ public class UrlDefinitionsToMessagesTest {
                 new ReloadableResourceBundleMessageSource();
         final Long longValue = Long.valueOf(1100L);
 
-        testee.addUrlsAsMessages();
+        testee.addUrlsAsMessagesWithPositionedParameters();
 
         messageSource.setCommonMessages(testee.getMessages());
         assertThat(
