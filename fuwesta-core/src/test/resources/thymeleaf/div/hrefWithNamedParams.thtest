@@ -11,8 +11,8 @@ testdata.Book.title=Title
 %INPUT
 <!DOCTYPE html>
 <html>
-  <body  th:with="book_id=${book.id}">
-      <form th:object="${book}" th:href="@{|edit/${book_id}|}">
+  <body>
+      <form th:with="book_id=${book.id}" th:object="${book}" th:href="@{|edit/${book_id}|}">
       </form>
   </body>
 </html>

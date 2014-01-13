@@ -12,8 +12,8 @@ nurl.book.edit=edit/$'{'book_id'}'
 %INPUT
 <!DOCTYPE html>
 <html>
-  <body th:with="book_id=${book.id}">
-      <form th:object="${book}" th:href="@{|__#{nurl.book.edit}__|(furtherParam='foo')}">
+  <body>
+      <form  th:with="book_id=${book.id}" th:object="${book}" th:href="@{|__#{nurl.book.edit}__|(furtherParam='foo')}">
       </form>
   </body>
 </html>
