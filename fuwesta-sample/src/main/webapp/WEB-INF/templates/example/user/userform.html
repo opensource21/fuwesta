@@ -12,7 +12,7 @@
 
     <h3 th:text="#{user.form.title}">Form of users</h3>
     <a class="btn" href="/" th:href="@{/}"><i class="icon-home"></i>Home</a>
-    <a class="btn" th:href="@{__#{url.user.list}__}">Goto list</a>
+    <a class="btn" th:href="@{__#{purl.user.list}__}">Goto list</a>
     <form th:action="@{${url}}" class="well form-horizontal" method="post" th:object="${user}">
         <div th:replace="/example/main::error"></div>
         <input id="id" type="hidden" th:value="*{id}" name="id"/>
@@ -68,7 +68,7 @@
                     </select>
                     <ul th:if="${disabled}">
                         <li th:each="item : *{__${fId}__}"  >
-                            <a th:href="@{#{url.post.show(${item.id})}}" th:text="${item.title}">Postingx</a>
+                            <a th:href="@{#{purl.post.show(${item.id})}}" th:text="${item.title}">Postingx</a>
                         </li>
                     </ul>
                 </span>

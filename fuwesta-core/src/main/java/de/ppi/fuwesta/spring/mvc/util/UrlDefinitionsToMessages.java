@@ -24,11 +24,14 @@ import org.slf4j.LoggerFactory;
  * <li>Fieldname starts with "PG_" it is define a Parameter-Group. It will added
  * with {@link #paramGroupAsMessages(Class[])}</li>
  * 
- * <li>All other fields will be added with {@link #urlsAsMessages(Class[])}</li>
+ * <li>All other fields will be added with
+ * {@link #addUrlsAsMessagesWithPositionedParameters()(Class[])} and
+ * {@link #addUrlsAsMessagesWithNamedParameters (Class[])}</li>
  * </ul>
  * 
- * If your parameter isn't a String you should use {@link ParamFormat}, which
- * defines a parameter as a integer, but you can overwrite it.
+ * If your parameter isn't a String and you use it via positioned parameter you
+ * should use {@link ParamFormat}, which defines a parameter as a integer, but
+ * you can overwrite it.
  * 
  */
 public class UrlDefinitionsToMessages {
@@ -105,11 +108,31 @@ public class UrlDefinitionsToMessages {
     }
 
     /**
-     * Add all URL constants to a {@link Properties}.
+     * Add all URL constants to a {@link Properties} with prefix 'url'.
+     * 
+     * @deprecated Use {@link #addUrlsAsMessagesWithPositionedParameters()}
+     *             instead, have in mind that url -> purl
      * 
      */
+    @Deprecated
     public void addUrlsAsMessages() {
         addConstantInfosFromClass("url", classesWithUrlInfos);
+    }
+
+    /**
+     * Add all URL constants to a {@link Properties} with prefix 'purl'.
+     * 
+     */
+    public void addUrlsAsMessagesWithPositionedParameters() {
+        addConstantInfosFromClass("purl", classesWithUrlInfos);
+    }
+
+    /**
+     * Add all URL constants to a {@link Properties} with prefix 'nurl'.
+     * 
+     */
+    public void addUrlsAsMessagesWithNamedParameters() {
+        addConstantInfosFromClass("nurl", classesWithUrlInfos);
     }
 
     /**
@@ -223,7 +246,7 @@ public class UrlDefinitionsToMessages {
     private void addFieldInformation(String prefix,
             Map<String, String> formatDefinition, Field field) {
         try {
-            if (prefix.startsWith("url")) {
+            if (prefix.startsWith("url") || prefix.startsWith("purl")) {
                 if (!field.getName().startsWith(PRAEFIX_PARAMETER)
                         && !field.getName().startsWith(PRAEFIX_PARAMETER_GROUP)) {
                     final String keyName =
@@ -231,6 +254,18 @@ public class UrlDefinitionsToMessages {
                                     .getSimpleName(), field.getName());
                     final String urlValue =
                             createUrl(field.get(null).toString(),
+                                    formatDefinition);
+                    messages.put(keyName, urlValue);
+                }
+            } else if (prefix.startsWith("nurl")) {
+                if (!field.getName().startsWith(PRAEFIX_PARAMETER)
+                        && !field.getName().startsWith(PRAEFIX_PARAMETER_GROUP)) {
+                    final String keyName =
+                            createKey(prefix, field.getDeclaringClass()
+                                    .getSimpleName(), field.getName());
+                    final String urlValue =
+                            createUrlWithNamedParams(
+                                    field.get(null).toString(),
                                     formatDefinition);
                     messages.put(keyName, urlValue);
                 }
@@ -262,6 +297,39 @@ public class UrlDefinitionsToMessages {
             LOG.error("Error reading the field " + field.getDeclaringClass()
                     + "." + field.getName(), e);
         }
+    }
+
+    /**
+     * Creates the URL from the constant as a message, i.e. named parameters
+     * like {user_id} will be replaced by ${user_id}.
+     * 
+     * @param urlAsString the url.
+     * @param formatDefinition the format definitions.
+     * @return the URL as parameterized message.
+     */
+    private String createUrlWithNamedParams(String urlAsString,
+            Map<String, String> formatDefinition) {
+        final StringBuilder result = new StringBuilder(urlAsString.length());
+        final StringTokenizer tokens = new StringTokenizer(urlAsString, "{}");
+        boolean isVariable = (urlAsString.charAt(0) == '{');
+        while (tokens.hasMoreTokens()) {
+            final String key = tokens.nextToken();
+            if (isVariable) {
+                String format = formatDefinition.get(key);
+                if (format == null) {
+                    LOG.warn("In URL {} you use an undefined parameter {}",
+                            urlAsString, key);
+                    format = "";
+                }
+                result.append("$'{'").append(key).append("'}'");
+            } else {
+                result.append(key);
+            }
+
+            isVariable = !isVariable;
+        }
+
+        return result.toString();
     }
 
     /**

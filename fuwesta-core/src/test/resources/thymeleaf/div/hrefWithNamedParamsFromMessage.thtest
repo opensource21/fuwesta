@@ -1,0 +1,30 @@
+%TEMPLATE_MODE HTML5
+# ------------ separator comment -----------
+%CONTEXT
+book = new testdata.Book()
+book.id=1000000
+binding = {'book'}
+# ------------------------------------------
+%MESSAGES
+testdata.Book.title=Title
+nurl.book.edit=edit/$'{'book_id'}'
+# ------------------------------------------
+%INPUT
+<!DOCTYPE html>
+<html>
+  <body>
+      <form  th:with="book_id=${book.id}" th:object="${book}" th:href="@{|__#{nurl.book.edit}__|(furtherParam='foo')}">
+      </form>
+  </body>
+</html>
+# ------------------------------------------
+
+%OUTPUT
+<!DOCTYPE html>
+<html>
+  <body>
+      <form href="edit/1000000?furtherParam=foo">
+      </form>
+  </body>
+</html>
+

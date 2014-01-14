@@ -25,7 +25,8 @@ public class URLTest {
 
         // ACT
         final String result =
-                URL.redirect(templateString, "quick brown foxäöü", "lazy dog");
+                URL.redirectWithNamedParams(templateString, "animal",
+                        "quick brown foxäöü", "target", "lazy dog");
         // ASSERT
         assertThat(result)
                 .isEqualTo(
@@ -44,7 +45,8 @@ public class URLTest {
 
         // ACT
         final String result =
-                URL.filledURL(templateString, "quick brown fox", "lazy dog");
+                URL.filledURLWithNamedParams(templateString, "animal",
+                        "quick brown fox", "target", "lazy dog");
         // ASSERT
         assertThat(result)
                 .isEqualTo(
@@ -64,7 +66,8 @@ public class URLTest {
 
         // ACT
         final String result =
-                URL.filledURL(templateString, "quick brown fox", "lazy dog");
+                URL.filledURLWithNamedParams(templateString, "animal",
+                        "quick brown fox", "target", "lazy dog");
         // ASSERT
         assertThat(result).isEqualTo("quick%20brown%20fox%20lazy%20dog.");
 
@@ -83,7 +86,7 @@ public class URLTest {
         // ACT
         final String result = URL.filledURL(templateString);
         // ASSERT
-        assertThat(result).isEqualTo("quick brown fox lazy dog.");
+        assertThat(result).isEqualTo("quick%20brown%20fox%20lazy%20dog.");
 
     }
 
