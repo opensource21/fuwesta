@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             authorizeRequests().antMatchers("/").permitAll().and().
             authorizeRequests().anyRequest().denyAll().and().
             formLogin().loginPage(URL.LOGIN).and().
-            rememberMe().key("PPI-SECRET");
+            rememberMe().key("PPI-SECRET").and().csrf().disable();
         //J+
     }
 
