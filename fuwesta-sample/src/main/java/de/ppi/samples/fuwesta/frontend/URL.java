@@ -1,5 +1,6 @@
 package de.ppi.samples.fuwesta.frontend;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,6 +16,11 @@ import de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages.ParamFormat;
 // CSOFF: InterfaceIsType You must give the Annotations Strings and can't use
 // Enums.
 public final class URL {
+
+    /**
+     * Prefix für Redirect-Urls.
+     */
+    private static final String REDIRECT_PREFIX = "redirect:";
 
     /**
      * Map which stores the UriComponents.
@@ -171,18 +177,54 @@ public final class URL {
     }
 
     /**
+     * Replace the parameter in the URL with the given value.
+     * 
+     * @param url the URL.
+     * @param parameter the parameter
+     * @return the URL with parameters filled in
+     */
+    public static String filledURL(String url, Object parameter) {
+        final UriComponents uricomponent = getUriComponent(url);
+        return uricomponent.expand(parameter).encode().toUriString();
+    }
+
+    /**
+     * Encode the given URL.
+     * 
+     * @param url the URL.
+     * @return the URL with parameters filled in
+     */
+    public static String filledURL(String url) {
+        final UriComponents uricomponent = getUriComponent(url);
+        return uricomponent.expand().encode().toUriString();
+    }
+
+    /**
      * Replace all parameters in the URL with the given values.
      * 
      * @param url the URL.
-     * @param parameters the parameters
+     * @param keyValuePairs the parameters as pair of name and value.
      * @return the URL with parameters filled in
      */
-    public static String filledURL(String url, Object... parameters) {
-        if (parameters == null || parameters.length == 0) {
+    public static String filledURLWithNamedParams(String url,
+            Object... keyValuePairs) {
+        if ((keyValuePairs == null) || (keyValuePairs.length == 0)) {
             return url;
         }
+        if (keyValuePairs.length % 2 != 0) {
+            throw new IllegalArgumentException(
+                    "The array has to be of an even size - size is "
+                            + keyValuePairs.length);
+        }
+
+        final Map<String, Object> values = new HashMap<String, Object>();
+
+        for (int x = 0; x < keyValuePairs.length; x += 2) {
+            values.put((String) keyValuePairs[x], keyValuePairs[x + 1]);
+        }
+
         final UriComponents uricomponent = getUriComponent(url);
-        return uricomponent.expand(parameters).encode().toUriString();
+        return uricomponent.expand(values).encode().toUriString();
     }
 
     /**
@@ -195,6 +237,7 @@ public final class URL {
         if (!URI_MAP.containsKey(url)) {
             URI_MAP.put(url, UriComponentsBuilder.fromUriString(url).build());
         }
+
         return URI_MAP.get(url);
     }
 
@@ -205,10 +248,11 @@ public final class URL {
      * @param parameters the parameters
      * @return the URL with parameters filled in
      */
-    public static String filledURL(String url, Map<String, String> parameters) {
-        if (parameters == null || parameters.size() == 0) {
+    public static String filledURL(String url, Map<String, ?> parameters) {
+        if ((parameters == null) || (parameters.size() == 0)) {
             return url;
         }
+
         final UriComponents uricomponent = getUriComponent(url);
         return uricomponent.expand(parameters).encode().toUriString();
     }
@@ -218,11 +262,35 @@ public final class URL {
      * redirect.
      * 
      * @param url the URL.
-     * @param parameters the parameters
+     * @param parameter the parameter
      * @return the redirect URL with parameters filled in
      */
-    public static String redirect(String url, Object... parameters) {
-        return "redirect:" + filledURL(url, parameters);
+    public static String redirect(String url, Object parameter) {
+        return REDIRECT_PREFIX + filledURL(url, parameter);
+    }
+
+    /**
+     * Replace all parameters in the URL with the given values and make a
+     * redirect.
+     * 
+     * @param url the URL.
+     * @return the redirect URL with parameters filled in
+     */
+    public static String redirect(String url) {
+        return REDIRECT_PREFIX + filledURL(url);
+    }
+
+    /**
+     * Replace all parameters in the URL with the given values and make a
+     * redirect.
+     * 
+     * @param url the URL.
+     * @param keyValuePairs the parameters as pair of name and value
+     * @return the redirect URL with parameters filled in
+     */
+    public static String redirectWithNamedParams(String url,
+            Object... keyValuePairs) {
+        return REDIRECT_PREFIX + filledURLWithNamedParams(url, keyValuePairs);
     }
 
     /**
@@ -235,7 +303,7 @@ public final class URL {
      */
     public static String redirect(String url,
             Map<String, String> namedParameters) {
-        return "redirect:" + filledURL(url, namedParameters);
+        return REDIRECT_PREFIX + filledURL(url, namedParameters);
     }
 
     /**
