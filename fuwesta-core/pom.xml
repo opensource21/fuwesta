@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.ppi.oss</groupId>
     <artifactId>fuwesta-core</artifactId>
-    <version>0.8</version>
+    <version>0.9-SNAPSHOT</version>
     <name>fuwesta-core</name>
     <description>A full web stack based on spring mvc. This project contains some helper to make the life easier.</description>
     <organization>
