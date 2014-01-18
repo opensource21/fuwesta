@@ -145,3 +145,6 @@ You can find the sources /config/eclipse/bookmarks.xml
 
 ####Not tested
  * [ResourceBundleEditor](http://eclipse-rbe.sourceforge.net/)
+
+###Useful Resources
+ * [Spring-Loaded](https://github.com/spring-projects/spring-loaded) Automatic class reloading.
