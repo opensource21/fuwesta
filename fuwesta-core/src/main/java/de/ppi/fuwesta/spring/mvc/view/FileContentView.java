@@ -48,7 +48,7 @@ public class FileContentView extends AbstractView {
     private final File content;
     private final String fileName;
 
-    private final String fileNameEncoding = "UTF-8";
+    private static final String FILE_NAME_ENCODING = "UTF-8";
 
     /**
      * Initiates an object of type FileContentView.
@@ -83,9 +83,9 @@ public class FileContentView extends AbstractView {
         // for FF see
         // http://stackoverflow.com/questions/93551/how-to-encode-the-filename-parameter-of-content-disposition-header-in-http
         final String fileNameEncoded =
-                URLEncoder.encode(fileName, fileNameEncoding);
-        response.setHeader("Content-disposition",
-                "attachment;  filename*=UTF-8''" + fileNameEncoded);
+                URLEncoder.encode(fileName, FILE_NAME_ENCODING);
+        response.setHeader("Content-disposition", "attachment;  filename*="
+                + FILE_NAME_ENCODING + "''" + fileNameEncoded);
         final String extension = FilenameUtils.getExtension(content.getName());
         final String contentType = MIME_TYPES.get(extension);
         if (contentType == null) {

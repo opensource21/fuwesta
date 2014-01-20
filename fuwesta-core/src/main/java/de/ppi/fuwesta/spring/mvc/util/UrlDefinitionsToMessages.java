@@ -180,22 +180,20 @@ public class UrlDefinitionsToMessages {
                 Field[] fields = class1.getDeclaredFields();
                 for (Field field : fields) {
                     try {
-                        if (Modifier.isPublic(field.getModifiers())) {
-                            if (field.getName().startsWith(PRAEFIX_PARAMETER)) {
-                                final ParamFormat format =
-                                        field.getAnnotation(ParamFormat.class);
-                                final String paramName =
-                                        field.get(null).toString();
-                                if (formatDefinition.containsKey(paramName)) {
-                                    LOG.warn("Parameter {} is defined more "
-                                            + "than once.", paramName);
-                                } else {
-                                    formatDefinition.put(paramName, "");
-                                }
-                                if (format != null) {
-                                    formatDefinition.put(paramName,
-                                            format.value());
-                                }
+                        if (Modifier.isPublic(field.getModifiers())
+                                && field.getName()
+                                        .startsWith(PRAEFIX_PARAMETER)) {
+                            final ParamFormat format =
+                                    field.getAnnotation(ParamFormat.class);
+                            final String paramName = field.get(null).toString();
+                            if (formatDefinition.containsKey(paramName)) {
+                                LOG.warn("Parameter {} is defined more "
+                                        + "than once.", paramName);
+                            } else {
+                                formatDefinition.put(paramName, "");
+                            }
+                            if (format != null) {
+                                formatDefinition.put(paramName, format.value());
                             }
                         }
                     } catch (IllegalArgumentException | IllegalAccessException e) {
