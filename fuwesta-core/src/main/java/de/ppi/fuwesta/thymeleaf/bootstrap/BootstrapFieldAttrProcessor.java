@@ -41,6 +41,11 @@ public class BootstrapFieldAttrProcessor extends AbstractAttrProcessor {
     private static final String BS_LABEL = "bs:label";
 
     /**
+     * The attribut "class".
+     */
+    private static final String ATTR_CLASS = "class";
+
+    /**
      * List of all node names, which are used for th:field.
      */
     private static final String[] VALID_FIELD_NODE_NAMES = { "input", "select",
@@ -143,23 +148,23 @@ public class BootstrapFieldAttrProcessor extends AbstractAttrProcessor {
         LOG.trace("Creating Bootstrap field with fieldname = '{}'", fieldName);
         // Create the new elements tags
         final Element controlgroup = new Element("div");
-        controlgroup.setAttribute("class", "control-group");
+        controlgroup.setAttribute(ATTR_CLASS, "control-group");
         controlgroup.setAttribute("th:classappend", "${#fields.hasErrors('"
                 + fieldName + "')}? 'error'");
 
         final Element label = new Element("label");
 
-        label.setAttribute("class", "control-label");
+        label.setAttribute(ATTR_CLASS, "control-label");
         label.setAttribute("th:for", "'" + fieldName + "'");
         label.addChild(new Text(labelText));
 
         final Element controls = new Element("div");
-        controls.setAttribute("class", "controls");
+        controls.setAttribute(ATTR_CLASS, "controls");
         // It necessary to clone the element, otherwise it wouldn't recomputed.
         final Node newInput = input.cloneNode(null, false);
         controls.addChild(newInput);
         Element help = new Element("span");
-        help.setAttribute("class", "help-inline");
+        help.setAttribute(ATTR_CLASS, "help-inline");
         help.setAttribute("th:if", "${#fields.hasErrors('" + fieldName + "')}");
         help.setAttribute("th:errors", "*{" + fieldName + "}");
         controls.addChild(help);

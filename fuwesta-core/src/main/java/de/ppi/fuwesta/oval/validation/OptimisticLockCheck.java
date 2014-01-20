@@ -89,8 +89,7 @@ public class OptimisticLockCheck extends
                         "select m.version from " + entityName
                                 + " as m where m.id = ?";
                 final Long dbVersion =
-                        (Long) jpa.queryWithSingleResult(jpql.toString(),
-                                keyValue);
+                        (Long) jpa.queryWithSingleResult(jpql, keyValue);
                 if (dbVersion.longValue() > versionValue.longValue()) {
                     return false;
                 }
@@ -108,7 +107,7 @@ public class OptimisticLockCheck extends
         final RequestAttributes rq =
                 RequestContextHolder.currentRequestAttributes();
         String reloadURL = null;
-        if (rq != null && rq instanceof ServletRequestAttributes) {
+        if (rq instanceof ServletRequestAttributes) {
             final ServletRequestAttributes sra = (ServletRequestAttributes) rq;
             final HttpServletRequest request = sra.getRequest();
             reloadURL = request.getHeader("referer");

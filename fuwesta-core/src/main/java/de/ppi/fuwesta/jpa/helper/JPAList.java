@@ -11,7 +11,7 @@ import org.springframework.util.CollectionUtils;
 /**
  * A list which handles JPA-bidirectional aspects, furthermore an element can
  * only be once part of the list.
- *
+ * 
  * @param <E> the type of elements in this list.
  * @param <A> the associated type
  */
@@ -27,7 +27,7 @@ public abstract class JPAList<E, A> implements List<E> {
 
     /**
      * Constructs an JPAList which the internalList.
-     *
+     * 
      * @param internalList the list which holds the data.
      * @param associatedEntity the entity which holds this list.
      */
@@ -38,7 +38,7 @@ public abstract class JPAList<E, A> implements List<E> {
 
     /**
      * Constructs an empty list with an initial capacity of ten.
-     *
+     * 
      * @param associatedEntity the entity which holds this list.
      */
     public JPAList(A associatedEntity) {
@@ -47,7 +47,7 @@ public abstract class JPAList<E, A> implements List<E> {
 
     /**
      * Constructs an empty list with the specified initial capacity.
-     *
+     * 
      * @param initialCapacity the initial capacity of the list
      * @param associatedEntity the entity which holds this list.
      * @throws IllegalArgumentException if the specified initial capacity is
@@ -147,9 +147,9 @@ public abstract class JPAList<E, A> implements List<E> {
     @Override
     public boolean addAll(Collection<? extends E> c) {
         boolean allAdded = true;
-        ArrayList<E> internalList = new ArrayList<E>();
-        internalList.addAll(c);
-        for (E e : internalList) {
+        final ArrayList<E> newList = new ArrayList<E>();
+        newList.addAll(c);
+        for (E e : newList) {
             allAdded = add(e) && allAdded;
         }
         return allAdded;
@@ -291,7 +291,7 @@ public abstract class JPAList<E, A> implements List<E> {
 
     /**
      * Set the list to the given list.
-     *
+     * 
      * @param newList the new list.
      */
     public void set(List<E> newList) {
@@ -319,7 +319,7 @@ public abstract class JPAList<E, A> implements List<E> {
 
     /**
      * Returns the internal list.
-     *
+     * 
      * @return the internalList
      */
     public List<E> getInternalList() {
@@ -328,7 +328,7 @@ public abstract class JPAList<E, A> implements List<E> {
 
     /**
      * Does the addional tasks which must be done to handle the relations.
-     *
+     * 
      * @param entity the entity which is added.
      * @param associatedEntity the associated entity.
      */
@@ -336,7 +336,7 @@ public abstract class JPAList<E, A> implements List<E> {
 
     /**
      * Does the addional tasks which must be done to handle the relations.
-     *
+     * 
      * @param entity the entity which is added.
      * @param associatedEntity the associated entity.
      */

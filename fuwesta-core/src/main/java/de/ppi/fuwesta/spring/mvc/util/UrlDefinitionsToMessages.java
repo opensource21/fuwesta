@@ -247,48 +247,14 @@ public class UrlDefinitionsToMessages {
             Map<String, String> formatDefinition, Field field) {
         try {
             if (prefix.startsWith("url") || prefix.startsWith("purl")) {
-                if (!field.getName().startsWith(PRAEFIX_PARAMETER)
-                        && !field.getName().startsWith(PRAEFIX_PARAMETER_GROUP)) {
-                    final String keyName =
-                            createKey(prefix, field.getDeclaringClass()
-                                    .getSimpleName(), field.getName());
-                    final String urlValue =
-                            createUrl(field.get(null).toString(),
-                                    formatDefinition);
-                    messages.put(keyName, urlValue);
-                }
+                addURLsWithPositionedParameters(prefix, formatDefinition, field);
             } else if (prefix.startsWith("nurl")) {
-                if (!field.getName().startsWith(PRAEFIX_PARAMETER)
-                        && !field.getName().startsWith(PRAEFIX_PARAMETER_GROUP)) {
-                    final String keyName =
-                            createKey(prefix, field.getDeclaringClass()
-                                    .getSimpleName(), field.getName());
-                    final String urlValue =
-                            createUrlWithNamedParams(
-                                    field.get(null).toString(),
-                                    formatDefinition);
-                    messages.put(keyName, urlValue);
-                }
+                addUrlsWithNamedParameters(prefix, formatDefinition, field);
             } else if (prefix.startsWith(MESSAGE_SOURCE_PRAEFIX_PARAMETER)) {
-                if (field.getName().startsWith(PRAEFIX_PARAMETER)) {
-                    final String keyName =
-                            createKey(prefix, field.getDeclaringClass()
-                                    .getSimpleName(), field.getName()
-                                    .substring(2));
-                    messages.put(keyName, field.get(null).toString());
-                }
+                addSimpleParameters(prefix, field);
             } else if (prefix
                     .startsWith(MESSAGE_SOURCE_PRAEFIX_PARAMETER_GROUP)) {
-                if (field.getName().startsWith(PRAEFIX_PARAMETER_GROUP)) {
-                    final String keyName =
-                            createKey(prefix, field.getDeclaringClass()
-                                    .getSimpleName(), field.getName()
-                                    .substring(3));
-                    final String pgValue =
-                            createParamGroup(field.get(null).toString(),
-                                    formatDefinition);
-                    messages.put(keyName, pgValue);
-                }
+                addParameterGroups(prefix, formatDefinition, field);
 
             } else {
                 throw new IllegalArgumentException("Invalid Prefix " + prefix);
@@ -296,6 +262,94 @@ public class UrlDefinitionsToMessages {
         } catch (IllegalArgumentException | IllegalAccessException e) {
             LOG.error("Error reading the field " + field.getDeclaringClass()
                     + "." + field.getName(), e);
+        }
+    }
+
+    /**
+     * Add alls URLs and prepare paramters, so that the will replaced by
+     * position.
+     * 
+     * @param prefix the prefix of the key.
+     * @param formatDefinition information about the format defintion.
+     * @param field the field whith the url.
+     * @throws IllegalAccessException
+     */
+    private void addURLsWithPositionedParameters(String prefix,
+            Map<String, String> formatDefinition, Field field)
+            throws IllegalAccessException {
+        if (!field.getName().startsWith(PRAEFIX_PARAMETER)
+                && !field.getName().startsWith(PRAEFIX_PARAMETER_GROUP)) {
+            final String keyName =
+                    createKey(prefix,
+                            field.getDeclaringClass().getSimpleName(),
+                            field.getName());
+            final String urlValue =
+                    createUrl(field.get(null).toString(), formatDefinition);
+            messages.put(keyName, urlValue);
+        }
+    }
+
+    /**
+     * Add alls URLs and prepare paramters, so that the will replaced by name.
+     * 
+     * @param prefix the prefix of the key.
+     * @param formatDefinition information about the format defintion.
+     * @param field the field whith the url.
+     * @throws IllegalAccessException
+     */
+    private void addUrlsWithNamedParameters(String prefix,
+            Map<String, String> formatDefinition, Field field)
+            throws IllegalAccessException {
+        if (!field.getName().startsWith(PRAEFIX_PARAMETER)
+                && !field.getName().startsWith(PRAEFIX_PARAMETER_GROUP)) {
+            final String keyName =
+                    createKey(prefix,
+                            field.getDeclaringClass().getSimpleName(),
+                            field.getName());
+            final String urlValue =
+                    createUrlWithNamedParams(field.get(null).toString(),
+                            formatDefinition);
+            messages.put(keyName, urlValue);
+        }
+    }
+
+    /**
+     * Add simple parameter names.
+     * 
+     * @param prefix the prefix of the key.
+     * @param field the field whith the url.
+     * @throws IllegalAccessException
+     */
+    private void addSimpleParameters(String prefix, Field field)
+            throws IllegalAccessException {
+        if (field.getName().startsWith(PRAEFIX_PARAMETER)) {
+            final String keyName =
+                    createKey(prefix,
+                            field.getDeclaringClass().getSimpleName(), field
+                                    .getName().substring(2));
+            messages.put(keyName, field.get(null).toString());
+        }
+    }
+
+    /**
+     * Add group of parameter names.
+     * 
+     * @param prefix the prefix of the key.
+     * @param field the field whith the url.
+     * @throws IllegalAccessException
+     */
+    private void addParameterGroups(String prefix,
+            Map<String, String> formatDefinition, Field field)
+            throws IllegalAccessException {
+        if (field.getName().startsWith(PRAEFIX_PARAMETER_GROUP)) {
+            final String keyName =
+                    createKey(prefix,
+                            field.getDeclaringClass().getSimpleName(), field
+                                    .getName().substring(3));
+            final String pgValue =
+                    createParamGroup(field.get(null).toString(),
+                            formatDefinition);
+            messages.put(keyName, pgValue);
         }
     }
 
