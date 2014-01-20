@@ -88,7 +88,7 @@ public class FileContentView extends AbstractView {
                 "attachment;  filename*=UTF-8''" + fileNameEncoded);
         final String extension = FilenameUtils.getExtension(content.getName());
         final String contentType = MIME_TYPES.get(extension);
-        if (extension == null) {
+        if (contentType == null) {
             LOG.error("No content-type defined for extension {}.", extension);
         } else {
             response.setContentType(contentType);
