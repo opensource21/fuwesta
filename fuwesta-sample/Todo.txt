@@ -8,6 +8,8 @@ Doku/Schulung 3 PT
 
 Erweitertes Beispiel 5PT
 
+UPgrade to Hibernate >4.3 Spring-Data
+
 
 
 NotNull erscheint doppelt: https://sourceforge.net/p/oval/bugs/84/ und
