@@ -76,7 +76,7 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>,
      *         the first names.
      */
 
-    // We user JQL, but SQL is possible to with @Modifying you can even define
+    // We user JQL, but SQL is possible too with @Modifying you can even define
     // updates
     @Query("select u from de.ppi.samples.fuwesta.model.User u inner join u.postings Post "
             + "where (u.firstName = :firstname1 or "
