@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
-import org.h2.util.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.view.AbstractView;
@@ -94,12 +94,12 @@ public class FileContentView extends AbstractView {
             response.setContentType(contentType);
         }
 
-        FileInputStream zeugnisStream = new FileInputStream(content);
+        FileInputStream contentStream = new FileInputStream(content);
         try {
-            IOUtils.copy(zeugnisStream, response.getOutputStream());
+            IOUtils.copy(contentStream, response.getOutputStream());
             response.flushBuffer();
         } finally {
-            zeugnisStream.close();
+            contentStream.close();
         }
 
     }
