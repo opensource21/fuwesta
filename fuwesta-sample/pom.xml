@@ -275,7 +275,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.3</version>
             </plugin>
             <!-- wro4j-plugin see http://code.google.com/p/wro4j/ -->
             <plugin>
