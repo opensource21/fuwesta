@@ -1,4 +1,4 @@
-package de.ppi.fuwesta.thymeleaf.bootstrap;
+package de.ppi.fuwesta.thymeleaf.bootstrap2;
 
 import java.util.HashSet;
 import java.util.Set;
