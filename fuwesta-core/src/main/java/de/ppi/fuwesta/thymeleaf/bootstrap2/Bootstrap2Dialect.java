@@ -1,4 +1,4 @@
-package de.ppi.fuwesta.thymeleaf.bootstrap;
+package de.ppi.fuwesta.thymeleaf.bootstrap2;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +10,7 @@ import org.thymeleaf.processor.IProcessor;
  * The dialect for Twitter Bootstrap.
  * 
  */
-public class BootstrapDialect extends AbstractDialect {
+public class Bootstrap2Dialect extends AbstractDialect {
 
     /**
      * The prefix of this Dialect.
@@ -39,8 +39,8 @@ public class BootstrapDialect extends AbstractDialect {
     @Override
     public Set<IProcessor> getProcessors() {
         final Set<IProcessor> processors = new HashSet<>();
-        processors.add(new BootstrapFieldAttrProcessor());
-        processors.add(new BootstrapNameAttrProcessor());
+        processors.add(new Bootstrap2FieldAttrProcessor());
+        processors.add(new Bootstrap2NameAttrProcessor());
         return processors;
     }
 

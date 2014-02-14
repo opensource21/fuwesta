@@ -1,4 +1,4 @@
-package de.ppi.fuwesta.thymeleaf.bootstrap;
+package de.ppi.fuwesta.thymeleaf.bootstrap2;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,8 +13,6 @@ import org.thymeleaf.dom.Node;
 import org.thymeleaf.dom.Text;
 import org.thymeleaf.processor.ProcessorResult;
 import org.thymeleaf.processor.attr.AbstractAttrProcessor;
-import org.thymeleaf.spring3.processor.attr.AbstractSpringFieldAttrProcessor;
-import org.thymeleaf.standard.StandardDialect;
 import org.thymeleaf.standard.expression.IStandardExpression;
 import org.thymeleaf.standard.expression.IStandardExpressionParser;
 import org.thymeleaf.standard.expression.StandardExpressions;
@@ -24,16 +22,14 @@ import org.thymeleaf.util.Validate;
  * Attribute processor which makes the work easier with Twitter Bootstrap.
  * 
  */
-public class BootstrapFieldAttrProcessor extends AbstractAttrProcessor {
+public abstract class AbstractBootstrap2AttrProcessor extends
+        AbstractAttrProcessor {
 
     /**
      * The Logger for the controller.
      */
     private static final Logger LOG = LoggerFactory
-            .getLogger(BootstrapFieldAttrProcessor.class);
-
-    /** The attribute name which should trigger this processor. */
-    public static final String ATTRIBUTE_NAME = "field";
+            .getLogger(AbstractBootstrap2AttrProcessor.class);
 
     /**
      * Attribute which contains the label (optional parameter).
@@ -57,16 +53,12 @@ public class BootstrapFieldAttrProcessor extends AbstractAttrProcessor {
     private Set<String> validFieldNodes = new HashSet<>();
 
     /**
-     * The precedence of the Processor. Should by high to make sure that remove
-     * or if - conditions are run first.
-     **/
-    public static final int PRECEDENCE = 10000;
-
-    /**
      * Instantiates a new bootstrap field attr processor.
+     * 
+     * @param attributeName name of the attribute which triggers the processor.
      */
-    public BootstrapFieldAttrProcessor() {
-        super(ATTRIBUTE_NAME);
+    public AbstractBootstrap2AttrProcessor(String attributeName) {
+        super(attributeName);
         for (String nodeName : VALID_FIELD_NODE_NAMES) {
             validFieldNodes.add(nodeName);
         }
@@ -89,30 +81,56 @@ public class BootstrapFieldAttrProcessor extends AbstractAttrProcessor {
         }
 
         if (validFieldNodes.contains(element.getNormalizedName())) {
-            element.setAttribute(StandardDialect.PREFIX + ":"
-                    + AbstractSpringFieldAttrProcessor.ATTR_NAME, "*{"
-                    + fieldName + "}");
+            addAttributesToInputElement(element, fieldName);
         }
         element.removeAttribute(attributeName);
+
         String labelExpr = element.getAttributeValue(BS_LABEL);
         if (labelExpr == null) {
-            labelExpr = "#{__*{class.name}__." + fieldName + "}+':'";
+            labelExpr = createLabelExpression(fieldName);
         }
+
         final String label;
         if (labelExpr.contains("#") || labelExpr.contains("$")) {
             label = parse(arguments, labelExpr);
         } else {
             label = labelExpr;
         }
+
         element.removeAttribute(BS_LABEL);
 
         // Reorganize the DOM
-        final Node newNode = createBootstrapField(fieldName, label, element);
+        final Node newNode =
+                createBootstrapField(fieldName, label, element, showError());
         parent.insertAfter(element, newNode);
         parent.removeChild(element);
 
         return ProcessorResult.OK;
     }
+
+    /**
+     * Create an expression to get the label, for example #{fieldName}.
+     * 
+     * @param fieldName name of the field
+     * @return an valid thymeleafexpression.
+     */
+    protected abstract String createLabelExpression(String fieldName);
+
+    /**
+     * Manipulate the given element by adding some attributes.
+     * 
+     * @param element the inputElement
+     * @param fieldName the name of the field.
+     */
+    protected abstract void addAttributesToInputElement(final Element element,
+            final String fieldName);
+
+    /**
+     * Returns true if an error should shown at the field.
+     * 
+     * @return true if the error should be shown.
+     */
+    protected abstract boolean showError();
 
     /**
      * Creates a node which represents an Twitter Bootstrap Field. <code>
@@ -139,18 +157,22 @@ public class BootstrapFieldAttrProcessor extends AbstractAttrProcessor {
      * @param fieldName the name of the property.
      * @param labelText the label text.
      * @param input the input-node.
+     * @param showError true, if help-inline should be shown and the class error
+     *            should be added.
      * @return The bootstrap-field.
      */
     private Node createBootstrapField(String fieldName, String labelText,
-            Element input) {
+            Element input, boolean showError) {
         Validate.notNull(input, "You must define an input-element.");
         Validate.notNull(fieldName, "You must define a fieldName.");
         LOG.trace("Creating Bootstrap field with fieldname = '{}'", fieldName);
         // Create the new elements tags
         final Element controlgroup = new Element("div");
         controlgroup.setAttribute(ATTR_CLASS, "control-group");
-        controlgroup.setAttribute("th:classappend", "${#fields.hasErrors('"
-                + fieldName + "')}? 'error'");
+        if (showError) {
+            controlgroup.setAttribute("th:classappend", "${#fields.hasErrors('"
+                    + fieldName + "')}? 'error'");
+        }
 
         final Element label = new Element("label");
 
@@ -163,24 +185,19 @@ public class BootstrapFieldAttrProcessor extends AbstractAttrProcessor {
         // It necessary to clone the element, otherwise it wouldn't recomputed.
         final Node newInput = input.cloneNode(null, false);
         controls.addChild(newInput);
-        Element help = new Element("span");
-        help.setAttribute(ATTR_CLASS, "help-inline");
-        help.setAttribute("th:if", "${#fields.hasErrors('" + fieldName + "')}");
-        help.setAttribute("th:errors", "*{" + fieldName + "}");
-        controls.addChild(help);
+        if (showError) {
+            Element help = new Element("span");
+            help.setAttribute(ATTR_CLASS, "help-inline");
+            help.setAttribute("th:if", "${#fields.hasErrors('" + fieldName
+                    + "')}");
+            help.setAttribute("th:errors", "*{" + fieldName + "}");
+            controls.addChild(help);
+        }
 
         controlgroup.addChild(label);
         controlgroup.addChild(controls);
 
         return controlgroup;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getPrecedence() {
-        return PRECEDENCE;
     }
 
     private String parse(final Arguments arguments, String input) {
@@ -194,5 +211,4 @@ public class BootstrapFieldAttrProcessor extends AbstractAttrProcessor {
 
         return (String) expression.execute(configuration, arguments);
     }
-
 }
