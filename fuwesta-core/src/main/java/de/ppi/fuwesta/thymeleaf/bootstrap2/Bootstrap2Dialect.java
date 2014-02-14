@@ -39,8 +39,8 @@ public class Bootstrap2Dialect extends AbstractDialect {
     @Override
     public Set<IProcessor> getProcessors() {
         final Set<IProcessor> processors = new HashSet<>();
-        processors.add(new BootstrapFieldAttrProcessor());
-        processors.add(new BootstrapNameAttrProcessor());
+        processors.add(new Bootstrap2FieldAttrProcessor());
+        processors.add(new Bootstrap2NameAttrProcessor());
         return processors;
     }
 
