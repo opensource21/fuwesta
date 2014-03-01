@@ -49,8 +49,8 @@ public class ThymeleafConfig {
         resolver.setCharacterEncoding(characterEncoding);
         resolver.setViewNames(new String[] { "example/user/list",
                 "example/user/userform", "example/post/list",
-                "example/post/postform", "example/tag/list",
-                "example/tag/tagform", "example/login" });
+                "example/post/postform", "example/post/partialpostform",
+                "example/tag/list", "example/tag/tagform", "example/login" });
         return resolver;
     }
 

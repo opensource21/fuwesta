@@ -57,11 +57,13 @@ public class PostServiceImpl implements PostService {
             final Post oldPost = postDao.findOne(post.getId());
             // This is need because till know there is no knowledge about the
             // Number of Tags in the database.
-            oldPost.setTags(post.getTags());
-            // Now remove all tags from the changed post, otherwise we have
-            // them twice in relation table.
-            post.getTags().clear();
-            // At the safe both are merged.
+            if (oldPost != post) {
+                oldPost.setTags(post.getTags());
+                // Now remove all tags from the changed post, otherwise we have
+                // them twice in relation table.
+                post.getTags().clear();
+                // At the safe both are merged.
+            }
         }
         return postDao.save(post);
     }
