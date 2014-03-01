@@ -122,6 +122,11 @@ public final class URL {
         String EDIT = HOME + "/edit/{" + P_POSTID + "}";
 
         /**
+         * Partial Edit-Post-Url.
+         */
+        String PARTIALEDIT = HOME + "/partialedit/{" + P_POSTID + "}";
+
+        /**
          * Show-Post-Url.
          */
         String SHOW = HOME + "/show/{" + P_POSTID + "}";

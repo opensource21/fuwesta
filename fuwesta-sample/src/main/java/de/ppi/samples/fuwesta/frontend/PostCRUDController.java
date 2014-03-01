@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.WebBindingInitializer;
+import org.springframework.web.bind.support.WebRequestDataBinder;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 import de.ppi.fuwesta.spring.mvc.util.PageWrapper;
 import de.ppi.fuwesta.spring.mvc.util.ResourceNotFoundException;
@@ -37,10 +42,19 @@ public class PostCRUDController {
     private static final String POST_FORM = "example/post/postform";
 
     /**
+     * The partial view.
+     */
+    private static final String PARTIAL_POST_FORM =
+            "example/post/partialpostform";
+
+    /**
      * The Logger for the controller.
      */
     private static final Logger LOG = LoggerFactory
             .getLogger(PostCRUDController.class);
+
+    @Resource
+    private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
     /**
      * The PostService instance.
@@ -187,6 +201,29 @@ public class PostCRUDController {
     }
 
     /**
+     * Edit a post partial, i.e. the simple fields.
+     * 
+     * @param postId the Id of the post.
+     * @param model the model.
+     * @return String which defines the next page.
+     */
+    @RequestMapping(value = URL.Post.PARTIALEDIT, method = RequestMethod.GET)
+    public String editSimpleFields(
+            @PathVariable(URL.Post.P_POSTID) Long postId, Model model) {
+        LOG.debug("Edit partial PostId: " + postId);
+        Post post = postService.read(postId);
+        if (post == null) {
+            throw new ResourceNotFoundException("Post with id " + postId
+                    + " doesn't exist.");
+
+        }
+        addStandardModelData(post,
+                URL.filledURL(URL.Post.PARTIALEDIT, post.getId()), false, null,
+                null, model);
+        return PARTIAL_POST_FORM;
+    }
+
+    /**
      * Get all active tags and tags which are used in the current post.
      * 
      * @param post the current post.
@@ -224,6 +261,41 @@ public class PostCRUDController {
             addStandardModelData(post,
                     URL.filledURL(URL.Post.EDIT, post.getId()), false,
                     postService.getAllUsers(), allTags, model);
+            return POST_FORM;
+        }
+        LOG.debug("Update Post: " + post);
+        postService.save(post);
+
+        return URL.redirect(URL.Post.LIST);
+    }
+
+    /**
+     * Update the post.
+     * 
+     * @param post the post.
+     * @param result the bindingsresult.
+     * @param model the model
+     * @return String which defines the next page.
+     */
+    @RequestMapping(value = URL.Post.PARTIALEDIT, method = RequestMethod.POST)
+    public String updatePartial(@RequestParam("id") Post post,
+            WebRequest request, Model model) {
+        final WebBindingInitializer wbi =
+                requestMappingHandlerAdapter.getWebBindingInitializer();
+        final WebRequestDataBinder binder =
+                new WebRequestDataBinder(post, "post");
+        wbi.initBinder(binder, request);
+        binder.bind(request);
+
+        final BindingResult result = binder.getBindingResult();
+        mvcValidator.validate(post, result);
+        if (result.hasErrors()) {
+            // TODO niels Das ist so nicht sinnvoll. Das result-Object wird
+            // übermittelt und man muss, dann die Globalen_Fehler sich ansehen.
+            model.addAttribute("errors", result.getGlobalErrors());
+            addStandardModelData(post,
+                    URL.filledURL(URL.Post.PARTIALEDIT, post.getId()), false,
+                    null, null, model);
             return POST_FORM;
         }
         LOG.debug("Update Post: " + post);
