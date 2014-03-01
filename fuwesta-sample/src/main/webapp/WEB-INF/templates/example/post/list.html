@@ -36,6 +36,7 @@ pageRequest - the parameter of this search.
                     <td th:with="#{par.post.postid}=${post.id}">
                         <a class="btn" href="show/1" th:href="@{|__#{nurl.post.show}__|}" th:text="#{label.action.show}">Show</a>
                         <a class="btn" href="edit/1" th:href="@{|__#{nurl.post.edit}__|}" th:text="#{label.action.edit}">Update</a>
+                        <a class="btn" href="partialedit/1" th:href="@{|__#{nurl.post.partialedit}__|}" th:text="#{label.action.editpartial}">Update Partial</a>
                         <a class="btn" href="delete/1" th:href="@{|__#{nurl.post.delete}__|}" th:text="#{label.action.delete}">Delete</a>
                     </td>
                 </tr>

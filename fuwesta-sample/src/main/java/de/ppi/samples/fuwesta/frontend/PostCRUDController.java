@@ -3,6 +3,7 @@ package de.ppi.samples.fuwesta.frontend;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.WebBindingInitializer;
-import org.springframework.web.bind.support.WebRequestDataBinder;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ExtendedServletRequestDataBinder;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 import de.ppi.fuwesta.spring.mvc.util.PageWrapper;
@@ -273,22 +274,25 @@ public class PostCRUDController {
      * Update the post.
      * 
      * @param post the post.
-     * @param result the bindingsresult.
+     * @param request the request with the data.
      * @param model the model
      * @return String which defines the next page.
      */
     @RequestMapping(value = URL.Post.PARTIALEDIT, method = RequestMethod.POST)
     public String updatePartial(@RequestParam("id") Post post,
-            WebRequest request, Model model) {
+            HttpServletRequest request, Model model) {
         final WebBindingInitializer wbi =
                 requestMappingHandlerAdapter.getWebBindingInitializer();
-        final WebRequestDataBinder binder =
-                new WebRequestDataBinder(post, "post");
-        wbi.initBinder(binder, request);
+        ExtendedServletRequestDataBinder binder =
+                new ExtendedServletRequestDataBinder(post, "posts");
+        wbi.initBinder(binder, new ServletWebRequest(request));
         binder.bind(request);
+        binder.validate();
 
         final BindingResult result = binder.getBindingResult();
-        mvcValidator.validate(post, result);
+        model.addAttribute("org.springframework.validation.BindingResult.post",
+                result);
+        // mvcValidator.validate(post, result);
         if (result.hasErrors()) {
             // TODO niels Das ist so nicht sinnvoll. Das result-Object wird
             // übermittelt und man muss, dann die Globalen_Fehler sich ansehen.
@@ -296,7 +300,7 @@ public class PostCRUDController {
             addStandardModelData(post,
                     URL.filledURL(URL.Post.PARTIALEDIT, post.getId()), false,
                     null, null, model);
-            return POST_FORM;
+            return PARTIAL_POST_FORM;
         }
         LOG.debug("Update Post: " + post);
         postService.save(post);
