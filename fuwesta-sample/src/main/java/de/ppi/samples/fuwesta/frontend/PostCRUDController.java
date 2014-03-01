@@ -18,11 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.support.WebBindingInitializer;
-import org.springframework.web.context.request.ServletWebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ExtendedServletRequestDataBinder;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
+import de.ppi.fuwesta.spring.mvc.bind.ServletBindingService;
 import de.ppi.fuwesta.spring.mvc.util.PageWrapper;
 import de.ppi.fuwesta.spring.mvc.util.ResourceNotFoundException;
 import de.ppi.samples.fuwesta.model.Post;
@@ -54,8 +51,11 @@ public class PostCRUDController {
     private static final Logger LOG = LoggerFactory
             .getLogger(PostCRUDController.class);
 
+    /**
+     * Small service which helps to bind requestdata to an object.
+     */
     @Resource
-    private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+    private ServletBindingService servletBindingService;
 
     /**
      * The PostService instance.
@@ -256,9 +256,6 @@ public class PostCRUDController {
         mvcValidator.validate(post, result);
         if (result.hasErrors()) {
             final List<Tag> allTags = getAllTags(post);
-            // TODO niels Das ist so nicht sinnvoll. Das result-Object wird
-            // übermittelt und man muss, dann die Globalen_Fehler sich ansehen.
-            model.addAttribute("errors", result.getGlobalErrors());
             addStandardModelData(post,
                     URL.filledURL(URL.Post.EDIT, post.getId()), false,
                     postService.getAllUsers(), allTags, model);
@@ -281,22 +278,8 @@ public class PostCRUDController {
     @RequestMapping(value = URL.Post.PARTIALEDIT, method = RequestMethod.POST)
     public String updatePartial(@RequestParam("id") Post post,
             HttpServletRequest request, Model model) {
-        final WebBindingInitializer wbi =
-                requestMappingHandlerAdapter.getWebBindingInitializer();
-        ExtendedServletRequestDataBinder binder =
-                new ExtendedServletRequestDataBinder(post, "posts");
-        wbi.initBinder(binder, new ServletWebRequest(request));
-        binder.bind(request);
-        binder.validate();
-
-        final BindingResult result = binder.getBindingResult();
-        model.addAttribute("org.springframework.validation.BindingResult.post",
-                result);
-        // mvcValidator.validate(post, result);
-        if (result.hasErrors()) {
-            // TODO niels Das ist so nicht sinnvoll. Das result-Object wird
-            // übermittelt und man muss, dann die Globalen_Fehler sich ansehen.
-            model.addAttribute("errors", result.getGlobalErrors());
+        if (servletBindingService.bindAndvalidate(request, model, post, "post")
+                .hasErrors()) {
             addStandardModelData(post,
                     URL.filledURL(URL.Post.PARTIALEDIT, post.getId()), false,
                     null, null, model);
