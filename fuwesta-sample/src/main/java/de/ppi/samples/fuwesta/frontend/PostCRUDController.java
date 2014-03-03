@@ -278,7 +278,7 @@ public class PostCRUDController {
     @RequestMapping(value = URL.Post.PARTIALEDIT, method = RequestMethod.POST)
     public String updatePartial(@RequestParam("id") Post post,
             HttpServletRequest request, Model model) {
-        if (servletBindingService.bindAndvalidate(request, model, post, "post")
+        if (servletBindingService.bindAndValidate(request, model, post, "post")
                 .hasErrors()) {
             addStandardModelData(post,
                     URL.filledURL(URL.Post.PARTIALEDIT, post.getId()), false,

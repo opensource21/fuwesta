@@ -54,7 +54,7 @@ public class ServletBindingService {
      * @param objectName the name of the object in the model.
      * @return the result of the binding and validation.
      */
-    public BindingResult bindAndvalidate(HttpServletRequest request,
+    public BindingResult bindAndValidate(HttpServletRequest request,
             Model model, Object object, String objectName) {
         DataBinder binder = bindInternal(request, model, object, objectName);
         binder.validate();
