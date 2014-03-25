@@ -82,7 +82,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User read(Long userId) {
-        return userDao.findOne(userId);
+        final User user = userDao.findOne(userId);
+        user.getPostings().size();
+        return user;
     }
 
     /**
@@ -111,6 +113,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Post> getPostingSelectOptions() {
         return postDao.findAllOrderByTitle();
+    }
+
+    /**
+     * @return the userDao
+     */
+    protected UserDao getUserDao() {
+        return userDao;
     }
 
 }
