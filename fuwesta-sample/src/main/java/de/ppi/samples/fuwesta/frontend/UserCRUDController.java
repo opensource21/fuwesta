@@ -43,7 +43,7 @@ public class UserCRUDController {
     /**
      * The UserService instance.
      */
-    @Resource
+    @Resource(name = "userService")
     private UserService userService;
 
     /**
