@@ -3,7 +3,8 @@ package de.ppi.fuwesta.thymeleaf.bootstrap2;
 import org.thymeleaf.dom.Element;
 
 /**
- * Attribute processor which makes the work easier with Twitter Bootstrap.
+ * Attribute processor which makes the work easier with Twitter Bootstrap and
+ * show a inoput field without form object.
  * 
  */
 public class Bootstrap2NameAttrProcessor extends

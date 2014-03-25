@@ -5,10 +5,12 @@ import org.thymeleaf.spring3.processor.attr.AbstractSpringFieldAttrProcessor;
 import org.thymeleaf.standard.StandardDialect;
 
 /**
- * Attribute processor which makes the work easier with Twitter Bootstrap.
+ * Attribute processor which makes the work easier with Twitter Bootstrap and
+ * show a input field from object.
  * 
  */
-public class Bootstrap2FieldAttrProcessor extends AbstractBootstrap2AttrProcessor {
+public class Bootstrap2FieldAttrProcessor extends
+        AbstractBootstrap2AttrProcessor {
 
     /** The attribute name which should trigger this processor. */
     public static final String ATTRIBUTE_NAME = "field";
