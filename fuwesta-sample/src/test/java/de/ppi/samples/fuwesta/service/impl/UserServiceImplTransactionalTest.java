@@ -32,7 +32,7 @@ public class UserServiceImplTransactionalTest extends
     private static final int NUMBER_OF_USERS = 4;
 
     /** The user dao. */
-    @Resource
+    @Resource(name = "userService")
     private UserService userService;
 
     /**

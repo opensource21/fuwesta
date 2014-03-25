@@ -22,7 +22,7 @@ import de.ppi.samples.fuwesta.service.api.UserService;
  * Implementation of {@link UserService}.
  */
 @Transactional(readOnly = true)
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
     /** The user-Dao. */

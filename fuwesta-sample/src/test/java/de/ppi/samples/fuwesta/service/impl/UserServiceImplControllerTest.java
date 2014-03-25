@@ -26,7 +26,7 @@ public class UserServiceImplControllerTest extends
         AbstractTransactionalJUnit4SpringContextTests {
 
     /** The user service. */
-    @Resource
+    @Resource(name = "userService")
     private UserService userService;
 
     /** The user dao. */
