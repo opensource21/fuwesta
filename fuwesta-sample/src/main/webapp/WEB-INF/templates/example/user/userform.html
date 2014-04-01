@@ -46,11 +46,9 @@
             <div class="controls"  th:remove="tag">
                 <span layout:fragment="bsinput">
                 <label th:inline="text" class="radio inline" th:each="sex : ${sexList}" th:for="${#ids.next('__${fId}__')}"  th:unless="${disabled}">
-                        <input type="radio" th:field="*{__${fId}__}" th:value="${sex}" />
-                        [[#{'Sex.'+${sex}}]]
-
+                        <input type="radio" th:field="*{__${fId}__}" th:value="${sex}" th:text="${{sex}}" />
                 </label>
-                <label class="control-label" th:text="*{__${fId}__}?#{'Sex.'+ *{__${fId}__}}:''" th:if="${disabled}">
+                <label class="control-label" th:text="*{{__${fId}__}}" th:if="${disabled}">
                             male
                 </label>
                 </span>

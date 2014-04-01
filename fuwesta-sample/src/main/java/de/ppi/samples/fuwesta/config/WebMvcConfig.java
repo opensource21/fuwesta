@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import de.ppi.fuwesta.spring.mvc.bind.ServletBindingService;
+import de.ppi.fuwesta.spring.mvc.formatter.EnumConverter;
 import de.ppi.fuwesta.spring.mvc.formatter.NonEmptyStringAnnotationFormatterFactory;
 import de.ppi.fuwesta.spring.mvc.oval.DbCheckConfigurer;
 import de.ppi.fuwesta.spring.mvc.oval.JPAAnnotationsConfigurer;
@@ -214,6 +215,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     protected void addFormatters(FormatterRegistry registry) {
         registry.addFormatterForFieldAnnotation(new NonEmptyStringAnnotationFormatterFactory());
         registry.addFormatter(new DateFormatter());
+        registry.addConverter(new EnumConverter(configureMessageSource()));
         super.addFormatters(registry);
     }
 
