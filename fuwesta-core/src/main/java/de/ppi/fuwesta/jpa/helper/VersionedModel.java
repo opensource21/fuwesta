@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import de.ppi.fuwesta.oval.validation.OptimisticLock;
@@ -30,6 +31,9 @@ public class VersionedModel {
     @Version
     @Column(nullable = false)
     private Long version;
+
+    @Transient
+    private transient boolean optimisiticLockingViolated = false;
 
     /**
      * Gets the identifier of the entity.
@@ -64,6 +68,12 @@ public class VersionedModel {
      * @param newVersion the new version of the entity
      */
     public void setVersion(final Long newVersion) {
-        this.version = newVersion;
+        if (newVersion != null) {
+            if (version != null && version.longValue() > newVersion.longValue()) {
+                optimisiticLockingViolated = true;
+            } else {
+                version = newVersion;
+            }
+        }
     }
 }

@@ -32,6 +32,10 @@ public class OptimisticLockCheck extends
     /** The primary key column. */
     private String primaryKeyColumn = "id";
 
+    /** The primary key column. */
+    private String optimisiticLockingViolatedColumn =
+            "optimisiticLockingViolated";
+
     /**
      * The default message-key.
      */
@@ -79,7 +83,15 @@ public class OptimisticLockCheck extends
                 field(primaryKeyColumn).ofType(Object.class).in(model).get();
         final Long versionValue =
                 field(versionColumn).ofType(Long.class).in(model).get();
+        @SuppressWarnings("boxing")
+        final boolean optimisiticLockingViolated =
+                field(optimisiticLockingViolatedColumn).ofType(boolean.class)
+                        .in(model).get();
         final String entityName = model.getClass().getName();
+
+        if (optimisiticLockingViolated) {
+            return false;
+        }
 
         if (keyValue != null) {
             if (versionValue == null) {
