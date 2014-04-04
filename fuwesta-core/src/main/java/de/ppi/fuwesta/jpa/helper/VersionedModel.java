@@ -71,9 +71,8 @@ public class VersionedModel {
         if (newVersion != null) {
             if (version != null && version.longValue() > newVersion.longValue()) {
                 optimisiticLockingViolated = true;
-            } else {
-                version = newVersion;
             }
+            version = newVersion;
         }
     }
 }
