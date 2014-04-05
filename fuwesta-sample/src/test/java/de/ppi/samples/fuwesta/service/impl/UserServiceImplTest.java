@@ -117,6 +117,9 @@ public class UserServiceImplTest {
      */
     @Test
     public void testRead() {
+        // Arrange
+        when(userDao.findOne(Long.valueOf(1L))).thenReturn(new User());
+
         // Act
         userService.read(Long.valueOf(1L));
 

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import de.ppi.samples.fuwesta.dao.api.PostDao;
 import de.ppi.samples.fuwesta.dao.api.UserDao;
@@ -83,7 +84,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User read(Long userId) {
         final User user = userDao.findOne(userId);
-        user.getPostings().size();
+        if (!CollectionUtils.isEmpty(user.getPostings())) {
+            // Ensere all oostings are laoded to enable a test, where no
+            // no Session is open.
+            user.getPostings().size();
+        }
         return user;
     }
 
