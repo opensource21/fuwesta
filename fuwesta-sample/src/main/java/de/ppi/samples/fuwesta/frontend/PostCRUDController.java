@@ -7,12 +7,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +36,7 @@ import de.ppi.samples.fuwesta.service.api.PostService;
  * 
  */
 @Controller()
-public class PostCRUDController {
+public class PostCRUDController implements InitializingBean {
 
     /**
      * The default view.
@@ -54,7 +58,7 @@ public class PostCRUDController {
     /**
      * Small service which helps to bind requestdata to an object.
      */
-    @Resource
+    @Resource(shareable = false)
     private ServletBindingService servletBindingService;
 
     /**
@@ -68,6 +72,25 @@ public class PostCRUDController {
      */
     @Resource
     private Validator mvcValidator;
+
+    /**
+     * Added a {@link StringTrimmerEditor}.
+     * 
+     * @param binder the WebDataBinder
+     */
+    @InitBinder
+    public void initBinder(final WebDataBinder binder) {
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        servletBindingService.registerCustomEditor(String.class,
+                new StringTrimmerEditor(true));
+    }
 
     /**
      * List all posts.
