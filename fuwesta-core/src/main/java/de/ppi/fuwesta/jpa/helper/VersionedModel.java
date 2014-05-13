@@ -36,6 +36,15 @@ public class VersionedModel {
     private transient boolean optimisiticLockingViolated = false;
 
     /**
+     * Show if optimistic lock is violated.
+     * 
+     * @return true if optimistic lock is violated.
+     */
+    protected boolean isOptimisiticLockingViolated() {
+        return optimisiticLockingViolated;
+    }
+
+    /**
      * Gets the identifier of the entity.
      * 
      * @return the identifier of the entity

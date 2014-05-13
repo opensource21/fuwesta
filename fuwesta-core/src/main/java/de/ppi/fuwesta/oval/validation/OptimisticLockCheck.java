@@ -45,7 +45,7 @@ public class OptimisticLockCheck extends
      * Helper to runs JPA-Queries.
      */
     @Autowired
-    private JpaQueryExecutor jpa;
+    private transient JpaQueryExecutor jpa;
 
     /**
      * Instantiates a new unique check.
