@@ -91,6 +91,29 @@ public class LaterThanCheckTest {
     }
 
     /**
+     * Test start time is equalto endtime. Test for
+     * {@link LaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
+     * .
+     */
+    @Test
+    public void testStartTimeIsSameEndtime() {
+        final TvShow tvShow = new TvShow();
+        tvShow.setEndTime(EARLIER_TIME);
+        tvShow.setHuhubalu(EARLIER_TIME);
+
+        final Validator myValidator = new Validator();
+
+        final List<ConstraintViolation> violations =
+                myValidator.validate(tvShow);
+
+        assertThat(violations.size()).isEqualTo(1);
+        final ConstraintViolation violation = violations.get(0);
+        assertThat(violation.getErrorCode()).isEqualTo(
+                "de.ppi.fuwesta.oval.validation.LaterThan");
+        assertThat(violation.getMessage()).isEqualTo("validation.later.then");
+    }
+
+    /**
      * Test without time. Test for
      * {@link LaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
      * .
