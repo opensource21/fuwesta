@@ -3,13 +3,11 @@ package de.ppi.fuwesta.oval.validation;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fest.reflect.core.Reflection.field;
 
-import java.util.Date;
 import java.util.List;
 
 import net.sf.oval.ConstraintViolation;
 import net.sf.oval.Validator;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -18,21 +16,21 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 /**
- * Test for the ConstraintCheck-Class {@link LaterThanCheck}.
+ * Test for the ConstraintCheck-Class {@link GreaterThanCheck}.
  * 
  */
-public class LaterThanCheckTest {
+public class GreaterThanCheckTest {
 
     /**
      * Comment for <code>MESSAGE_CODE</code>
      */
-    private static final String MESSAGE_CODE = "validation.later.than";
+    private static final String MESSAGE_CODE = "validation.greater.than";
 
     /**
      * Comment for <code>ERROR_CODE</code>
      */
     private static final String ERROR_CODE =
-            "de.ppi.fuwesta.oval.validation.LaterThan";
+            "de.ppi.fuwesta.oval.validation.GreaterThan";
 
     /** The Constant REFERENCE_COLUMN. */
     private static final String REFERENCE_COLUMN = "referenceColumn";
@@ -42,18 +40,17 @@ public class LaterThanCheckTest {
 
     /** The testee. */
     @InjectMocks
-    private LaterThanCheck testee = new LaterThanCheck();
+    private GreaterThanCheck testee = new GreaterThanCheck();
 
-    /** The mock of {@link LaterThan}. */
+    /** The mock of {@link GreaterThan}. */
     @Mock
-    private LaterThan mockLaterThanAnnotation;
+    private GreaterThan mockGreaterThanAnnotation;
 
-    /** The Constant for tests firstTime. */
-    private static final Date EARLIER_TIME = new Date();
+    /** The Constant for tests number. */
+    private static final Double SMALL_NUMBER = Double.valueOf(12.5);
 
-    /** The Constant for tests secondTime. */
-    private static final Date LATER_TIME = DateUtils.addMilliseconds(
-            EARLIER_TIME, 2);
+    /** The Constant for tests second number. */
+    private static final Double GREATER_NUMBER = Double.valueOf(12.6);;
 
     /**
      * Sets the up.
@@ -63,17 +60,17 @@ public class LaterThanCheckTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        Mockito.when(mockLaterThanAnnotation.value()).thenReturn(
+        Mockito.when(mockGreaterThanAnnotation.value()).thenReturn(
                 REFERENCE_COLUMN);
-        Mockito.when(mockLaterThanAnnotation.message()).thenReturn(MESSAGE);
+        Mockito.when(mockGreaterThanAnnotation.message()).thenReturn(MESSAGE);
     }
 
     /**
-     * Test for {@link LaterThanCheck#configure(LaterThan)}.
+     * Test for {@link GreaterThanCheck#configure(GreaterThan)}.
      */
     @Test
     public void testConfigurationOdCheck() {
-        testee.configure(mockLaterThanAnnotation);
+        testee.configure(mockGreaterThanAnnotation);
 
         assertThat(testee.getMessage()).isEqualTo(MESSAGE);
         assertThat(
@@ -82,15 +79,15 @@ public class LaterThanCheckTest {
     }
 
     /**
-     * Test start time is before endtime. Test for
-     * {@link LaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
+     * Test refernce number is smaller than checked number. Test for
+     * {@link GreaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
      * .
      */
     @Test
-    public void testStartTimeIsBeforeEndtime() {
-        final TvShow tvShow = new TvShow();
-        tvShow.setEndTime(LATER_TIME);
-        tvShow.setHuhubalu(EARLIER_TIME);
+    public void testReferenceNumberIsSmallerCheckedNumber() {
+        final NumberTupel tvShow = new NumberTupel();
+        tvShow.setGreaterNumber(GREATER_NUMBER);
+        tvShow.setHuhubalu(SMALL_NUMBER);
 
         final Validator myValidator = new Validator();
 
@@ -102,15 +99,15 @@ public class LaterThanCheckTest {
     }
 
     /**
-     * Test start time is equalto endtime. Test for
-     * {@link LaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
+     * Test refernce number is equalto checked number. Test for
+     * {@link GreaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
      * .
      */
     @Test
-    public void testStartTimeIsSameEndtime() {
-        final TvShow tvShow = new TvShow();
-        tvShow.setEndTime(EARLIER_TIME);
-        tvShow.setHuhubalu(EARLIER_TIME);
+    public void testReferenceNumberIsSameCheckedNumber() {
+        final NumberTupel tvShow = new NumberTupel();
+        tvShow.setGreaterNumber(SMALL_NUMBER);
+        tvShow.setHuhubalu(SMALL_NUMBER);
 
         final Validator myValidator = new Validator();
 
@@ -124,13 +121,13 @@ public class LaterThanCheckTest {
     }
 
     /**
-     * Test without time. Test for
-     * {@link LaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
+     * Test without numbers. Test for
+     * {@link GreaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
      * .
      */
     @Test
-    public void testWithoutTime() {
-        final TvShow tvShow = new TvShow();
+    public void testWithoutNumber() {
+        final NumberTupel tvShow = new NumberTupel();
 
         final Validator myValidator = new Validator();
 
@@ -142,16 +139,16 @@ public class LaterThanCheckTest {
     }
 
     /**
-     * Test start time is after endtime. Test for
-     * {@link LaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
+     * Test refernce number is greater checked number. Test for
+     * {@link GreaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
      * .
      */
     @Test
-    public void testStartTimeIsAfterEndtime() {
-        final TvShow tvShow = new TvShow();
-        tvShow.setEndTime(EARLIER_TIME);
-        tvShow.setHuhubalu(LATER_TIME);
-        tvShow.getEndTime();
+    public void testReferenceNumberIsGreaterCheckedNumber() {
+        final NumberTupel tvShow = new NumberTupel();
+        tvShow.setGreaterNumber(SMALL_NUMBER);
+        tvShow.setHuhubalu(GREATER_NUMBER);
+        tvShow.getGreaterNumber();
         tvShow.getHuhubalu();
 
         final Validator myValidator = new Validator();
@@ -166,14 +163,14 @@ public class LaterThanCheckTest {
     }
 
     /**
-     * Test start time is equals endtime.
+     * Test refernce number is equals checked number.
      */
     @Test
-    public void testStartTimeIsEqualsEndTime() {
-        final TvShow tvShow = new TvShow();
-        tvShow.setEndTime(LATER_TIME);
-        tvShow.setHuhubalu(LATER_TIME);
-        tvShow.getEndTime();
+    public void testReferenceNumberIsEqualsCheckedNumber() {
+        final NumberTupel tvShow = new NumberTupel();
+        tvShow.setGreaterNumber(SMALL_NUMBER);
+        tvShow.setHuhubalu(SMALL_NUMBER);
+        tvShow.getGreaterNumber();
         tvShow.getHuhubalu();
 
         final Validator myValidator = new Validator();
@@ -191,48 +188,28 @@ public class LaterThanCheckTest {
      * ModelClass for Tests.
      * 
      */
-    private class TvShow {
+    private class NumberTupel {
 
-        /** The start time. */
-        private Date huhubalu;
+        /** The refernce number. */
+        private Double huhubalu;
 
-        /** The end time. */
-        @LaterThan("huhubalu")
-        private Date endTime;
+        /** The other number. */
+        @GreaterThan("huhubalu")
+        private Double greaterNumber;
 
-        /**
-         * Sets the end time.
-         * 
-         * @param endTime the new end time
-         */
-        public void setEndTime(final Date endTime) {
-            this.endTime = endTime;
+        public void setGreaterNumber(final Double checkedNumber) {
+            this.greaterNumber = checkedNumber;
         }
 
-        /**
-         * Gets the end time.
-         * 
-         * @return the end time
-         */
-        public Date getEndTime() {
-            return endTime;
+        public Double getGreaterNumber() {
+            return greaterNumber;
         }
 
-        /**
-         * Gets the huhubalu.
-         * 
-         * @return the huhubalu
-         */
-        public Date getHuhubalu() {
+        public Double getHuhubalu() {
             return huhubalu;
         }
 
-        /**
-         * Sets the huhubalu.
-         * 
-         * @param huhubalu the new huhubalu
-         */
-        public void setHuhubalu(final Date huhubalu) {
+        public void setHuhubalu(final Double huhubalu) {
             this.huhubalu = huhubalu;
         }
 

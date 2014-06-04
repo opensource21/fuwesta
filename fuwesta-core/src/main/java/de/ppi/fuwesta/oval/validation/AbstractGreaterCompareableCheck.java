@@ -78,13 +78,6 @@ public abstract class AbstractGreaterCompareableCheck<ConstraintAnnotation exten
     }
 
     /**
-     * @return the referencedField
-     */
-    protected String getReferencedField() {
-        return referencedField;
-    }
-
-    /**
      * @param referencedField the referencedField to set
      */
     protected void setReferencedField(String referencedField) {
