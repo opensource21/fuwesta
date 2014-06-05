@@ -97,7 +97,7 @@ public class LaterThanCheckTest {
         final List<ConstraintViolation> violations =
                 myValidator.validate(tvShow);
 
-        assertThat(violations.size()).isEqualTo(0);
+        assertThat(violations).hasSize(0);
 
     }
 
@@ -117,7 +117,7 @@ public class LaterThanCheckTest {
         final List<ConstraintViolation> violations =
                 myValidator.validate(tvShow);
 
-        assertThat(violations.size()).isEqualTo(1);
+        assertThat(violations).hasSize(1);
         final ConstraintViolation violation = violations.get(0);
         assertThat(violation.getErrorCode()).isEqualTo(ERROR_CODE);
         assertThat(violation.getMessage()).isEqualTo(MESSAGE_CODE);
@@ -137,7 +137,7 @@ public class LaterThanCheckTest {
         final List<ConstraintViolation> violations =
                 myValidator.validate(tvShow);
 
-        assertThat(violations.size()).isEqualTo(0);
+        assertThat(violations).hasSize(0);
 
     }
 
@@ -159,7 +159,7 @@ public class LaterThanCheckTest {
         final List<ConstraintViolation> violations =
                 myValidator.validate(tvShow);
 
-        assertThat(violations.size()).isEqualTo(1);
+        assertThat(violations).hasSize(1);
         final ConstraintViolation violation = violations.get(0);
         assertThat(violation.getErrorCode()).isEqualTo(ERROR_CODE);
         assertThat(violation.getMessage()).isEqualTo(MESSAGE_CODE);
@@ -181,7 +181,7 @@ public class LaterThanCheckTest {
         final List<ConstraintViolation> violations =
                 myValidator.validate(tvShow);
 
-        assertThat(violations.size()).isEqualTo(1);
+        assertThat(violations).hasSize(1);
         final ConstraintViolation violation = violations.get(0);
         assertThat(violation.getErrorCode()).isEqualTo(ERROR_CODE);
         assertThat(violation.getMessage()).isEqualTo(MESSAGE_CODE);
