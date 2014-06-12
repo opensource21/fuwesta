@@ -21,7 +21,7 @@ public class LesserEqualThanCheck extends
     /** The Constant MESSAGE. */
     public static final String MESSAGE = "validation.lesserequal.than";
 
-    /** Instantiates a new start end time check. */
+    /** Instantiates a new check. */
     public LesserEqualThanCheck() {
         super(ComparableMode.LESSER_EQUAL);
         setMessage(MESSAGE);

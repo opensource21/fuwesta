@@ -21,7 +21,7 @@ public class GreaterEqualThanCheck extends
     /** The Constant MESSAGE. */
     public static final String MESSAGE = "validation.greaterequal.than";
 
-    /** Instantiates a new start end time check. */
+    /** Instantiates a new check. */
     public GreaterEqualThanCheck() {
         super(AbstractCompareableCheck.ComparableMode.GREATER_EQUAL);
         setMessage(MESSAGE);

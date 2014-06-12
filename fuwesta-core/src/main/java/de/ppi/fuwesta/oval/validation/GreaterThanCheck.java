@@ -20,7 +20,7 @@ public class GreaterThanCheck extends AbstractCompareableCheck<GreaterThan> {
     /** The Constant MESSAGE. */
     public static final String MESSAGE = "validation.greater.than";
 
-    /** Instantiates a new start end time check. */
+    /** Instantiates a new check. */
     public GreaterThanCheck() {
         super(AbstractCompareableCheck.ComparableMode.GREATER);
         setMessage(MESSAGE);

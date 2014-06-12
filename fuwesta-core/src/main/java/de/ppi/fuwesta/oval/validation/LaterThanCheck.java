@@ -20,7 +20,7 @@ public class LaterThanCheck extends AbstractCompareableCheck<LaterThan> {
     /** The Constant MESSAGE. */
     public static final String MESSAGE = "validation.later.than";
 
-    /** Instantiates a new start end time check. */
+    /** Instantiates a new check. */
     public LaterThanCheck() {
         super(ComparableMode.GREATER);
         setMessage(MESSAGE);

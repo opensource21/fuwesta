@@ -20,7 +20,7 @@ public class LesserThanCheck extends AbstractCompareableCheck<LesserThan> {
     /** The Constant MESSAGE. */
     public static final String MESSAGE = "validation.lesser.than";
 
-    /** Instantiates a new start end time check. */
+    /** Instantiates a new check. */
     public LesserThanCheck() {
         super(ComparableMode.LESSER);
         setMessage(MESSAGE);

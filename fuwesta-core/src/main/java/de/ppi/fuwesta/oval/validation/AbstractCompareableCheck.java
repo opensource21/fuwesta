@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Check which checks that a field.compareTo(referenceField) > 0 or = 0.
+ * Check which checks that a field.compareTo(referenceField) > 0, < 0 or = 0.
  * 
  */
 public abstract class AbstractCompareableCheck<ConstraintAnnotation extends Annotation>
@@ -93,7 +93,17 @@ public abstract class AbstractCompareableCheck<ConstraintAnnotation extends Anno
         this.referencedField = referencedField;
     }
 
+    /**
+     * Modes of comparison.
+     */
     static enum ComparableMode {
-        GREATER, GREATER_EQUAL, LESSER_EQUAL, LESSER;
+        /** Greater and not equal.*/
+        GREATER,
+        /** Greater or equal*/
+        GREATER_EQUAL, 
+        /** Lesser or equal*/
+        LESSER_EQUAL, 
+        /** Lesser and not equal*/
+        LESSER;
     }
 }
