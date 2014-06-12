@@ -102,29 +102,6 @@ public class LesserThanCheckTest {
     }
 
     /**
-     * Test refernce number is equalto checked number. Test for
-     * {@link LesserThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
-     * .
-     */
-    @Test
-    public void testReferenceNumberIsSameCheckedNumber() {
-        final NumberTupel tvShow = new NumberTupel();
-        tvShow.setLesserNumber(SMALL_NUMBER);
-        tvShow.setHuhubalu(SMALL_NUMBER);
-
-        final Validator myValidator = new Validator();
-
-        final List<ConstraintViolation> violations =
-                myValidator.validate(tvShow);
-
-        assertThat(violations).hasSize(1);
-        final ConstraintViolation violation = violations.get(0);
-        assertThat(violation.getErrorCode()).isEqualTo(ERROR_CODE);
-        assertThat(violation.getMessage()).isEqualTo(MESSAGE_CODE);
-
-    }
-
-    /**
      * Test without numbers. Test for
      * {@link LesserThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
      * .
@@ -171,8 +148,6 @@ public class LesserThanCheckTest {
         final NumberTupel tvShow = new NumberTupel();
         tvShow.setLesserNumber(SMALL_NUMBER);
         tvShow.setHuhubalu(SMALL_NUMBER);
-        tvShow.getLesserNumber();
-        tvShow.getHuhubalu();
 
         final Validator myValidator = new Validator();
 

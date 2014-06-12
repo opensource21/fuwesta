@@ -102,28 +102,6 @@ public class LaterThanCheckTest {
     }
 
     /**
-     * Test start time is equalto endtime. Test for
-     * {@link LaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
-     * .
-     */
-    @Test
-    public void testStartTimeIsSameEndtime() {
-        final TvShow tvShow = new TvShow();
-        tvShow.setEndTime(EARLIER_TIME);
-        tvShow.setHuhubalu(EARLIER_TIME);
-
-        final Validator myValidator = new Validator();
-
-        final List<ConstraintViolation> violations =
-                myValidator.validate(tvShow);
-
-        assertThat(violations).hasSize(1);
-        final ConstraintViolation violation = violations.get(0);
-        assertThat(violation.getErrorCode()).isEqualTo(ERROR_CODE);
-        assertThat(violation.getMessage()).isEqualTo(MESSAGE_CODE);
-    }
-
-    /**
      * Test without time. Test for
      * {@link LaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
      * .
@@ -173,8 +151,6 @@ public class LaterThanCheckTest {
         final TvShow tvShow = new TvShow();
         tvShow.setEndTime(LATER_TIME);
         tvShow.setHuhubalu(LATER_TIME);
-        tvShow.getEndTime();
-        tvShow.getHuhubalu();
 
         final Validator myValidator = new Validator();
 

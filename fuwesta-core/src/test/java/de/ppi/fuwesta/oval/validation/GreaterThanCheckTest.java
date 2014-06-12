@@ -99,28 +99,6 @@ public class GreaterThanCheckTest {
     }
 
     /**
-     * Test refernce number is equalto checked number. Test for
-     * {@link GreaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
-     * .
-     */
-    @Test
-    public void testReferenceNumberIsSameCheckedNumber() {
-        final NumberTupel tvShow = new NumberTupel();
-        tvShow.setGreaterNumber(SMALL_NUMBER);
-        tvShow.setHuhubalu(SMALL_NUMBER);
-
-        final Validator myValidator = new Validator();
-
-        final List<ConstraintViolation> violations =
-                myValidator.validate(tvShow);
-
-        assertThat(violations).hasSize(1);
-        final ConstraintViolation violation = violations.get(0);
-        assertThat(violation.getErrorCode()).isEqualTo(ERROR_CODE);
-        assertThat(violation.getMessage()).isEqualTo(MESSAGE_CODE);
-    }
-
-    /**
      * Test without numbers. Test for
      * {@link GreaterThanCheck#isSatisfied(Object, Object, net.sf.oval.context.OValContext, Validator)}
      * .
@@ -170,8 +148,6 @@ public class GreaterThanCheckTest {
         final NumberTupel tvShow = new NumberTupel();
         tvShow.setGreaterNumber(SMALL_NUMBER);
         tvShow.setHuhubalu(SMALL_NUMBER);
-        tvShow.getGreaterNumber();
-        tvShow.getHuhubalu();
 
         final Validator myValidator = new Validator();
 
