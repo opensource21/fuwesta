@@ -14,23 +14,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Check which checks that a field.compareTo(referenceField) > 0.
+ * Check which checks that a field.compareTo(referenceField) > 0 or = 0.
  * 
  */
-public abstract class AbstractGreaterCompareableCheck<ConstraintAnnotation extends Annotation>
+public abstract class AbstractCompareableCheck<ConstraintAnnotation extends Annotation>
         extends AbstractAnnotationCheck<ConstraintAnnotation> {
 
     /** The Logger. */
     private static final Logger LOG = LoggerFactory
-            .getLogger(AbstractGreaterCompareableCheck.class);
+            .getLogger(AbstractCompareableCheck.class);
 
     /** The start field. */
     private String referencedField;
 
     /**
-     * Flag if is OK if both values are equal.
+     * Information which compare should be valid.
      */
-    private final boolean isEqualAllowed;
+    private final ComparableMode comparableMode;
 
     /** The class context. */
     private String classContext;
@@ -38,11 +38,11 @@ public abstract class AbstractGreaterCompareableCheck<ConstraintAnnotation exten
     /**
      * Initiates an object of type CompareAbleCheck.
      * 
-     * @param isEqualAllowed if equal is acceptable.
+     * @param comparableMode Information which compare should be valid..
      */
-    public AbstractGreaterCompareableCheck(final boolean isEqualAllowed) {
+    public AbstractCompareableCheck(final ComparableMode comparableMode) {
         super();
-        this.isEqualAllowed = isEqualAllowed;
+        this.comparableMode = comparableMode;
 
     }
 
@@ -59,10 +59,19 @@ public abstract class AbstractGreaterCompareableCheck<ConstraintAnnotation exten
         final Comparable<?> fieldValue = (Comparable<?>) valueToValidate;
         LOG.debug("Validate: " + referencedFieldValue + " and " + fieldValue);
         if (referencedFieldValue != null && fieldValue != null) {
-            if (isEqualAllowed) {
-                return (referencedFieldValue.compareTo(fieldValue)) <= 0;
-            } else {
+            switch (comparableMode) {
+            case GREATER:
                 return (referencedFieldValue.compareTo(fieldValue)) < 0;
+            case GREATER_EQUAL:
+                return (referencedFieldValue.compareTo(fieldValue)) <= 0;
+            case LESSER_EQUAL:
+                return (referencedFieldValue.compareTo(fieldValue)) >= 0;
+            case LESSER:
+                return (referencedFieldValue.compareTo(fieldValue)) > 0;
+            default:
+                throw new IllegalArgumentException("Mode " + comparableMode
+                        + " is unknown.");
+
             }
         } else {
             return true;
@@ -82,5 +91,9 @@ public abstract class AbstractGreaterCompareableCheck<ConstraintAnnotation exten
      */
     protected void setReferencedField(String referencedField) {
         this.referencedField = referencedField;
+    }
+
+    static enum ComparableMode {
+        GREATER, GREATER_EQUAL, LESSER_EQUAL, LESSER;
     }
 }

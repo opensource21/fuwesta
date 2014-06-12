@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
  * field.
  * 
  */
-public class LaterThanCheck extends AbstractGreaterCompareableCheck<LaterThan> {
+public class LaterThanCheck extends AbstractCompareableCheck<LaterThan> {
 
     /** The Logger. */
     private static final Logger LOG = LoggerFactory
@@ -22,7 +22,7 @@ public class LaterThanCheck extends AbstractGreaterCompareableCheck<LaterThan> {
 
     /** Instantiates a new start end time check. */
     public LaterThanCheck() {
-        super(false);
+        super(ComparableMode.GREATER);
         setMessage(MESSAGE);
     }
 
