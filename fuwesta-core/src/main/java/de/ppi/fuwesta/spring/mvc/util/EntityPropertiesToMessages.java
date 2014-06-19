@@ -22,7 +22,7 @@ import org.springframework.util.SystemPropertyUtils;
 
 /**
  * Add all Entity-Information to messages, the key has the form
- * db.<simpleclassname>.<propertyname>.
+ * db.&lt;simpleclassname&gt;.&lt;propertyname&gt;.
  * 
  */
 public class EntityPropertiesToMessages {
