@@ -10,8 +10,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 
 import de.ppi.fuwesta.jpa.helper.JPAList;
@@ -44,8 +42,8 @@ public class User extends VersionedModel {
     /**
      * The sex of the user.
      */
-    @Enumerated(EnumType.STRING)
-    private Sex sex;
+    @Column(length = 1)
+    private Character sex;
 
     /**
      * The list of postings the user has created.
@@ -122,7 +120,7 @@ public class User extends VersionedModel {
      * @return the sex of the user
      */
     public Sex getSex() {
-        return sex;
+        return Sex.parse(this.sex);
     }
 
     /**
@@ -131,7 +129,7 @@ public class User extends VersionedModel {
      * @param sex the new sex of the user
      */
     public void setSex(Sex sex) {
-        this.sex = sex;
+        this.sex = sex.getId();
     }
 
     /**
