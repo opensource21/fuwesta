@@ -17,10 +17,10 @@ public class PageWrapper<T> {
     public static final int MAX_PAGE_ITEM_DISPLAY = 5;
 
     /** The page. */
-    private Page<T> page;
+    private final Page<T> page;
 
     /** The items. */
-    private List<PageItem> items;
+    private final List<PageItem> items;
 
     /** The current number. */
     private int currentNumber;
@@ -82,6 +82,15 @@ public class PageWrapper<T> {
      */
     public List<PageItem> getItems() {
         return items;
+    }
+
+    /**
+     * Return the page-object.
+     * 
+     * @return the page-object.
+     */
+    public Page<T> getPage() {
+        return page;
     }
 
     /**
