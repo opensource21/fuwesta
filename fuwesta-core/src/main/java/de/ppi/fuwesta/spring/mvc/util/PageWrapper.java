@@ -166,6 +166,24 @@ public class PageWrapper<T> {
     }
 
     /**
+     * Gets the sort-attributes from the page-object and returns a String
+     * representation which was modified from: attribute: order to
+     * attribute,order. This is necessary in order to built the correct
+     * request-url for sorting.
+     * 
+     * @return the modified string representation of the Sort-object.
+     */
+    public String getSort() {
+
+        if (page.getSort() != null) {
+            return page.getSort().toString().replace(':', ',');
+        }
+
+        return "";
+
+    }
+
+    /**
      * A PageItem holds some information about the page.
      */
     public class PageItem {
