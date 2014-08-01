@@ -33,7 +33,7 @@
         <dependency>
             <groupId>de.ppi.oss</groupId>
             <artifactId>fuwesta-core</artifactId>
-            <version>0.18-SNAPSHOT</version>
+            <version>0.18</version>
         </dependency>
         <!-- logging -->
         <dependency>
