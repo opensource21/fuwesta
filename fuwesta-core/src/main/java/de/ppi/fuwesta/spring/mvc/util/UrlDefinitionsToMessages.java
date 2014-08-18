@@ -367,13 +367,14 @@ public class UrlDefinitionsToMessages {
         while (tokens.hasMoreTokens()) {
             final String key = tokens.nextToken();
             if (isVariable) {
-                String format = formatDefinition.get(key);
+                String varName = key.split(":")[0];
+                String format = formatDefinition.get(varName);
                 if (format == null) {
                     LOG.warn("In URL {} you use an undefined parameter {}",
-                            urlAsString, key);
+                            urlAsString, varName);
                     format = "";
                 }
-                result.append("$'{'").append(key).append("'}'");
+                result.append("$'{'").append(varName).append("'}'");
             } else {
                 result.append(key);
             }

@@ -15,7 +15,7 @@ import de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages.ParamFormat;
 
 /**
  * Test for {@link UrlDefinitionsToMessages}.
- * 
+ *
  */
 public class UrlDefinitionsToMessagesTest {
 
@@ -31,7 +31,7 @@ public class UrlDefinitionsToMessagesTest {
 
     /**
      * Test class.
-     * 
+     *
      */
     @SuppressWarnings("unused")
     private interface TestClass {
@@ -75,7 +75,7 @@ public class UrlDefinitionsToMessagesTest {
         /**
          * Show-User-Url.
          */
-        String STRANGE = HOME + "/show/{" + P_USERNAME + "}/{"
+        String STRANGE = HOME + "/show/{" + P_USERNAME + ":.*}/{"
                 + P_STRANGE_FORMAT + "}";
 
         /** List User-URL. */
@@ -88,7 +88,7 @@ public class UrlDefinitionsToMessagesTest {
 
         /**
          * Inner class as interface.
-         * 
+         *
          */
         interface InnerInterface {
 
@@ -106,7 +106,7 @@ public class UrlDefinitionsToMessagesTest {
 
         /**
          * Inner class as class.
-         * 
+         *
          */
         class InnerClass {
 
