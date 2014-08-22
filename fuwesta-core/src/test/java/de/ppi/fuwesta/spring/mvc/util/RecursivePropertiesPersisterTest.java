@@ -171,13 +171,13 @@ public class RecursivePropertiesPersisterTest {
 
     private Properties getInputProps() {
         final Properties props = new Properties();
-        props.put("with.resolvedvar.recursive", "${with.resolvedvar}");
+        props.put("with.resolvedvar.recursive", "#{with.resolvedvar}");
         props.put("with.unresolvedvar",
-                "This is a ${value} in a ${properties}.");
+                "This is a #{value} in a #{properties}.");
         props.put("with.resolvedvar",
-                "This is a ${prop.value} in a ${prop.properties}.");
+                "This is a #{prop.value} in a #{prop.properties}.");
         props.put("with.resolvedvarquoted",
-                "This is a $'{'prop.value'}' in a $'{'prop.properties'}'.");
+                "This is a #'{'prop.value'}' in a #'{'prop.properties'}'.");
         props.put("prop.value", "nonsense");
         props.put("prop.properties", "sentence");
         return props;

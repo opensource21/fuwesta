@@ -13,8 +13,9 @@ import java.util.regex.Pattern;
 import org.springframework.util.PropertiesPersister;
 
 /**
- * {@link PropertiesPersister} which search for #propertyName# in each
- * property-value during load. During save there is no additional operation.
+ * {@link PropertiesPersister} which search for #{propertyName} in each
+ * property-value during load and replace it with the defined property-value.
+ * During save there is no additional operation.
  * 
  */
 public class RecursivePropertiesPersister implements PropertiesPersister {
@@ -22,7 +23,7 @@ public class RecursivePropertiesPersister implements PropertiesPersister {
     private final PropertiesPersister propertiesPersister;
 
     private final Pattern propPattern = Pattern
-            .compile("\\$'?\\{'?([^}']*)'?\\}'?");
+            .compile("#'?\\{'?([^}']*)'?\\}'?");
 
     /**
      * Initiates an object of type RecursivePropertiesPersister.
@@ -54,8 +55,7 @@ public class RecursivePropertiesPersister implements PropertiesPersister {
             StringBuffer sb = new StringBuffer();
             do {
                 final String key = matcher.group(1);
-                String replacement = props.getProperty(key, key);
-                replacement = replacement.replaceAll("\\$", "\\\\\\$");
+                final String replacement = props.getProperty(key, key);
                 matcher.appendReplacement(sb, replacement);
                 result = matcher.find();
             } while (result);
