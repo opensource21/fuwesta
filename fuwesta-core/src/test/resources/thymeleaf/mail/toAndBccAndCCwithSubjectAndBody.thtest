@@ -1,0 +1,20 @@
+%TEMPLATE_MODE HTML5
+# ------------ separator comment -----------
+%CONTEXT
+
+binding = {'title'}
+datum='01.12.2014 10:45'
+stacktrace={'line1', 'line2'}
+# ------------------------------------------
+%MESSAGES
+mailAdress=Müller <erwin.mueller@test.de>
+mailSubject=Error at {0}
+# ------------------------------------------
+%INPUT
+<a mail:to="#{mailAdress}" mail:bcc="willibcc@mueller.de" mail:cc="willicc@mueller.de"
+mail:subject="#{mailSubject(${datum})}"
+mail:body="${'TEST '+#strings.listJoin(stacktrace,'$NL$')}">Mail</a>
+# ------------------------------------------
+
+%OUTPUT
+<a href="mailto:M%C3%BCller%20%3Cerwin.mueller%40test.de%3E?bcc=willibcc%40mueller.de&amp;cc=willicc%40mueller.de&amp;subject=Error%20at%2001.12.2014%2010%3A45&amp;body=TEST%20line1%0D%0Aline2">Mail</a>

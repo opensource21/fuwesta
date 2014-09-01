@@ -20,6 +20,7 @@ import org.thymeleaf.testing.templateengine.report.ITestReporter;
 import org.thymeleaf.testing.templateengine.testable.ITestResult;
 
 import de.ppi.fuwesta.thymeleaf.bootstrap2.Bootstrap2Dialect;
+import de.ppi.fuwesta.thymeleaf.mail.MailToDialect;
 
 /**
  * Basis-Test for some thymeleaf-test.
@@ -39,6 +40,7 @@ public abstract class ThymeleafTest {
         final List<IDialect> dialects = new ArrayList<>();
         dialects.add(new Bootstrap2Dialect());
         dialects.add(new SpringStandardDialect());
+        dialects.add(new MailToDialect());
         final SpringWebProcessingContextBuilder springPCBuilder =
                 new SpringWebProcessingContextBuilder();
         springPCBuilder.setApplicationContextConfigLocation(null);

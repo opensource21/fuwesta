@@ -13,6 +13,7 @@ import org.thymeleaf.spring3.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import de.ppi.fuwesta.thymeleaf.bootstrap2.Bootstrap2Dialect;
+import de.ppi.fuwesta.thymeleaf.mail.MailToDialect;
 
 /**
  * Configuration of Thymeleaf.
@@ -50,7 +51,8 @@ public class ThymeleafConfig {
         resolver.setViewNames(new String[] { "example/user/list",
                 "example/user/userform", "example/post/list",
                 "example/post/postform", "example/post/partialpostform",
-                "example/tag/list", "example/tag/tagform", "example/login" });
+                "example/tag/list", "example/tag/tagform", "example/login",
+                "example/error" });
         return resolver;
     }
 
@@ -67,6 +69,7 @@ public class ThymeleafConfig {
         ste.addDialect(new LayoutDialect());
         ste.addDialect(new SpringSecurityDialect());
         ste.addDialect(new Bootstrap2Dialect());
+        ste.addDialect(new MailToDialect());
         return ste;
     }
 

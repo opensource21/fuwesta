@@ -1,0 +1,16 @@
+%TEMPLATE_MODE HTML5
+# ------------ separator comment -----------
+%CONTEXT
+
+binding = {'title'}
+# ------------------------------------------
+%MESSAGES
+mailAdress=Müller <erwin.mueller@test.de>
+# ------------------------------------------
+%INPUT
+<a mail:to="#{mailAdress}" mail:bcc="willibcc@mueller.de" mail:cc="willicc@mueller.de">Mail</a>
+# ------------------------------------------
+
+%OUTPUT
+<a href="mailto:M%C3%BCller%20%3Cerwin.mueller%40test.de%3E?bcc=willibcc%40mueller.de&amp;cc=willicc%40mueller.de">Mail</a>
+

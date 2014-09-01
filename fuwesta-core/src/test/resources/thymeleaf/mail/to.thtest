@@ -1,0 +1,16 @@
+%TEMPLATE_MODE HTML5
+# ------------ separator comment -----------
+%CONTEXT
+
+title="Thymeleaftest"
+binding = {'title'}
+# ------------------------------------------
+%MESSAGES
+mailAdress=Müller <erwin.mueller@test.de>
+# ------------------------------------------
+%INPUT
+<a mail:to="#{mailAdress}">Mail</a>
+# ------------------------------------------
+
+%OUTPUT
+<a href="mailto:M%C3%BCller%20%3Cerwin.mueller%40test.de%3E">Mail</a>
