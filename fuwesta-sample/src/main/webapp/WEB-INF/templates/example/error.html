@@ -15,8 +15,8 @@
 <body>
     <h3 th:text="#{error.title}"></h3>
     <div class="well">
-    <th:block th:text="#{error.message}">Sorry this shouldn't happen. You can report this error via </th:block>
-    <a mail:to="support@test.de" mail:subject="#{error.subject(${{time}})}" mail:body="#{error.mailbody}+${'$NL$' + url + '$NL$' + exception + '$NL$' + #strings.listJoin(stacktrace,'$NL$')}">mail</a> and go then to <a class="btn" href="/" th:href="@{/}"><i class="icon-home"></i>Home</a>.
+    <th:block th:text="#{error.message(${exceptionId})}">Sorry this shouldn't happen. You can report this error via </th:block>
+    <a mail:to="support@test.de" mail:subject="#{error.subject(${{time}}, ${exceptionId})}" mail:body="#{error.mailbody}+${'$NL$' + url + '$NL$' + exception + '$NL$' + #strings.listJoin(stacktrace,'$NL$')}">mail</a> and go then to <a class="btn" href="/" th:href="@{/}"><i class="icon-home"></i>Home</a>.
     </div>
     <h4 id="technicalDetailTitle" th:text="#{error.technical.title}"></h4>
     <div class="well" id="technicalDetails">

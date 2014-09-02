@@ -104,15 +104,15 @@ public class BasicGlobalExceptionHandlerTest {
      */
     @Test
     public void testGetParameterInfos() {
-        final Map<String, String> paramMap = new HashMap<String, String>();
-        paramMap.put("A", "Value A");
-        paramMap.put("B", "Value B");
+        final Map<String, String[]> paramMap = new HashMap<String, String[]>();
+        paramMap.put("A", new String[] { "Value A" });
+        paramMap.put("B", new String[] { "Value B" });
         when(requestMock.getParameterMap()).thenReturn(paramMap);
 
         final List<String> headerInfos = testee.getParameterInfos(requestMock);
 
         assertThat(headerInfos).hasSize(2).containsOnly(
-                "Parameter A = Value A", "Parameter B = Value B");
+                "Parameter A = [Value A]", "Parameter B = [Value B]");
 
     }
 
