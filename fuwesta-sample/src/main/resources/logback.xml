@@ -14,9 +14,10 @@
     <appender name="THYMELEAF"
         class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>thyemleaf.log</file>
-        <append>false</append>
+        <append>true</append>
 
-        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <fileNamePattern>tests.%i.log</fileNamePattern>
             <minIndex>1</minIndex>
             <maxIndex>3</maxIndex>
@@ -34,6 +35,31 @@
                 %d [%thread] %-5level %logger{36} - %msg%n
             </pattern>
         </encoder>
+    </appender>
+
+    <appender name="SQLROLLINGFILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>sql.log</file>
+        <append>true</append>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logFile.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 500MB -->
+                <maxFileSize>500MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+
+
+        <encoder>
+            <pattern>%d [%thread] %msg %n</pattern>
+        </encoder>
+
     </appender>
     <!-- Application Loggers -->
 
@@ -55,6 +81,16 @@
     <logger name="org.springframework" level="WARN" />
 
     <logger name="org.hibernate" level="WARN" />
+
+    <logger name="org.hibernate.SQL" additivity="FALSE">
+        <level value="DEBUG" />
+        <appender-ref ref="SQLROLLINGFILE" />
+    </logger>
+
+    <logger name="org.hibernate.type" additivity="FALSE">
+        <level value="TRACE" />
+        <appender-ref ref="SQLROLLINGFILE" />
+    </logger>
 
     <logger name="org.thymeleaf" level="TRACE" additivity="FALSE">
         <appender-ref ref="THYMELEAF" />

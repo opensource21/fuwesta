@@ -129,7 +129,6 @@ public class PersistenceConfig implements TransactionManagementConfigurer {
                 .setPackagesToScan("de.ppi.samples.fuwesta.model");
         final HibernateJpaVendorAdapter jpaVendorAdapter =
                 new HibernateJpaVendorAdapter();
-        jpaVendorAdapter.setShowSql(true);
         jpaVendorAdapter.setGenerateDdl(generateDDL);
         jpaVendorAdapter.setDatabasePlatform(hibernateDialect);
         entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
