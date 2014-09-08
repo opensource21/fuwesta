@@ -69,7 +69,9 @@ public class MailAttrProcessor extends AbstractAttrProcessor {
                 extractAttribute(element, arguments, MAIL_SUBJECT);
         final String body = extractAttribute(element, arguments, MAIL_BODY);
 
-        final String mailToLink = createMailToLink(to, bcc, cc, subject, body);
+        // The mailto-length should not be longer thean 507 characters.
+        final String mailToLink =
+                createMailToLink(to, bcc, cc, subject, body).substring(0, 507);
 
         element.setAttribute("href", mailToLink);
         return ProcessorResult.OK;
