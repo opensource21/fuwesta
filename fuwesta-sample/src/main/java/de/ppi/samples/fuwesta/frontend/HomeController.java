@@ -54,7 +54,8 @@ public class HomeController {
      * 
      * @return the login-view.
      */
-    @RequestMapping(value = URL.LOGIN, method = RequestMethod.GET)
+    @RequestMapping(value = URL.LOGIN, method = { RequestMethod.GET,
+            RequestMethod.POST })
     public String loginPage() {
         return "example/login";
     }
