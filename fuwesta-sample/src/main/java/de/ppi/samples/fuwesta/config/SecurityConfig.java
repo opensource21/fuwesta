@@ -13,7 +13,6 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.filter.mgt.DefaultFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -103,10 +102,10 @@ public class SecurityConfig {
     private org.apache.shiro.mgt.SecurityManager securityManager() {
         final DefaultWebSecurityManager securityManager =
                 new DefaultWebSecurityManager();
-        final DefaultWebSessionManager sessionManager =
-                new DefaultWebSessionManager();
-        sessionManager.setSessionIdCookieEnabled(true);
-        securityManager.setSessionManager(sessionManager);
+        // final DefaultWebSessionManager sessionManager =
+        // new DefaultWebSessionManager();
+        // sessionManager.setSessionIdCookieEnabled(true);
+        // securityManager.setSessionManager(sessionManager);
         securityManager.setRealms(defineRealms());
         return securityManager;
     }
