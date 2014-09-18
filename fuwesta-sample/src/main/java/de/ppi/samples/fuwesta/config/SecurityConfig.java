@@ -79,9 +79,10 @@ public class SecurityConfig {
      */
     @Bean(name = AUTHC)
     public Filter createCustomFormAuthentficationFilter() {
-        FormAuthenticationFilter result = new FormAuthenticationFilter();
-        result.setRememberMeParam("remember-me");
-        return result;
+        FormAuthenticationFilter authc = new FormAuthenticationFilter();
+        authc.setRememberMeParam("remember-me");
+        authc.setEnabled(true);
+        return authc;
     }
 
     /**
