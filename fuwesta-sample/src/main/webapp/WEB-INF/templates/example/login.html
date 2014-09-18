@@ -9,8 +9,8 @@
     <div class="alert alert-error" th:text="#{login.failed}" th:if="${#httpServletRequest.method == 'POST'}"></div>
     <form class="form-horizontal" th:action="@{/login}" method="post">
         <input type="text" bs:name="username" th:value="${username}"/>
-        <input type="password" bs:name="password"/>
-        <input type="checkbox" bs:name="remember-me"/>
+        <input type="password" bs:name="password" th:value="${password}"/>
+        <input type="checkbox" bs:name="remember-me"  th:checked="${rememberMe}"/>
         <button type="submit" class="btn">Log in</button>
     </form>
     </div>
