@@ -1,4 +1,4 @@
-package de.ppi.samples.fuwesta.config;
+package de.ppi.fuwesta.servletfilter;
 
 import java.io.IOException;
 
