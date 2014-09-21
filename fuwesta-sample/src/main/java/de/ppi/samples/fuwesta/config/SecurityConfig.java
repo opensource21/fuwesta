@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.Filter;
 
+import org.apache.shiro.authc.credential.PasswordMatcher;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.realm.text.IniRealm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -37,7 +38,10 @@ public class SecurityConfig {
      */
     private List<Realm> defineRealms() {
         final List<Realm> realms = new ArrayList<Realm>();
-        realms.add(new IniRealm("classpath:userAndRoles.ini"));
+
+        final IniRealm iniRealm = new IniRealm("classpath:userAndRoles.ini");
+        iniRealm.setCredentialsMatcher(new PasswordMatcher());
+        realms.add(iniRealm);
         return realms;
     }
 
