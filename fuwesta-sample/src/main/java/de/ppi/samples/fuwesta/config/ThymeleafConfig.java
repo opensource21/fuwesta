@@ -11,6 +11,7 @@ import org.thymeleaf.spring3.SpringTemplateEngine;
 import org.thymeleaf.spring3.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import de.ppi.fuwesta.thymeleaf.bootstrap2.Bootstrap2Dialect;
 import de.ppi.fuwesta.thymeleaf.mail.MailToDialect;
 
@@ -68,6 +69,7 @@ public class ThymeleafConfig {
         ste.addDialect(new LayoutDialect());
         ste.addDialect(new Bootstrap2Dialect());
         ste.addDialect(new MailToDialect());
+        ste.addDialect(new ShiroDialect());
         return ste;
     }
 

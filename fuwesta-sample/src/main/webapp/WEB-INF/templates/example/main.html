@@ -37,19 +37,19 @@ errors - eine Liste mit Fehlermeldungen.
 </head>
 <body>
     <div class="navbar">
-        <div>Sie sind angemeldet als <th:block sec:authentication="name"></th:block></div>
+        <div>Sie sind angemeldet als <th:block shiro:principal=""></th:block></div>
         <div class="navbar-inner">
             <ul class="nav">
                 <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/post/')?'active':''}"
-                        sec:authorize-url="/post/list">
+                       shiro:hasPermission="post:list">
                     <a href="#" th:href="@{/post/list}">Post</a></li>
                 <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/tag/')?'active':''}"
-                        sec:authorize-url="/tag/list">
+                        shiro:hasPermission="tag:list">
                     <a href="#" th:href="@{/tag/list}">Tag</a></li>
                 <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/user/')?'active':''}"
-                        sec:authorize-url="/user/list">
+                        shiro:hasPermission="user:list">
                     <a href="#" th:href="@{/user/list}">User</a></li>
-                <li sec:authorize-url="/logout">
+                <li shiro:authenticated="">
                     <a href="#" th:href="@{/logout}">Logout</a></li>
             </ul>
         </div>
