@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * Spring base configuration.
@@ -33,12 +32,5 @@ public class RootConfig {
         return ppc;
     }
 
-    /**
-     * Make sure inherited threads have the security-context.
-     */
-    static {
-        SecurityContextHolder
-                .setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
-    }
 }
 // CSON: HideUtilityClassConstructor

@@ -7,11 +7,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
-import org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring3.SpringTemplateEngine;
 import org.thymeleaf.spring3.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import de.ppi.fuwesta.thymeleaf.bootstrap2.Bootstrap2Dialect;
 import de.ppi.fuwesta.thymeleaf.mail.MailToDialect;
 
@@ -67,9 +67,9 @@ public class ThymeleafConfig {
         ste.setTemplateResolver(templateResolver());
         // Only necessary if you use LayoutDialect.
         ste.addDialect(new LayoutDialect());
-        ste.addDialect(new SpringSecurityDialect());
         ste.addDialect(new Bootstrap2Dialect());
         ste.addDialect(new MailToDialect());
+        ste.addDialect(new ShiroDialect());
         return ste;
     }
 

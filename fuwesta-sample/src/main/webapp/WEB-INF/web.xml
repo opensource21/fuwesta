@@ -22,16 +22,34 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- The filter-name matches name of a 'shiroFilter' bean inside applicationContext.xml -->
     <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-name>shiroFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
     </filter>
 
+    <!-- Make sure any request you want accessible to Shiro is filtered. /* catches all -->
+    <!-- requests.  Usually this filter mapping is defined first (before all others) to -->
+    <!-- ensure that Shiro works in subsequent filters in the filter chain:             -->
     <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-name>shiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- If I use JSP there I get an session even if I don't need it. This
+    could fix with this filter. -->
+    <filter>
+        <filter-name>sessionIdKiller</filter-name>
+        <filter-class>de.ppi.fuwesta.servletfilter.DisableUrlSessionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sessionIdKiller</filter-name>
+        <url-pattern>/login</url-pattern>
+    </filter-mapping>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
