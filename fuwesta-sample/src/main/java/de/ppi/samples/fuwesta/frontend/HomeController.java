@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Simple start-controller.
- * 
+ *
  */
 @Controller
 public class HomeController {
@@ -30,7 +30,7 @@ public class HomeController {
 
     /**
      * Show the home page.
-     * 
+     *
      * @return the logical view-name.
      */
     @RequestMapping({ "/", URL.HOME })
@@ -40,7 +40,7 @@ public class HomeController {
 
     /**
      * Show an edit view for a user.
-     * 
+     *
      * @param userId the id of the user.
      * @param model the model where to safe the data for the view.
      * @return the logical view name.
@@ -54,7 +54,7 @@ public class HomeController {
 
     /**
      * Show the login-view.
-     * 
+     *
      * @param username optional the username
      * @param password optional the password
      * @param rememberMe optional the rememberMe flag
@@ -62,7 +62,7 @@ public class HomeController {
      * @return the login-view-name
      */
     //J-
-    @RequestMapping(value = URL.LOGIN, method = { RequestMethod.GET,
+    @RequestMapping(value = URL.Auth.LOGIN, method = { RequestMethod.GET,
             RequestMethod.POST })
     public String loginPage(
             @RequestParam(value = "username", required = false) String username,

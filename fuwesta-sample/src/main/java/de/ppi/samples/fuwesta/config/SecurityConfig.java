@@ -21,7 +21,7 @@ import de.ppi.samples.fuwesta.frontend.URL;
 
 /**
  * Config for secure the application.
- * 
+ *
  */
 @Configuration
 public class SecurityConfig {
@@ -33,7 +33,7 @@ public class SecurityConfig {
 
     /**
      * Defines the realms.
-     * 
+     *
      * @return a list of {@link Realm}.
      */
     private List<Realm> defineRealms() {
@@ -47,9 +47,9 @@ public class SecurityConfig {
 
     /**
      * Map urls to specific filters.
-     * 
+     *
      * @param filterMap a Map with existing definitions.
-     * 
+     *
      */
     private void defineSecurityFilter(Map<String, String> filterMap) {
         filterMap.put("/resources/**/*", DefaultFilter.anon.name());
@@ -62,14 +62,14 @@ public class SecurityConfig {
 
     /**
      * Init the shiro-filter bean.
-     * 
+     *
      * @return the shiro-filter bean.
      */
     @Bean
     public ShiroFilterFactoryBean shiroFilter() {
         final ShiroFilterFactoryBean result = new ShiroFilterFactoryBean();
         result.setSecurityManager(securityManager());
-        result.setLoginUrl(URL.LOGIN);
+        result.setLoginUrl(URL.Auth.LOGIN);
         result.setSuccessUrl(URL.HOME);
         // result.setUnauthorizedUrl(null);
         defineSecurityFilter(result.getFilterChainDefinitionMap());
@@ -78,7 +78,7 @@ public class SecurityConfig {
 
     /**
      * Creates a well configured {@link FormAuthenticationFilter}.
-     * 
+     *
      * @return a well configured {@link FormAuthenticationFilter}.
      */
     @Bean(name = AUTHC)
@@ -91,7 +91,7 @@ public class SecurityConfig {
 
     /**
      * Makes sure the init-methods will be call. Unsure if it necessary.
-     * 
+     *
      * @return a {@link LifecycleBeanPostProcessor}.
      */
     @Bean(name = "lifecycleBeanPostProcessor")
@@ -101,7 +101,7 @@ public class SecurityConfig {
 
     /**
      * Init the security-manager which holds the realms.
-     * 
+     *
      * @return the security-manager.
      */
     private org.apache.shiro.mgt.SecurityManager securityManager() {

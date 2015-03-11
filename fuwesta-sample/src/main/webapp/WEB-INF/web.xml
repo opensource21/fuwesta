@@ -67,6 +67,11 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>de.ppi.samples.fuwesta.config.WebMvcConfig</param-value>
     </context-param>
+    <!--  Verhindet bei Jetty 6 das die Session-ID in der URL erscheint -->
+    <context-param>
+        <param-name>org.mortbay.jetty.servlet.SessionURL</param-name>
+        <param-value>none</param-value>
+    </context-param>
 
     <servlet>
         <servlet-name>FuWeSta-Sample</servlet-name>

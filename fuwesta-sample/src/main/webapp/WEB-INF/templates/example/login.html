@@ -7,7 +7,7 @@
 <body >
     <div class="well">
     <div class="alert alert-error" th:text="#{login.failed}" th:if="${#httpServletRequest.method == 'POST'}"></div>
-    <form class="form-horizontal" th:action="@{/login}" method="post">
+    <form class="form-horizontal" th:action="@{#{purl.auth.login}}" method="post">
         <input type="text" bs:name="username" th:value="${username}"/>
         <input type="password" bs:name="password" th:value="${password}"/>
         <input type="checkbox" bs:name="remember-me"  th:checked="${rememberMe}"/>

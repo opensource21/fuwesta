@@ -34,9 +34,18 @@ public final class URL {
     public static final String HOME = "/home";
 
     /**
-     * Login-Url.
+     * 
+     * URLs for authentification.
+     * 
      */
-    public static final String LOGIN = "/login";
+    public interface Auth {
+
+        /**
+         * Login-Url.
+         */
+        String LOGIN = "/login";
+
+    }
 
     /**
      * Definition for paginating.
