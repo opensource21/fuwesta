@@ -15,7 +15,8 @@
         <java.version>1.7</java.version>
         <org.springframework.version>3.2.8.RELEASE</org.springframework.version>
         <shiro.version>1.2.3</shiro.version>
-        <junit.version>4.11</junit.version>
+        <junit.version>4.12</junit.version>
+        <selenium.version>2.45.0</selenium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <db.username>sa</db.username>
@@ -84,7 +85,7 @@
             <version>2.5</version>
             <scope>provided</scope>
         </dependency>
-        <!--  If you use Layout-Dialect. Here for demonstration in some masks. -->
+        <!-- If you use Layout-Dialect. Here for demonstration in some masks. -->
         <dependency>
             <groupId>nz.net.ultraq.thymeleaf</groupId>
             <artifactId>thymeleaf-layout-dialect</artifactId>
@@ -142,13 +143,71 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.selophane</groupId>
+            <artifactId>selophane</artifactId>
+            <version>0.2-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-api</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-support</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-remote-driver</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-htmlunit-driver</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://code.google.com/p/selenium/issues/detail?id=8088 -->
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+            <version>1.2.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-phantom-driver</artifactId>
+            <version>1.1.3.Final</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>phantomjsdriver</artifactId>
+                    <groupId>com.github.detro</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-phantom-binary</artifactId>
+            <version>1.9.8</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
     <build>
         <!-- Files in resources should be added -->
         <resources>
             <resource>
-                <!-- and variables should be replaced. Have in mind that db.properties
-                    are written as UTF-8 but is initial ISO-8859-1 -->
+                <!-- and variables should be replaced. Have in mind that
+                    db.properties are written as UTF-8 but is initial ISO-8859-1 -->
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>*.properties</include>
@@ -234,7 +293,8 @@
                     <archive>
                         <index>true</index>
                         <manifest>
-                            <!-- Implementations- und Spezifikations-Details in MANIFEST.MF schreiben -->
+                            <!-- Implementations- und Spezifikations-Details
+                                in MANIFEST.MF schreiben -->
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
@@ -252,7 +312,8 @@
                     <archive>
                         <index>true</index>
                         <manifest>
-                            <!-- Implementations- und Spezifikations-Details in MANIFEST.MF schreiben -->
+                            <!-- Implementations- und Spezifikations-Details
+                                in MANIFEST.MF schreiben -->
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
