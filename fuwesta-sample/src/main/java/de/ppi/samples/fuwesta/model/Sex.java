@@ -2,7 +2,7 @@ package de.ppi.samples.fuwesta.model;
 
 /**
  * Sex.
- * 
+ *
  */
 public enum Sex {
 
@@ -18,7 +18,7 @@ public enum Sex {
 
     /**
      * Initiates an object of type Sex.
-     * 
+     *
      * @param id the identifier.
      */
     private Sex(char id) {
@@ -27,7 +27,7 @@ public enum Sex {
 
     /**
      * Get the characteristic id.
-     * 
+     *
      * @return the id.
      */
     public Character getId() {
@@ -36,7 +36,7 @@ public enum Sex {
 
     /**
      * Parse the identifier and delivers the enum.
-     * 
+     *
      * @param id the identifier.
      * @return the enum.
      */
@@ -46,10 +46,13 @@ public enum Sex {
         }
         switch (id.charValue()) {
         case 'm':
+        case 'M':
             return MALE;
         case 'f':
+        case 'F':
             return FEMALE;
         case 'o':
+        case 'O':
             return OTHER;
         default:
             throw new IllegalStateException("Unknow sex-id: " + id + ".");
