@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
-import org.thymeleaf.spring3.SpringTemplateEngine;
-import org.thymeleaf.spring3.view.ThymeleafViewResolver;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
@@ -17,7 +17,7 @@ import de.ppi.fuwesta.thymeleaf.mail.MailToDialect;
 
 /**
  * Configuration of Thymeleaf.
- * 
+ *
  */
 @Configuration
 @PropertySource("classpath:/thymeleaf.properties")
@@ -37,7 +37,7 @@ public class ThymeleafConfig {
 
     /**
      * Configures the Thymeleaf view resolver.
-     * 
+     *
      * @return the view resolver.
      */
     @Bean
@@ -58,7 +58,7 @@ public class ThymeleafConfig {
 
     /**
      * Thymeleaf template engine.
-     * 
+     *
      * @return Thymeleaf template engine.
      */
     @Bean()
@@ -75,7 +75,7 @@ public class ThymeleafConfig {
 
     /**
      * Thymeleaf template resolver.
-     * 
+     *
      * @return Thymeleaf template resolver.
      */
     @Bean()

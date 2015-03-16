@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.thymeleaf.dialect.IDialect;
-import org.thymeleaf.spring3.dialect.SpringStandardDialect;
+import org.thymeleaf.spring4.dialect.SpringStandardDialect;
 import org.thymeleaf.testing.templateengine.context.web.SpringWebProcessingContextBuilder;
 import org.thymeleaf.testing.templateengine.engine.TestExecutor;
 import org.thymeleaf.testing.templateengine.report.ITestReporter;
@@ -24,7 +24,7 @@ import de.ppi.fuwesta.thymeleaf.mail.MailToDialect;
 
 /**
  * Basis-Test for some thymeleaf-test.
- * 
+ *
  */
 public abstract class ThymeleafTest {
 
