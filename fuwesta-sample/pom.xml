@@ -32,7 +32,7 @@
     <dependencies>
         <dependency>
             <groupId>de.ppi.oss</groupId>
-            <artifactId>fuwesta-core</artifactId>
+            <artifactId>fuwesta-core-spring3</artifactId>
             <version>0.22-SNAPSHOT</version>
         </dependency>
         <!-- logging -->
