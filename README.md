@@ -8,7 +8,7 @@ For Spring 3
 
     <dependency>
         <groupId>de.ppi.oss</groupId>
-        <artifactId>fuwesta-core-spring3</artifactId>
+        <artifactId>fuwesta-core</artifactId>
         <version>0.22</version>
     </dependency>
 
@@ -16,8 +16,8 @@ For Spring 4
 
     <dependency>
         <groupId>de.ppi.oss</groupId>
-        <artifactId>fuwesta-core-spring4</artifactId>
-        <version>0.22</version>
+        <artifactId>fuwesta-core</artifactId>
+        <version>1.0</version>
     </dependency>
 
     
