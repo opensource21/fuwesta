@@ -44,7 +44,7 @@ The advantages of FuWeSta are the following:
 
 - Get a set of jars which works together and well definied configuration (with Spring 4 not so important).
 - A clean integration of [OVal Object Validation](http://oval.sourceforge.net/)
-- A lot of validations (unique and ptimistic-locking) see `de.ppi.fuwesta.oval.validation`.
+- A lot of validations (unique and optimistic-locking) see `de.ppi.fuwesta.oval.validation`.
 - MessageSource-Handling, specially to add information into the messages and recursive usage, see
 
     - `de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages`, 
