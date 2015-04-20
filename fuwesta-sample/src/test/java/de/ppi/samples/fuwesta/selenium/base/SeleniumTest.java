@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.jboss.arquillian.phantom.resolver.ResolvingPhantomJSDriverService;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -18,6 +19,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +48,11 @@ public abstract class SeleniumTest {
      * The {@link WebDriver} instance.
      */
     private static WebDriver driver;
+
+    /**
+     * HTML-Unit oder phantom.js.
+     */
+    private static final boolean USE_HTML_UNIT = false;
 
     /**
      * Start the webserver.
@@ -78,11 +86,28 @@ public abstract class SeleniumTest {
                 driver.close();
             }
             // driver = new FirefoxDriver();
-            driver = new HtmlUnitDriver();
-            ((HtmlUnitDriver) driver).setJavascriptEnabled(true);
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-            // driver = new PhantomJSDriver();
+            if (USE_HTML_UNIT) {
+                driver = new HtmlUnitDriver();
+                ((HtmlUnitDriver) driver).setJavascriptEnabled(true);
+                driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+                driver.manage().timeouts()
+                        .pageLoadTimeout(60, TimeUnit.SECONDS);
+            } else {
+                try {
+                    driver =
+                            new PhantomJSDriver(
+                                    // service resolving phantomjs binary
+                                    // automatically
+                                    ResolvingPhantomJSDriverService
+                                            .createDefaultService(),
+                                    DesiredCapabilities.phantomjs());
+                } catch (IOException e) {
+                    LOG.error("Error initialize phantomjs", e);
+                    throw new IllegalStateException(
+                            "Couldn't initialize phantomjs", e);
+                }
+            }
+
         }
     }
 
