@@ -21,6 +21,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.ppi.selenium.util.JettyWebServer;
 import de.ppi.selenium.util.WebServer;
 
 /**
@@ -38,7 +39,7 @@ public abstract class SeleniumTest {
     /**
      * The Webserver instance.
      */
-    private static WebServer webServer = new WebServer(7777, "/fuwesta");
+    private static WebServer webServer = new JettyWebServer(7777, "/fuwesta");
 
     /**
      * The {@link WebDriver} instance.

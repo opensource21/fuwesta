@@ -9,7 +9,7 @@ import org.mortbay.jetty.webapp.WebAppContext;
  * <code>-Dtestport=8080</code>.
  *
  */
-public final class WebServer {
+public final class JettyWebServer implements WebServer {
 
     /**
      * The default-port of the server.
@@ -42,7 +42,7 @@ public final class WebServer {
      * @param port the port the server listen.
      * @param contextPart the context.
      */
-    public WebServer(int port, String contextPart) {
+    public JettyWebServer(int port, String contextPart) {
         this.port = port;
         this.contextPart = contextPart;
         this.baseUrl = "http://localhost:" + port + contextPart;
@@ -54,7 +54,7 @@ public final class WebServer {
      *
      * @param contextPart the context.
      */
-    public WebServer(String contextPart) {
+    public JettyWebServer(String contextPart) {
         this(Integer.parseInt(System.getProperty("testport", DEFAULT_PORT)),
                 contextPart);
     }
@@ -62,15 +62,14 @@ public final class WebServer {
     /**
      * Initiates an object of type WebServer, for default port and context "/".
      */
-    public WebServer() {
+    public JettyWebServer() {
         this("/");
     }
 
     /**
-     * Starts the server.
-     *
-     * @throws Exception something goes wrong.
+     * {@inheritDoc}
      */
+    @Override
     public void start() throws Exception {
         if (server == null) {
             server = new Server(port);
@@ -79,7 +78,7 @@ public final class WebServer {
             WebAppContext webAppContext = new WebAppContext();
             webAppContext.setContextPath(contextPart);
             webAppContext.setResourceBase("src/main/webapp");
-            webAppContext.setClassLoader(WebServer.class.getClassLoader());
+            webAppContext.setClassLoader(JettyWebServer.class.getClassLoader());
             server.addHandler(webAppContext);
             server.start();
         }
@@ -87,10 +86,9 @@ public final class WebServer {
     }
 
     /**
-     * Stop the server.
-     *
-     * @throws Exception stop the server.
+     * {@inheritDoc}
      */
+    @Override
     public void stop() throws Exception {
         if (server != null) {
             server.stop();
@@ -109,10 +107,9 @@ public final class WebServer {
     }
 
     /**
-     * Return the base-url.
-     *
-     * @return the base-url.
+     * {@inheritDoc}
      */
+    @Override
     public String getBaseUrl() {
         return baseUrl;
     }
