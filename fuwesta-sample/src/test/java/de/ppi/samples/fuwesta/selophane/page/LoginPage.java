@@ -1,12 +1,13 @@
-package de.ppi.samples.fuwesta.selophane.pages;
+package de.ppi.samples.fuwesta.selophane.page;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import lombok.Getter;
 
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.selophane.elements.factory.api.ElementFactory;
+import org.selophane.elements.widget.CheckBox;
+import org.selophane.elements.widget.TextInput;
 
 import de.ppi.samples.fuwesta.selenium.base.BasePage;
 import de.ppi.selenium.browser.SessionManager;
@@ -22,19 +23,19 @@ public class LoginPage extends BasePage {
      * Input for username.
      */
     @FindBy(id = "username")
-    private WebElement username;
+    private TextInput username;
 
     /**
      * Input for password.
      */
     @FindBy(id = "password")
-    private WebElement password;
+    private TextInput password;
 
     /**
      * Checkbox.
      */
     @FindBy(id = "remember-me")
-    private WebElement rememberMeCB;
+    private CheckBox rememberMeCB;
 
     /** Login-Button. */
     @FindBy(className = "btn")
@@ -65,39 +66,6 @@ public class LoginPage extends BasePage {
     public boolean areAllElementsVisible() {
         return username.isDisplayed() && password.isDisplayed()
                 && rememberMeCB.isDisplayed() && loginBtn.isDisplayed();
-    }
-
-    /**
-     * Login as admin.
-     */
-    public void loginAsAdmin() {
-        login("admin");
-    }
-
-    /**
-     * Login as given user.
-     *
-     * @param username name of the user.
-     */
-    public void login(String username) {
-        login(username, "123", false);
-    }
-
-    /**
-     * Login with username and password.
-     *
-     * @param username the name of the user.
-     * @param password the password.
-     * @param rememberMe if the rememberMe-Checkbox is selected.
-     */
-    public void login(String username, String password, boolean rememberMe) {
-        this.username.sendKeys(username);
-        this.password.sendKeys(password);
-        if (rememberMe) {
-            this.rememberMeCB.click();
-        }
-        assertThat(this.rememberMeCB.isSelected()).isEqualTo(rememberMe);
-        loginBtn.click();
     }
 
 }
