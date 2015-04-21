@@ -2,6 +2,7 @@ package de.ppi.samples.fuwesta.selophane.login;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -17,6 +18,7 @@ import de.ppi.selenium.util.Protocol;
  * Test of login.
  *
  */
+@FixMethodOrder
 public class LoginIntegrationTest {
 
     @Rule
