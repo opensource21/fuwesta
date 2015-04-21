@@ -27,7 +27,7 @@ import de.ppi.samples.fuwesta.model.User;
  * Class UserDaoTest. This test is more for demonstration what and how you can
  * test with spring-data. It tries to show the possibilities. How ever in a real
  * project it's useless to test generated source.
- * 
+ *
  */
 // @ContextConfiguration("classpath:test-context.xml")
 @ContextConfiguration(classes = RootConfig.class)
@@ -58,7 +58,7 @@ public class UserDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     /**
      * Inserting Testdata.
-     * 
+     *
      * @throws Exception if something fails.
      */
     @BeforeTransaction
@@ -160,8 +160,8 @@ public class UserDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
         List<User> testUser =
                 userDao.findAllByFirstNameOrderByLastNameAsc("Erna");
         assertThat(testUser).isNotNull();
-        assertThat(testUser.get(0).getLastName()).isEqualTo("Müller");
-        assertThat(testUser.get(1).getLastName()).isEqualTo("Musterfrau");
+        assertThat(testUser.get(0).getLastName()).isEqualTo("Musterfrau");
+        assertThat(testUser.get(1).getLastName()).isEqualTo("Müller");
     }
 
     /**
@@ -188,9 +188,9 @@ public class UserDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
         User user = userList.next();
         assertThat(user.getUserId()).isEqualTo("mmum");
         user = userList.next();
-        assertThat(user.getUserId()).isEqualTo("emum");
-        user = userList.next();
         assertThat(user.getUserId()).isEqualTo("emüf");
+        user = userList.next();
+        assertThat(user.getUserId()).isEqualTo("emum");
         user = userList.next();
         assertThat(user.getUserId()).isEqualTo("emuf");
         assertThat(userList.hasNext()).isFalse();
@@ -218,7 +218,7 @@ public class UserDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
         User user = userList.next();
         assertThat(user.getUserId()).isEqualTo("mmum");
         user = userList.next();
-        assertThat(user.getUserId()).isEqualTo("emum");
+        assertThat(user.getUserId()).isEqualTo("emüf");
         assertThat(userList.hasNext()).isFalse();
 
     }
@@ -379,7 +379,7 @@ public class UserDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     /**
      * Assert that the number of entries in the table is the given numbers.
-     * 
+     *
      * @param expectedNumbers the number of expected entries.
      */
     private void assertNumberOfEntries(int expectedNumbers) {
