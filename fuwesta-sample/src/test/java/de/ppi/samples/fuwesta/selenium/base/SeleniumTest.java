@@ -24,8 +24,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.ppi.selenium.junit.WebServer;
 import de.ppi.selenium.util.JettyWebServer;
-import de.ppi.selenium.util.WebServer;
 
 /**
  * Baseclass for tests running with selenium.

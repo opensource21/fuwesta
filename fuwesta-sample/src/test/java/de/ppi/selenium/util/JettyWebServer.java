@@ -3,6 +3,8 @@ package de.ppi.selenium.util;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.webapp.WebAppContext;
 
+import de.ppi.selenium.junit.WebServer;
+
 /**
  * Presentation of a webserver on port 7779, you can influence the port-number
  * with the systemproperty <code>testport</code>, for example
@@ -112,5 +114,13 @@ public final class JettyWebServer implements WebServer {
     @Override
     public String getBaseUrl() {
         return baseUrl;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isRunning() {
+        return server != null && server.isRunning();
     }
 }
