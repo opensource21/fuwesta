@@ -12,10 +12,10 @@ import de.ppi.samples.fuwesta.selenium.base.BasePage;
 
 /**
  * Handles the login page.
- * 
+ *
  */
 @Getter
-public class LoginPage extends BasePage {
+public class LoginPage {
 
     /**
      * Input for username.
@@ -41,7 +41,7 @@ public class LoginPage extends BasePage {
 
     /**
      * Check if alle elements are visible.
-     * 
+     *
      * @return true if all elements are visible.
      */
     public boolean areAllElementsVisible() {
@@ -58,7 +58,7 @@ public class LoginPage extends BasePage {
 
     /**
      * Login as given user.
-     * 
+     *
      * @param username name of the user.
      */
     public void login(String username) {
@@ -67,7 +67,7 @@ public class LoginPage extends BasePage {
 
     /**
      * Login with username and password.
-     * 
+     *
      * @param username the name of the user.
      * @param password the password.
      * @param rememberMe if the rememberMe-Checkbox is selected.
@@ -84,7 +84,7 @@ public class LoginPage extends BasePage {
 
     /**
      * Get the LoginPage.
-     * 
+     *
      * @param driver the {@link WebDriver}.
      * @return the page-object.
      */
@@ -94,7 +94,7 @@ public class LoginPage extends BasePage {
 
     /**
      * Calls the login url and return the page.
-     * 
+     *
      * @param driver the {@link WebDriver}.
      * @param baseUrl the baseUrl
      * @return the page-object.

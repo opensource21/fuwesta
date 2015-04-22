@@ -5,7 +5,6 @@ import lombok.Getter;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.selophane.elements.factory.api.ElementFactory;
 import org.selophane.elements.widget.CheckBox;
 import org.selophane.elements.widget.TextInput;
 
@@ -55,7 +54,7 @@ public class LoginPage extends BasePage {
      * @param context a searchcontext most the webdriver.
      */
     public LoginPage(SearchContext context) {
-        ElementFactory.initElements(context, this);
+        super(context);
     }
 
     /**
