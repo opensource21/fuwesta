@@ -9,7 +9,7 @@ import org.junit.rules.RuleChain;
 
 import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selenium.base.WebTestConstants;
-import de.ppi.samples.fuwesta.selophane.module.LoginModule;
+import de.ppi.samples.fuwesta.selophane.module.AuthModule;
 import de.ppi.samples.fuwesta.selophane.page.LoginPage;
 import de.ppi.selenium.browser.SessionManager;
 import de.ppi.selenium.browser.WebBrowser;
@@ -32,7 +32,7 @@ public class LoginIntegrationTest {
 
     private LoginPage loginPage = new LoginPage();
 
-    private LoginModule loginModule = new LoginModule(loginPage);
+    private AuthModule authModule = new AuthModule();
 
     /**
      * Login as admin.
@@ -42,10 +42,10 @@ public class LoginIntegrationTest {
     @Test
     public void loginAsAdmin() throws Exception {
         browser.getRelativeUrl(URL.HOME);
-        loginModule.loginAsAdmin();
+        authModule.loginAsAdmin();
         Protocol.log("Test", "Zwischentest", browser);
-        assertThat(browser.getCurrentUrl()).endsWith(URL.HOME);
-        browser.getRelativeUrl("/logout");
+        assertThat(browser.getCurrentRelativeUrl()).isEqualTo(URL.HOME);
+        authModule.logout();
     }
 
     /**
@@ -54,11 +54,9 @@ public class LoginIntegrationTest {
      */
     @Test
     public void loginAsPost() {
-        if (browser.manage().getCookieNamed("JSESSIONID") != null) {
-            browser.getRelativeUrl("/logout");
-        }
+        authModule.logoutIfNecessary();
         browser.getRelativeUrl(URL.HOME);
-        loginModule.login("post");
+        authModule.login("post");
         Protocol.log("Test", "Zwischentest", browser);
         assertThat(browser.getCurrentUrl()).endsWith(URL.HOME);
     }
@@ -71,7 +69,7 @@ public class LoginIntegrationTest {
     public void loginAsPostDeny() {
         browser.getRelativeUrl("/user/");
         assertThat(loginPage.areAllElementsVisible()).isTrue();
-        loginModule.login("post");
+        authModule.login("post");
         Protocol.log("Test", "Zwischentest", browser);
         assertThat(browser.getCurrentUrl()).endsWith("/user/");
     }
@@ -82,11 +80,9 @@ public class LoginIntegrationTest {
      */
     @Test
     public void loginAsPostWithRememberMe() {
-        if (browser.manage().getCookieNamed("JSESSIONID") != null) {
-            browser.getRelativeUrl("/logout");
-        }
+        authModule.logoutIfNecessary();
         browser.getRelativeUrl(URL.HOME);
-        loginModule.login("post", "123", true);
+        authModule.login("post", "123", true);
         assertThat(browser.manage().getCookieNamed("rememberMe")).isNotNull();
 
     }
