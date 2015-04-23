@@ -1,4 +1,4 @@
-package de.ppi.samples.fuwesta.selenium.base;
+package de.ppi.samples.fuwesta.selophane.base;
 
 import org.openqa.selenium.SearchContext;
 import org.selophane.elements.factory.api.ElementFactory;

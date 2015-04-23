@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import de.ppi.samples.fuwesta.selenium.base.BasePage;
+import de.ppi.samples.fuwesta.selophane.base.BasePage;
 
 /**
  * Handles the login page.

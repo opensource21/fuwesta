@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.selophane.elements.widget.CheckBox;
 import org.selophane.elements.widget.TextInput;
 
-import de.ppi.samples.fuwesta.selenium.base.BasePage;
+import de.ppi.samples.fuwesta.selophane.base.BasePage;
 import de.ppi.selenium.browser.SessionManager;
 
 /**

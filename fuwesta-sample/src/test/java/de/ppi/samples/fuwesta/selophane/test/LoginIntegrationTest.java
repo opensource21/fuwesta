@@ -1,6 +1,7 @@
 package de.ppi.samples.fuwesta.selophane.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static de.ppi.selenium.assertj.SeleniumAssertions.assertThat;
 
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
@@ -8,7 +9,7 @@ import org.junit.Test;
 import org.junit.rules.RuleChain;
 
 import de.ppi.samples.fuwesta.frontend.URL;
-import de.ppi.samples.fuwesta.selenium.base.WebTestConstants;
+import de.ppi.samples.fuwesta.selophane.base.WebTestConstants;
 import de.ppi.samples.fuwesta.selophane.module.AuthModule;
 import de.ppi.samples.fuwesta.selophane.page.LoginPage;
 import de.ppi.selenium.browser.SessionManager;
@@ -41,10 +42,11 @@ public class LoginIntegrationTest {
      */
     @Test
     public void loginAsAdmin() throws Exception {
+        authModule.logoutIfNecessary();
         browser.getRelativeUrl(URL.HOME);
         authModule.loginAsAdmin();
         Protocol.log("Test", "Zwischentest", browser);
-        assertThat(browser.getCurrentRelativeUrl()).isEqualTo(URL.HOME);
+        assertThat(browser).hasRelativeUrl(URL.HOME);
         authModule.logout();
     }
 
@@ -58,7 +60,7 @@ public class LoginIntegrationTest {
         browser.getRelativeUrl(URL.HOME);
         authModule.login("post");
         Protocol.log("Test", "Zwischentest", browser);
-        assertThat(browser.getCurrentUrl()).endsWith(URL.HOME);
+        assertThat(browser).hasRelativeUrl(URL.HOME);
     }
 
     /**
@@ -67,11 +69,12 @@ public class LoginIntegrationTest {
      */
     @Test
     public void loginAsPostDeny() {
+        authModule.logoutIfNecessary();
         browser.getRelativeUrl("/user/");
         assertThat(loginPage.areAllElementsVisible()).isTrue();
         authModule.login("post");
         Protocol.log("Test", "Zwischentest", browser);
-        assertThat(browser.getCurrentUrl()).endsWith("/user/");
+        assertThat(browser).hasRelativeUrl("/user/");
     }
 
     /**
