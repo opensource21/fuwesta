@@ -20,7 +20,7 @@ import de.ppi.selenium.browser.WebBrowser;
  * Class PostTest
  *
  */
-public class PostTest {
+public class PostIntegrationTest {
 
     /**
      * All WebTest-Actions.
@@ -41,10 +41,10 @@ public class PostTest {
         authModule.login("admin");
         assertThat(browser.getCurrentRelativeUrl()).isEqualTo(URL.Post.LIST);
         assertThat(postListPage.getMenu()).isNotNull();
-        assertThat(postListPage.getMenu().getPost().isActive()).isTrue();
-        assertThat(postListPage.getMenu().getUser().isActive()).isFalse();
-        assertThat(postListPage.getGenMenu().getMenuItems()).isNotEmpty()
-                .hasSize(4);
+        assertThat(postListPage.getMenu().getMenuItem("Post").isActive())
+                .isTrue();
+        assertThat(postListPage.getMenu().getMenuItem("User").isActive())
+                .isFalse();
 
     }
 

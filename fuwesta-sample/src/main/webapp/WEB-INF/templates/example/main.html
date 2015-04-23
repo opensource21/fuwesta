@@ -40,13 +40,14 @@ errors - eine Liste mit Fehlermeldungen.
         <div>Sie sind angemeldet als <th:block shiro:principal=""></th:block></div>
         <div class="navbar-inner">
             <ul class="nav">
-                <li id="nav.post" th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/post/')?'active':''}"
+                <li id="nav.post"
+                    th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/post/')||#strings.endsWith(#httpServletRequest.getRequestURI(),'/post')?'active':''}"
                        shiro:hasPermission="post:list">
                     <a  href="#" th:href="@{/post/list}">Post</a></li>
-                <li id="nav.tag" th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/tag/')?'active':''}"
+                <li id="nav.tag" th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/tag/')||#strings.endsWith(#httpServletRequest.getRequestURI(),'/tag')?'active':''}"
                         shiro:hasPermission="tag:list">
                     <a href="#" th:href="@{/tag/list}">Tag</a></li>
-                <li id="nav.user" th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/user/')?'active':''}"
+                <li id="nav.user" th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/user/')||#strings.endsWith(#httpServletRequest.getRequestURI(),'/user')?'active':''}"
                         shiro:hasPermission="user:list">
                     <a  href="#" th:href="@{/user/list}">User</a></li>
                 <li id="nav.logout" shiro:authenticated="">

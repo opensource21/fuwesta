@@ -3,11 +3,7 @@ package de.ppi.samples.fuwesta.selophane.page;
 import lombok.Getter;
 
 import org.openqa.selenium.SearchContext;
-import org.openqa.selenium.support.FindBy;
 
-import de.ppi.samples.fuwesta.selophane.base.BasePage;
-import de.ppi.samples.fuwesta.selophane.fragment.SampleMenu;
-import de.ppi.samples.fuwesta.selophane.widget.Menu;
 import de.ppi.selenium.browser.SessionManager;
 
 /**
@@ -15,13 +11,7 @@ import de.ppi.selenium.browser.SessionManager;
  *
  */
 @Getter
-public class PostListPage extends BasePage {
-
-    @FindBy(className = "nav")
-    private SampleMenu menu;
-
-    @FindBy(className = "nav")
-    private Menu genMenu;
+public class PostListPage extends MainPage {
 
     public PostListPage() {
         this(SessionManager.getSession());

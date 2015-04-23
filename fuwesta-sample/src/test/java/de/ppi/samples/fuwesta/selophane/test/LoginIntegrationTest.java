@@ -12,6 +12,7 @@ import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.base.WebTestConstants;
 import de.ppi.samples.fuwesta.selophane.module.AuthModule;
 import de.ppi.samples.fuwesta.selophane.page.LoginPage;
+import de.ppi.samples.fuwesta.selophane.page.MainPage;
 import de.ppi.selenium.browser.SessionManager;
 import de.ppi.selenium.browser.WebBrowser;
 import de.ppi.selenium.util.Protocol;
@@ -33,6 +34,8 @@ public class LoginIntegrationTest {
 
     private LoginPage loginPage = new LoginPage();
 
+    private MainPage mainPage = new MainPage();
+
     private AuthModule authModule = new AuthModule();
 
     /**
@@ -45,7 +48,6 @@ public class LoginIntegrationTest {
         authModule.logoutIfNecessary();
         browser.getRelativeUrl(URL.HOME);
         authModule.loginAsAdmin();
-        Protocol.log("Test", "Zwischentest", browser);
         assertThat(browser).hasRelativeUrl(URL.HOME);
         authModule.logout();
     }
@@ -57,10 +59,16 @@ public class LoginIntegrationTest {
     @Test
     public void loginAsPost() {
         authModule.logoutIfNecessary();
-        browser.getRelativeUrl(URL.HOME);
+        browser.getRelativeUrl(URL.Post.HOME);
         authModule.login("post");
-        Protocol.log("Test", "Zwischentest", browser);
-        assertThat(browser).hasRelativeUrl(URL.HOME);
+        assertThat(browser).hasRelativeUrl(URL.Post.HOME);
+        assertThat(mainPage.getMenu().getMenuItems()).hasSize(2);
+        assertThat(mainPage.getMenu().getMenuItem(0).getText()).isEqualTo(
+                "Post");
+        assertThat(mainPage.getMenu().getMenuItem(0).isActive()).isTrue();
+        assertThat(mainPage.getMenu().getMenuItem(1).getText()).isEqualTo(
+                "Logout");
+        assertThat(mainPage.getMenu().getMenuItem(1).isActive()).isFalse();
     }
 
     /**
@@ -70,11 +78,11 @@ public class LoginIntegrationTest {
     @Test
     public void loginAsPostDeny() {
         authModule.logoutIfNecessary();
-        browser.getRelativeUrl("/user/");
+        browser.getRelativeUrl(URL.User.HOME);
         assertThat(loginPage.areAllElementsVisible()).isTrue();
         authModule.login("post");
-        Protocol.log("Test", "Zwischentest", browser);
-        assertThat(browser).hasRelativeUrl("/user/");
+        assertThat(browser).hasRelativeUrl(URL.User.HOME);
+        assertThat(browser.getTitle()).contains("UNAUTHORIZED");
     }
 
     /**
@@ -87,6 +95,5 @@ public class LoginIntegrationTest {
         browser.getRelativeUrl(URL.HOME);
         authModule.login("post", "123", true);
         assertThat(browser.manage().getCookieNamed("rememberMe")).isNotNull();
-
     }
 }
