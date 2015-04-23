@@ -43,6 +43,8 @@ public class PostTest {
         assertThat(postListPage.getMenu()).isNotNull();
         assertThat(postListPage.getMenu().getPost().isActive()).isTrue();
         assertThat(postListPage.getMenu().getUser().isActive()).isFalse();
+        assertThat(postListPage.getGenMenu().getMenuItems()).isNotEmpty()
+                .hasSize(4);
 
     }
 

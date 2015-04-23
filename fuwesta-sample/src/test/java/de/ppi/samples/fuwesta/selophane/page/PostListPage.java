@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 import de.ppi.samples.fuwesta.selophane.base.BasePage;
 import de.ppi.samples.fuwesta.selophane.fragment.SampleMenu;
+import de.ppi.samples.fuwesta.selophane.widget.Menu;
 import de.ppi.selenium.browser.SessionManager;
 
 /**
@@ -18,6 +19,9 @@ public class PostListPage extends BasePage {
 
     @FindBy(className = "nav")
     private SampleMenu menu;
+
+    @FindBy(className = "nav")
+    private Menu genMenu;
 
     public PostListPage() {
         this(SessionManager.getSession());
