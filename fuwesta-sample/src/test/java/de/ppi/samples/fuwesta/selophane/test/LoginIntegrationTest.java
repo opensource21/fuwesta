@@ -1,8 +1,10 @@
 package de.ppi.samples.fuwesta.selophane.test;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static de.ppi.selenium.assertj.SeleniumAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,7 +17,6 @@ import de.ppi.samples.fuwesta.selophane.page.LoginPage;
 import de.ppi.samples.fuwesta.selophane.page.MainPage;
 import de.ppi.selenium.browser.SessionManager;
 import de.ppi.selenium.browser.WebBrowser;
-import de.ppi.selenium.util.Protocol;
 
 /**
  * Test of login.
@@ -28,7 +29,7 @@ public class LoginIntegrationTest {
      * All WebTest-Actions.
      */
     @Rule
-    public RuleChain webTest = WebTestConstants.WEBTEST;
+    public RuleChain webTest = WebTestConstants.WEBTEST_WITHOUT_AUTHENTICATION;
 
     private WebBrowser browser = SessionManager.getSession();
 
@@ -38,6 +39,12 @@ public class LoginIntegrationTest {
 
     private AuthModule authModule = new AuthModule();
 
+    @Before
+    @After
+    public void logout() {
+        authModule.logout();
+    }
+
     /**
      * Login as admin.
      *
@@ -45,11 +52,9 @@ public class LoginIntegrationTest {
      */
     @Test
     public void loginAsAdmin() throws Exception {
-        authModule.logoutIfNecessary();
         browser.getRelativeUrl(URL.HOME);
         authModule.loginAsAdmin();
         assertThat(browser).hasRelativeUrl(URL.HOME);
-        authModule.logout();
     }
 
     /**
@@ -58,7 +63,6 @@ public class LoginIntegrationTest {
      */
     @Test
     public void loginAsPost() {
-        authModule.logoutIfNecessary();
         browser.getRelativeUrl(URL.Post.HOME);
         authModule.login("post");
         assertThat(browser).hasRelativeUrl(URL.Post.HOME);
@@ -77,7 +81,6 @@ public class LoginIntegrationTest {
      */
     @Test
     public void loginAsPostDeny() {
-        authModule.logoutIfNecessary();
         browser.getRelativeUrl(URL.User.HOME);
         assertThat(loginPage.areAllElementsVisible()).isTrue();
         authModule.login("post");
@@ -91,9 +94,8 @@ public class LoginIntegrationTest {
      */
     @Test
     public void loginAsPostWithRememberMe() {
-        authModule.logoutIfNecessary();
         browser.getRelativeUrl(URL.HOME);
         authModule.login("post", "123", true);
-        assertThat(browser.manage().getCookieNamed("rememberMe")).isNotNull();
+        assertThat(browser).hasCookies("rememberMe");
     }
 }

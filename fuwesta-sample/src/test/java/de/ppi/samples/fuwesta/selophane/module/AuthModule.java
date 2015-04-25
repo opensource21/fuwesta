@@ -1,5 +1,9 @@
 package de.ppi.samples.fuwesta.selophane.module;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.page.LoginPage;
 import de.ppi.selenium.browser.SessionManager;
 import de.ppi.selenium.browser.WebBrowser;
@@ -19,6 +23,14 @@ public class AuthModule {
      * Instance of the webbrowser.
      */
     private final WebBrowser webBrowser;
+
+    private static final Set<String> PUBLIC_URLS = new HashSet<String>() {
+        {
+            this.add("/logout");
+            this.add(URL.Auth.LOGIN);
+        }
+
+    };
 
     /**
      *
@@ -47,16 +59,29 @@ public class AuthModule {
 
     /**
      * Logout if the user is loggedin.
-     * 
+     *
      * @return true if a logout was necessary.
      */
     public boolean logoutIfNecessary() {
-        if (webBrowser.manage().getCookieNamed("JSESSIONID") != null) {
+        if (isLogedIn()) {
             logout();
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Looks if a user is logged in.
+     *
+     * @return true if authentication information exists.
+     */
+    public boolean isLogedIn() {
+        if (webBrowser.manage().getCookieNamed("JSESSIONID") == null) {
+            return false;
+        }
+        final String currentUrl = webBrowser.getCurrentRelativeUrl();
+        return !PUBLIC_URLS.contains(currentUrl);
     }
 
     /**
@@ -89,5 +114,13 @@ public class AuthModule {
             loginPage.getRememberMeCB().check();
         }
         loginPage.getLoginBtn().click();
+    }
+
+    /**
+     * Open the login mask.
+     */
+    public void openLoginMask() {
+        webBrowser.getRelativeUrl(URL.Auth.LOGIN);
+
     }
 }

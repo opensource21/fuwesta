@@ -5,19 +5,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.ppi.samples.fuwesta.frontend.URL;
+import de.ppi.samples.fuwesta.selophane.base.AuthRule.Auth;
 import de.ppi.samples.fuwesta.selophane.base.WebTestConstants;
 import de.ppi.samples.fuwesta.selophane.module.AuthModule;
-import de.ppi.samples.fuwesta.selophane.page.LoginPage;
 import de.ppi.samples.fuwesta.selophane.page.PostListPage;
 import de.ppi.selenium.browser.SessionManager;
 import de.ppi.selenium.browser.WebBrowser;
 
 /**
- * Class PostTest
+ * Test for the pots-page.
  *
  */
 public class PostIntegrationTest {
@@ -36,16 +34,22 @@ public class PostIntegrationTest {
 
     @Test
     public void testMenuPostActive() {
-        authModule.logoutIfNecessary();
         browser.getRelativeUrl(URL.Post.LIST);
-        authModule.login("admin");
         assertThat(browser.getCurrentRelativeUrl()).isEqualTo(URL.Post.LIST);
-        assertThat(postListPage.getMenu()).isNotNull();
         assertThat(postListPage.getMenu().getMenuItem("Post").isActive())
                 .isTrue();
         assertThat(postListPage.getMenu().getMenuItem("User").isActive())
                 .isFalse();
+    }
 
+    @Test
+    @Auth(user = "post")
+    public void testMenuPost() {
+        browser.getRelativeUrl(URL.Post.LIST);
+        assertThat(browser.getCurrentRelativeUrl()).isEqualTo(URL.Post.LIST);
+        assertThat(postListPage.getMenu().getMenuItem("Post").isActive())
+                .isTrue();
+        assertThat(postListPage.getMenu().getMenuItems()).hasSize(2);
     }
 
 }
