@@ -24,6 +24,9 @@ public class AuthModule {
      */
     private final WebBrowser webBrowser;
 
+    /**
+     * Set of public urls.
+     */
     private static final Set<String> PUBLIC_URLS = new HashSet<String>() {
         {
             this.add("/logout");

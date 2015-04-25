@@ -13,6 +13,10 @@ import de.ppi.selenium.browser.SessionManager;
 @Getter
 public class PostListPage extends MainPage {
 
+    /**
+     *
+     * Initiates an object of type PostListPage.
+     */
     public PostListPage() {
         this(SessionManager.getSession());
     }

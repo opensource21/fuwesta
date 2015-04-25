@@ -13,6 +13,7 @@ import de.ppi.selenium.util.JettyWebServer;
  * Constants for webtest.
  *
  */
+// CSOFFALL:
 public interface WebTestConstants {
 
     /**

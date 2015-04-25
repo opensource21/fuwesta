@@ -29,16 +29,27 @@ public class LoginIntegrationTest {
      * All WebTest-Actions.
      */
     @Rule
-    public RuleChain webTest = WebTestConstants.WEBTEST_WITHOUT_AUTHENTICATION;
+    public final RuleChain webTest =
+            WebTestConstants.WEBTEST_WITHOUT_AUTHENTICATION;
 
+    /**
+     * webbrowser.
+     */
     private WebBrowser browser = SessionManager.getSession();
 
+    /**
+     * Loginpage.
+     */
     private LoginPage loginPage = new LoginPage();
 
-    private MainPage mainPage = new MainPage();
-
+    /**
+     * Authenticationmodul.
+     */
     private AuthModule authModule = new AuthModule();
 
+    /**
+     * Logot before and after a test.
+     */
     @Before
     @After
     public void logout() {
@@ -66,6 +77,7 @@ public class LoginIntegrationTest {
         browser.getRelativeUrl(URL.Post.HOME);
         authModule.login("post");
         assertThat(browser).hasRelativeUrl(URL.Post.HOME);
+        final MainPage mainPage = new MainPage();
         assertThat(mainPage.getMenu().getMenuItems()).hasSize(2);
         assertThat(mainPage.getMenu().getMenuItem(0).getText()).isEqualTo(
                 "Post");

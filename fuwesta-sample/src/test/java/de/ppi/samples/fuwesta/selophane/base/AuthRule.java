@@ -8,8 +8,6 @@ import java.lang.annotation.Target;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.ppi.samples.fuwesta.selophane.module.AuthModule;
 
@@ -20,10 +18,8 @@ import de.ppi.samples.fuwesta.selophane.module.AuthModule;
 public class AuthRule implements TestRule {
 
     /**
-     * The Logger for the controller.
+     * Authetication module.
      */
-    private static final Logger LOG = LoggerFactory.getLogger(AuthRule.class);
-
     private final AuthModule authModule;
 
     /**
@@ -70,11 +66,22 @@ public class AuthRule implements TestRule {
         };
     }
 
+    /**
+     * Annotation to define authentication details.
+     *
+     */
     @Target({ ElementType.METHOD })
     @Retention(RetentionPolicy.RUNTIME)
     public static @interface Auth {
+
+        /**
+         * Username.
+         */
         String user() default "admin";
 
+        /**
+         * Password.
+         */
         String password() default "123";
 
     }

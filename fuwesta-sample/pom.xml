@@ -231,8 +231,8 @@
         <!-- Files in resources should be added -->
         <resources>
             <resource>
-                <!-- and variables should be replaced. Have in mind that
-                    db.properties are written as UTF-8 but is initial ISO-8859-1 -->
+                <!-- and variables should be replaced. Have in mind that db.properties
+                    are written as UTF-8 but is initial ISO-8859-1 -->
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>*.properties</include>
@@ -290,7 +290,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>2.15</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>6.5.0</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <configLocation>config/checkstyleChecks.xml</configLocation>
                     <propertyExpansion>samedir=${basedir}/config/</propertyExpansion>
@@ -318,8 +325,7 @@
                     <archive>
                         <index>true</index>
                         <manifest>
-                            <!-- Implementations- und Spezifikations-Details
-                                in MANIFEST.MF schreiben -->
+                            <!-- Implementations- und Spezifikations-Details in MANIFEST.MF schreiben -->
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
@@ -337,8 +343,7 @@
                     <archive>
                         <index>true</index>
                         <manifest>
-                            <!-- Implementations- und Spezifikations-Details
-                                in MANIFEST.MF schreiben -->
+                            <!-- Implementations- und Spezifikations-Details in MANIFEST.MF schreiben -->
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>

@@ -9,7 +9,6 @@ import org.junit.rules.RuleChain;
 import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.base.AuthRule.Auth;
 import de.ppi.samples.fuwesta.selophane.base.WebTestConstants;
-import de.ppi.samples.fuwesta.selophane.module.AuthModule;
 import de.ppi.samples.fuwesta.selophane.page.PostListPage;
 import de.ppi.selenium.browser.SessionManager;
 import de.ppi.selenium.browser.WebBrowser;
@@ -26,12 +25,19 @@ public class PostIntegrationTest {
     @Rule
     public RuleChain webTest = WebTestConstants.WEBTEST;
 
+    /**
+     * Browser instance.
+     */
     private WebBrowser browser = SessionManager.getSession();
 
+    /**
+     * The postlist-page.
+     */
     private PostListPage postListPage = new PostListPage();
 
-    private AuthModule authModule = new AuthModule();
-
+    /**
+     * Test if the post-menu is active.
+     */
     @Test
     public void testMenuPostActive() {
         browser.getRelativeUrl(URL.Post.LIST);
@@ -42,6 +48,10 @@ public class PostIntegrationTest {
                 .isFalse();
     }
 
+    /**
+     * Test if only the post menu exists and is active, if a user is
+     * authenticated as post.
+     */
     @Test
     @Auth(user = "post")
     public void testMenuPost() {
