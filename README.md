@@ -60,4 +60,5 @@ The advantages of FuWeSta are the following:
 - Thymeleaf Dialect for Bootstrap2
 - Thymeleaf Dialect for create mailto-urls.
 
+I created small [presentation](http://opensource21.github.io/presentation/fuwesta/#/).
 
