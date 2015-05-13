@@ -19,6 +19,10 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
+import de.ppi.samples.fuwesta.dbunit.rowbuilder.PostRowBuilder;
+import de.ppi.samples.fuwesta.dbunit.rowbuilder.TUserRowBuilder;
+import de.ppi.samples.fuwesta.dbunit.rowbuilder.TagRowBuilder;
+
 /**
  *
  * Rule to get access to the database.
@@ -57,7 +61,14 @@ public class FuWeStaSampleDatabase implements TestRule {
     private static Map<String, String[]> tableToUniqueKey = new HashMap<>();
 
     static {
-        // Define Unique-Keys.
+        tableToUniqueKey.put(PostRowBuilder.TABLE_NAME,
+                PostRowBuilder.PRIMARY_KEY);
+        tableToUniqueKey.put(TUserRowBuilder.TABLE_NAME,
+                new String[] { TUserRowBuilder.C_USER_ID });
+        tableToUniqueKey.put(TagRowBuilder.TABLE_NAME,
+                new String[] { TagRowBuilder.C_NAME });
+        tableToUniqueKey.put(PostRowBuilder.TABLE_NAME,
+                PostRowBuilder.PRIMARY_KEY);
     }
 
     /**
