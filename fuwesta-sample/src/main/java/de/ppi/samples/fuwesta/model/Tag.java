@@ -1,6 +1,5 @@
 // Tag.java
 //
-// (c) SZE-Development-Team
 
 package de.ppi.samples.fuwesta.model;
 
@@ -14,7 +13,7 @@ import de.ppi.fuwesta.jpa.helper.VersionedModel;
 
 /**
  * A tag which is used to mark a posting.
- * 
+ *
  */
 @Entity
 public class Tag extends VersionedModel {
@@ -36,7 +35,7 @@ public class Tag extends VersionedModel {
 
     /**
      * Gets the name of the Tag.
-     * 
+     *
      * @return the name of the Tag
      */
     public String getName() {
@@ -45,7 +44,7 @@ public class Tag extends VersionedModel {
 
     /**
      * Sets the name of the Tag.
-     * 
+     *
      * @param name the new name of the Tag
      */
     public void setName(final String name) {
@@ -54,7 +53,7 @@ public class Tag extends VersionedModel {
 
     /**
      * Checks if is flag if the tag is active.
-     * 
+     *
      * @return the flag if the tag is active
      */
     public boolean isActive() {
@@ -63,7 +62,7 @@ public class Tag extends VersionedModel {
 
     /**
      * Sets the flag if the tag is active.
-     * 
+     *
      * @param active the new flag if the tag is active
      */
     public void setActive(boolean active) {
@@ -72,7 +71,7 @@ public class Tag extends VersionedModel {
 
     /**
      * Gets the list of postings which have this tag.
-     * 
+     *
      * @return the list of postings which have this tag
      */
     public List<Post> getPostings() {
@@ -81,7 +80,7 @@ public class Tag extends VersionedModel {
 
     /**
      * Sets the list of postings which have this tag.
-     * 
+     *
      * @param postings the new list of postings which have this tag
      */
     public void setPostings(final List<Post> postings) {
