@@ -8,5 +8,6 @@
     <!-- You can't use "/" here because it fails. "." can be used for "/" and "\".
           Another possibility is ".* Test.java" -->
     <suppress checks="JavadocPackage" files=".*src.test.java.*.java"/>
+    <suppress checks=".*" files=".*src.test.java.de.ppi.samples.fuwesta.dbunit.rowbuilder.*.java"/>
 </suppressions>
 

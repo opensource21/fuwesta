@@ -7,7 +7,6 @@ import java.util.Map;
 import org.dbunit.Assertion;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.database.DatabaseConfig;
-import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.FilteredDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
@@ -90,9 +89,13 @@ public class FuWeStaSampleDatabase implements TestRule {
         }
     }
 
-    public IDatabaseConnection getConnection() {
+    /**
+     * Print all tablenames of the database.
+     */
+    void printTableNames() {
         try {
-            return databaseTester.getConnection();
+            FuWeStaSampleDataSet
+                    .printTableNames(databaseTester.getConnection());
         } catch (Exception e) {
             throw new IllegalStateException("error getting connection", e);
         }
@@ -209,7 +212,7 @@ public class FuWeStaSampleDatabase implements TestRule {
     /**
      * Generate RowBuilder.
      */
-    public void generateRowBuilder() {
+    void generateRowBuilder() {
         try {
             FuWeStaRowBuilderGenerator rowBuilder =
                     new FuWeStaRowBuilderGenerator();

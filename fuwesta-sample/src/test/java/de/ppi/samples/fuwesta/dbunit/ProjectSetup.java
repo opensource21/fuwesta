@@ -18,14 +18,14 @@ public class ProjectSetup extends AbstractFuWeStaSampleDbUnitTest {
     @Test
     @Ignore("Only for project-setup")
     public void printTableNames() throws Exception {
-        FuWeStaSampleDataSet.printTableNames(getFuWeStaSampleDatabase()
-                .getConnection());
+        getFuWeStaSampleDatabase().printTableNames();
     }
 
     /**
      * @see de.ppi.samples.fuwesta.dbunit.FuWeStaSampleDatabase#generateRowBuilder()
      */
     @Test
+    @Ignore("Only for project-setup")
     public void generateRowBuilder() {
         getFuWeStaSampleDatabase().generateRowBuilder();
     }
