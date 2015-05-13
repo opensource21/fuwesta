@@ -21,6 +21,7 @@ import org.junit.runners.model.Statement;
 
 import de.ppi.samples.fuwesta.dbunit.rowbuilder.PostRowBuilder;
 import de.ppi.samples.fuwesta.dbunit.rowbuilder.TUserRowBuilder;
+import de.ppi.samples.fuwesta.dbunit.rowbuilder.TagPostingsRowBuilder;
 import de.ppi.samples.fuwesta.dbunit.rowbuilder.TagRowBuilder;
 
 /**
@@ -69,6 +70,8 @@ public class FuWeStaSampleDatabase implements TestRule {
                 new String[] { TagRowBuilder.C_NAME });
         tableToUniqueKey.put(PostRowBuilder.TABLE_NAME,
                 PostRowBuilder.PRIMARY_KEY);
+        tableToUniqueKey.put(TagPostingsRowBuilder.TABLE_NAME,
+                TagPostingsRowBuilder.PRIMARY_KEY);
     }
 
     /**

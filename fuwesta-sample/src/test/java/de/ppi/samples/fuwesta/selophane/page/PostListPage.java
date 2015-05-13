@@ -3,6 +3,7 @@ package de.ppi.samples.fuwesta.selophane.page;
 import lombok.Getter;
 
 import org.openqa.selenium.SearchContext;
+import org.selophane.elements.widget.Table;
 
 import de.ppi.selenium.browser.SessionManager;
 
@@ -12,6 +13,11 @@ import de.ppi.selenium.browser.SessionManager;
  */
 @Getter
 public class PostListPage extends MainPage {
+
+    /**
+     * The table.
+     */
+    private Table data;
 
     /**
      *

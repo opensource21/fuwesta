@@ -30,4 +30,14 @@ public class ProjectSetup extends AbstractFuWeStaSampleDbUnitTest {
         getFuWeStaSampleDatabase().generateRowBuilder();
     }
 
+    /**
+     * @see de.ppi.samples.fuwesta.dbunit.FuWeStaSampleDatabase#generateRowBuilder()
+     */
+    @Test
+    // @Ignore("Only for project-setup")
+            public
+            void dumpData() {
+        getFuWeStaSampleDatabase().dumpResult("Dump");
+    }
+
 }
