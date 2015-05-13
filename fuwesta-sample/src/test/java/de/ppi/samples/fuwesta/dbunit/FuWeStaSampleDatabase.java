@@ -1,17 +1,20 @@
 package de.ppi.samples.fuwesta.dbunit;
 
 import java.sql.Connection;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.dbunit.Assertion;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.database.DatabaseConfig;
+import org.dbunit.dataset.Column;
 import org.dbunit.dataset.FilteredDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.ITableIterator;
 import org.dbunit.dataset.SortedTable;
+import org.dbunit.dataset.filter.IColumnFilter;
 import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.operation.DatabaseOperation;
 import org.dbunit.validator.ValidatorFailureHandler;
@@ -61,17 +64,28 @@ public class FuWeStaSampleDatabase implements TestRule {
      */
     private static Map<String, String[]> tableToUniqueKey = new HashMap<>();
 
+    /**
+     * Map a table-name to a primary-key.
+     */
+    private static Map<String, String[]> tableToPrimaryKey = new HashMap<>();
+
     static {
-        tableToUniqueKey.put(PostRowBuilder.TABLE_NAME,
+        tableToPrimaryKey.put(PostRowBuilder.TABLE_NAME,
                 PostRowBuilder.PRIMARY_KEY);
+        tableToPrimaryKey.put(TUserRowBuilder.TABLE_NAME,
+                TUserRowBuilder.PRIMARY_KEY);
+        tableToPrimaryKey.put(TagRowBuilder.TABLE_NAME,
+                TagRowBuilder.PRIMARY_KEY);
+        tableToPrimaryKey.put(PostRowBuilder.TABLE_NAME,
+                PostRowBuilder.PRIMARY_KEY);
+        tableToPrimaryKey.put(TagPostingsRowBuilder.TABLE_NAME,
+                TagPostingsRowBuilder.ALL_COLUMNS);
+
+        tableToUniqueKey.putAll(tableToPrimaryKey);
         tableToUniqueKey.put(TUserRowBuilder.TABLE_NAME,
                 new String[] { TUserRowBuilder.C_USER_ID });
         tableToUniqueKey.put(TagRowBuilder.TABLE_NAME,
                 new String[] { TagRowBuilder.C_NAME });
-        tableToUniqueKey.put(PostRowBuilder.TABLE_NAME,
-                PostRowBuilder.PRIMARY_KEY);
-        tableToUniqueKey.put(TagPostingsRowBuilder.TABLE_NAME,
-                TagPostingsRowBuilder.PRIMARY_KEY);
     }
 
     /**
@@ -124,6 +138,21 @@ public class FuWeStaSampleDatabase implements TestRule {
         config.setProperty(DatabaseConfig.PROPERTY_BATCH_SIZE, BATCH_SIZE);
         config.setProperty(DatabaseConfig.FEATURE_BATCHED_STATEMENTS,
                 Boolean.TRUE);
+        config.setProperty(DatabaseConfig.PROPERTY_PRIMARY_KEY_FILTER,
+                new IColumnFilter() {
+
+                    @Override
+                    public boolean accept(String tableName, Column column) {
+                        if (tableToPrimaryKey.containsKey(tableName)) {
+                            return Arrays.asList(
+                                    tableToPrimaryKey.get(tableName)).contains(
+                                    column.getColumnName());
+                        } else {
+                            return column.getColumnName()
+                                    .equalsIgnoreCase("id");
+                        }
+                    }
+                });
     }
 
     /**

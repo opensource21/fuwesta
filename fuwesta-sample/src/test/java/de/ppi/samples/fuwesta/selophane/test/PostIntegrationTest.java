@@ -80,4 +80,18 @@ public class PostIntegrationTest extends AbstractFuWeStaSampleDbUnitTest {
         super.checkResult(TestData.initWithSampleData());
     }
 
+    /**
+     * Test if the table shows 2 entries.
+     *
+     * @throws DataSetException if there are problems with the dataset.
+     */
+    @Test
+    public void testPostPaginating() throws DataSetException {
+        super.cleanlyInsert(TestData.createPostData(100));
+        browser.getRelativeUrl(URL.Post.LIST);
+        assertThat(browser.getCurrentRelativeUrl()).isEqualTo(URL.Post.LIST);
+        assertThat(postListPage.getData().getRowCount()).isEqualTo(5 + 1);
+        assertThat(postListPage.getData().getColumnCount()).isEqualTo(3);
+    }
+
 }

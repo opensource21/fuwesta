@@ -39,4 +39,27 @@ public class TestData {
         newTagPostings().Tags(1L).Postings(101L).addTo(b);
         return b.build();
     }
+
+    @SuppressWarnings("boxing")
+    public static IDataSet createPostData(int nrOfPost) throws DataSetException {
+        final DataSetBuilder b = new DataSetBuilder();
+        newTUser().Id(11L).FirstName("Ben").LastName("Nutzer").Sex("m")
+                .UserId("ben").addTo(b);
+        newTUser().Id(12L).FirstName("Finda").LastName("Bug").Sex("f")
+                .UserId("test").addTo(b);
+        for (int i = 1; i <= nrOfPost; i++) {
+            newPost().Id(100L + i).Content("Post number " + i)
+                    .CreationTime(ts((2000 + i) + "-03-01 00:00:00.0"))
+                    .Title("Title " + i).UserId(11L).addTo(b);
+
+        }
+
+        newTag().Id(1L).Active(TRUE).Name("Test1").addTo(b);
+        newTag().Id(2L).Active(TRUE).Name("Test2").addTo(b);
+        newTag().Id(3L).Active(FALSE).Name("Test3").addTo(b);
+        newTagPostings().Tags(2L).Postings(101L).addTo(b);
+        newTagPostings().Tags(2L).Postings(102L).addTo(b);
+        newTagPostings().Tags(1L).Postings(101L).addTo(b);
+        return b.build();
+    }
 }
