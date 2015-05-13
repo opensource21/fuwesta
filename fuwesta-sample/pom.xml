@@ -176,6 +176,19 @@
         </dependency>
 
         <dependency>
+            <groupId>org.dbunit.datasetbuilder</groupId>
+            <artifactId>dbunit-datasetbuilder</artifactId>
+            <version>1.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.dbunit.validation</groupId>
+            <artifactId>dbunit-validation</artifactId>
+            <version>0.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-api</artifactId>
             <version>${selenium.version}</version>

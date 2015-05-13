@@ -44,7 +44,7 @@ However in a controller there is no transaction, so it's **strongly recommended*
 not to change the entities in the controller, especially not in views. All
 changes should be made in the services.
 
-###OVal
+### OVal
 This example uses [OVal](http://oval.sourceforge.net/) for data validation.
 This has the following advantages:
 
