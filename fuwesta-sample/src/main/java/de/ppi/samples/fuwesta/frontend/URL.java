@@ -11,7 +11,7 @@ import de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages.ParamFormat;
 
 /**
  * List of all URLs.
- * 
+ *
  */
 // CSOFF: InterfaceIsType You must give the Annotations Strings and can't use
 // Enums.
@@ -34,9 +34,9 @@ public final class URL {
     public static final String HOME = "/home";
 
     /**
-     * 
+     *
      * URLs for authentification.
-     * 
+     *
      */
     public interface Auth {
 
@@ -49,7 +49,7 @@ public final class URL {
 
     /**
      * Definition for paginating.
-     * 
+     *
      */
     public interface Page {
 
@@ -57,13 +57,13 @@ public final class URL {
          * Parameter for the number of the page.
          */
         @ParamFormat
-        String P_NUMBER = "page.page";
+        String P_NUMBER = "page";
 
         /**
          * Parameter for the size of the page.
          */
         @ParamFormat
-        String P_SIZE = "page.size";
+        String P_SIZE = "size";
 
         /**
          * Parameter-Group for number and size of the page.
@@ -73,7 +73,7 @@ public final class URL {
 
     /**
      * All URLS for the User.
-     * 
+     *
      */
     public interface User {
         /**
@@ -111,7 +111,7 @@ public final class URL {
 
     /**
      * All URLS for the {@link de.ppi.fuwesta.samples.springmvc.model.Post}.
-     * 
+     *
      */
     public interface Post {
         /**
@@ -154,7 +154,7 @@ public final class URL {
 
     /**
      * All URLS for the {@link de.ppi.fuwesta.samples.springmvc.model.Tag}.
-     * 
+     *
      */
     public interface Tag {
         /**
@@ -192,7 +192,7 @@ public final class URL {
 
     /**
      * Replace the parameter in the URL with the given value.
-     * 
+     *
      * @param url the URL.
      * @param parameter the parameter
      * @return the URL with parameters filled in
@@ -204,7 +204,7 @@ public final class URL {
 
     /**
      * Encode the given URL.
-     * 
+     *
      * @param url the URL.
      * @return the URL with parameters filled in
      */
@@ -215,7 +215,7 @@ public final class URL {
 
     /**
      * Replace all parameters in the URL with the given values.
-     * 
+     *
      * @param url the URL.
      * @param keyValuePairs the parameters as pair of name and value.
      * @return the URL with parameters filled in
@@ -243,7 +243,7 @@ public final class URL {
 
     /**
      * Give a {@link UriComponents} to the URL.
-     * 
+     *
      * @param url a url as String
      * @return the {@link UriComponents}
      */
@@ -257,7 +257,7 @@ public final class URL {
 
     /**
      * Replace all parameters in the URL with the given values.
-     * 
+     *
      * @param url the URL.
      * @param parameters the parameters
      * @return the URL with parameters filled in
@@ -274,7 +274,7 @@ public final class URL {
     /**
      * Replace all parameters in the URL with the given values and make a
      * redirect.
-     * 
+     *
      * @param url the URL.
      * @param parameter the parameter
      * @return the redirect URL with parameters filled in
@@ -286,7 +286,7 @@ public final class URL {
     /**
      * Replace all parameters in the URL with the given values and make a
      * redirect.
-     * 
+     *
      * @param url the URL.
      * @return the redirect URL with parameters filled in
      */
@@ -297,7 +297,7 @@ public final class URL {
     /**
      * Replace all parameters in the URL with the given values and make a
      * redirect.
-     * 
+     *
      * @param url the URL.
      * @param keyValuePairs the parameters as pair of name and value
      * @return the redirect URL with parameters filled in
@@ -310,7 +310,7 @@ public final class URL {
     /**
      * Replace all parameters in the URL with the given values and make a
      * redirect.
-     * 
+     *
      * @param url the URL.
      * @param namedParameters the parameters
      * @return the redirect URL with parameters filled in.

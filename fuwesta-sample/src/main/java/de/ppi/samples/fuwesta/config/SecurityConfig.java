@@ -12,6 +12,7 @@ import org.apache.shiro.realm.text.IniRealm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter;
 import org.apache.shiro.web.filter.mgt.DefaultFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,11 @@ import de.ppi.samples.fuwesta.frontend.URL;
  */
 @Configuration
 public class SecurityConfig {
+
+    /**
+     * Enables or disable the Filter.
+     */
+    private final boolean enabled = true;
 
     /**
      * Key for {@link FormAuthenticationFilter}.
@@ -72,6 +78,10 @@ public class SecurityConfig {
         result.setLoginUrl(URL.Auth.LOGIN);
         result.setSuccessUrl(URL.HOME);
         // result.setUnauthorizedUrl(null);
+        result.getFilters().put(DefaultFilter.authc.name(),
+                createCustomFormAuthentficationFilter());
+        result.getFilters().put(DefaultFilter.perms.name(),
+                createCustomPermissionsAuthorizationFilter());
         defineSecurityFilter(result.getFilterChainDefinitionMap());
         return result;
     }
@@ -85,7 +95,19 @@ public class SecurityConfig {
     public Filter createCustomFormAuthentficationFilter() {
         FormAuthenticationFilter authc = new FormAuthenticationFilter();
         authc.setRememberMeParam("remember-me");
-        authc.setEnabled(true);
+        authc.setEnabled(enabled);
+        return authc;
+    }
+
+    /**
+     * Creates a well configured {@link PermissionsAuthorizationFilter}.
+     *
+     * @return a well configured {@link PermissionsAuthorizationFilter}.
+     */
+    private Filter createCustomPermissionsAuthorizationFilter() {
+        PermissionsAuthorizationFilter authc =
+                new PermissionsAuthorizationFilter();
+        authc.setEnabled(enabled);
         return authc;
     }
 
