@@ -1,8 +1,5 @@
 package de.ppi.samples.fuwesta.selophane.widget;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.selophane.elements.base.ElementImpl;
@@ -36,18 +33,7 @@ public class MenuItemImpl extends ElementImpl implements MenuItem {
      */
     @Override
     public boolean isActive() {
-        final String classAttribute = getAttribute("class");
-        return classAttribute != null && getClasses().contains("active");
-    }
-
-    /**
-     * Returns a list of all css-classes defined for this element.
-     *
-     * @return a list of all css-classes defined for this element.
-     */
-    private List<String> getClasses() {
-        final String[] primitiveList = this.getAttribute("class").split(" ");
-        return Arrays.asList(primitiveList);
+        return getClasses().contains("active");
     }
 
 }

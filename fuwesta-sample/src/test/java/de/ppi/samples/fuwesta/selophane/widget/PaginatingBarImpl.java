@@ -1,19 +1,24 @@
 package de.ppi.samples.fuwesta.selophane.widget;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-import org.selophane.elements.base.Element;
-import org.selophane.elements.base.ElementImpl;
+import org.openqa.selenium.support.FindBy;
+
+import de.ppi.samples.fuwesta.selophane.base.Fragment;
 
 /**
  * Implementation for {@link PaginatingBar}.
  *
  */
-public class PaginatingBarImpl extends ElementImpl implements PaginatingBar {
+public class PaginatingBarImpl extends Fragment implements PaginatingBar {
+
+    /**
+     * List of all paginating-buttons.
+     */
+    @FindBy(tagName = "li")
+    private List<PaginatingBarButton> buttons;
 
     /**
      * Initiates an object of type PaginatingBarImpl.
@@ -28,35 +33,32 @@ public class PaginatingBarImpl extends ElementImpl implements PaginatingBar {
      * {@inheritDoc}
      */
     @Override
-    public Element getFirst() {
-        return getAllButtons().get(0);
+    public PaginatingBarButton getFirst() {
+        return buttons.get(0);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Element getLast() {
-        final List<Element> allButtons = getAllButtons();
-        return allButtons.get(allButtons.size() - 1);
+    public PaginatingBarButton getLast() {
+        return buttons.get(buttons.size() - 1);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Element getNext() {
-        final List<Element> allButtons = getAllButtons();
-        return allButtons.get(allButtons.size() - 2);
+    public PaginatingBarButton getNext() {
+        return buttons.get(buttons.size() - 2);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Element getPrevious() {
-        final List<Element> allButtons = getAllButtons();
-        return allButtons.get(1);
+    public PaginatingBarButton getPrevious() {
+        return buttons.get(1);
     }
 
     /**
@@ -64,27 +66,17 @@ public class PaginatingBarImpl extends ElementImpl implements PaginatingBar {
      */
     @Override
     public int getNrOfButtons() {
-        return getAllButtonsInternal().size();
-    }
-
-    /**
-     * Collects all buttons.
-     *
-     * @return a list of all buttons.
-     */
-    private List<WebElement> getAllButtonsInternal() {
-        return this.findElements(By.tagName("li"));
+        return buttons.size();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Element getButton(String text) {
-        final List<WebElement> allButtons = getAllButtonsInternal();
-        for (WebElement webElement : allButtons) {
+    public PaginatingBarButton getButton(String text) {
+        for (PaginatingBarButton webElement : buttons) {
             if (text.equals(webElement.getText())) {
-                return new ElementImpl(webElement);
+                return webElement;
             }
         }
         throw new NoSuchElementException("No button with text " + text
@@ -95,13 +87,8 @@ public class PaginatingBarImpl extends ElementImpl implements PaginatingBar {
      * {@inheritDoc}
      */
     @Override
-    public List<Element> getAllButtons() {
-        final List<WebElement> allButtons = getAllButtonsInternal();
-        final List<Element> result = new ArrayList<>(allButtons.size());
-        for (WebElement webElement : allButtons) {
-            result.add(new ElementImpl(webElement));
-        }
-        return result;
+    public List<PaginatingBarButton> getAllButtons() {
+        return buttons;
     }
 
 }

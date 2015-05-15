@@ -27,28 +27,28 @@ public interface PaginatingBar extends Element {
      *
      * @return the button to jump to the first-page.
      */
-    Element getFirst();
+    PaginatingBarButton getFirst();
 
     /**
      * Get the button to jump to the last-page.
      *
      * @return the button to jump to the last-page.
      */
-    Element getLast();
+    PaginatingBarButton getLast();
 
     /**
      * Get the button to jump to the next-page.
      *
      * @return the button to jump to the next-page.
      */
-    Element getNext();
+    PaginatingBarButton getNext();
 
     /**
      * Get the button to jump to the previous-page.
      *
      * @return the button to jump to the previous-page.
      */
-    Element getPrevious();
+    PaginatingBarButton getPrevious();
 
     /**
      * The number of buttons.
@@ -63,13 +63,13 @@ public interface PaginatingBar extends Element {
      * @param text the text which is shown for the button.
      * @return the button with the given text.
      */
-    Element getButton(String text);
+    PaginatingBarButton getButton(String text);
 
     /**
      * Return all buttons.
      *
      * @return a {@link List} with all buttons.
      */
-    List<Element> getAllButtons();
+    List<PaginatingBarButton> getAllButtons();
 
 }
