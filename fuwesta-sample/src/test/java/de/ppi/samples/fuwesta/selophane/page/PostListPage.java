@@ -3,8 +3,10 @@ package de.ppi.samples.fuwesta.selophane.page;
 import lombok.Getter;
 
 import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.support.FindBy;
 import org.selophane.elements.widget.Table;
 
+import de.ppi.samples.fuwesta.selophane.widget.PaginatingBar;
 import de.ppi.selenium.browser.SessionManager;
 
 /**
@@ -17,7 +19,14 @@ public class PostListPage extends MainPage {
     /**
      * The table.
      */
-    private Table data;
+    @FindBy(id = "data")
+    private Table table;
+
+    /**
+     * The pagination bar.
+     */
+    @FindBy(className = "pagination")
+    private PaginatingBar paginatingBar;
 
     /**
      *
