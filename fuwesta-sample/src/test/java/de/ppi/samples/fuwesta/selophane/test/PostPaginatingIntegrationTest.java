@@ -20,7 +20,7 @@ public class PostPaginatingIntegrationTest extends AbstractPostIntegrationTest {
     /**
      * The number of pages.
      */
-    private static final int NUMBER_OF_PAGES = 18;
+    private static final int NUMBER_OF_PAGES = 10;
     /**
      * The pagesize.
      */
