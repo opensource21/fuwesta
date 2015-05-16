@@ -5,7 +5,7 @@ import org.junit.rules.RuleChain;
 import de.ppi.samples.fuwesta.selophane.module.AuthModule;
 import de.ppi.selenium.junit.ProtocolRule;
 import de.ppi.selenium.junit.WebDriverRule;
-import de.ppi.selenium.junit.WebServerImpl;
+import de.ppi.selenium.junit.DelegatingWebServer;
 import de.ppi.selenium.junit.WebServerRule;
 import de.ppi.selenium.util.JettyWebServer;
 
@@ -21,7 +21,7 @@ public interface WebTestConstants {
      */
     RuleChain WEBTEST_WITHOUT_AUTHENTICATION = RuleChain
             .outerRule(
-                    new WebServerRule(new WebServerImpl(new JettyWebServer(
+                    new WebServerRule(new DelegatingWebServer(new JettyWebServer(
                             7779, "/fuwesta")))).around(new WebDriverRule())
             .around(new ProtocolRule("weblog"));
     /**
