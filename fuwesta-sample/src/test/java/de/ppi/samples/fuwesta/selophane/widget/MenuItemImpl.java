@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.selophane.elements.base.ElementImpl;
 
+import de.ppi.selenium.util.CSSHelper;
+
 /**
  * Implementation of an {@link MenuItemImpl}.
  *
@@ -33,7 +35,7 @@ public class MenuItemImpl extends ElementImpl implements MenuItem {
      */
     @Override
     public boolean isActive() {
-        return getClasses().contains("active");
+        return CSSHelper.getClasses(getWrappedElement()).contains("active");
     }
 
 }

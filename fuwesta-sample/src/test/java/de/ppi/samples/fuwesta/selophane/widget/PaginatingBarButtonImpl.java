@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.selophane.elements.base.ElementImpl;
 
+import de.ppi.selenium.util.CSSHelper;
+
 /**
  * Implementation of a {@link PaginatingBarButton}.
  *
@@ -40,7 +42,7 @@ public class PaginatingBarButtonImpl extends ElementImpl implements
      */
     @Override
     public boolean isActive() {
-        return getClasses().contains(CLASS_ACTIVE);
+        return CSSHelper.getClasses(getWrappedElement()).contains(CLASS_ACTIVE);
     }
 
     /**
@@ -48,7 +50,8 @@ public class PaginatingBarButtonImpl extends ElementImpl implements
      */
     @Override
     public boolean isDisabled() {
-        return getClasses().contains(CLASS_DISABLED);
+        return CSSHelper.getClasses(getWrappedElement()).contains(
+                CLASS_DISABLED);
     }
 
 }
