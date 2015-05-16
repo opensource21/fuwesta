@@ -18,21 +18,6 @@ import de.ppi.samples.fuwesta.selophane.module.AuthModule;
 public class AuthRule implements TestRule {
 
     /**
-     * Authetication module.
-     */
-    private final AuthModule authModule;
-
-    /**
-     * Initiates an object of type AuthRule.
-     *
-     * @param authModule the module which do the authentication work.
-     */
-    public AuthRule(AuthModule authModule) {
-        super();
-        this.authModule = authModule;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -44,7 +29,7 @@ public class AuthRule implements TestRule {
                 String password = "123";
                 boolean specialUser = false;
                 final Auth authInfo = description.getAnnotation(Auth.class);
-
+                AuthModule authModule = new AuthModule();
                 if (authInfo != null) {
                     username = authInfo.user();
                     password = authInfo.password();

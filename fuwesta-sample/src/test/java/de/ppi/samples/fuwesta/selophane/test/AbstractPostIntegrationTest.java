@@ -77,11 +77,22 @@ public abstract class AbstractPostIntegrationTest extends
      * Browser instance.
      */
     @VisibleForTesting
-    protected WebBrowser browser = SessionManager.getSession();
+    protected WebBrowser browser;
 
     /**
      * The postlist-page.
      */
     @VisibleForTesting
-    protected PostListPage postListPage = new PostListPage();
+    protected PostListPage postListPage;
+
+    /**
+     * Init the instances, because the Session shouldn't be access before the 
+     * rule creates one.
+     */
+    @Before
+    public void init() {
+        browser = SessionManager.getSession();
+
+        postListPage = new PostListPage();
+    }
 }

@@ -35,22 +35,34 @@ public class LoginIntegrationTest {
     /**
      * webbrowser.
      */
-    private WebBrowser browser = SessionManager.getSession();
+    private WebBrowser browser;
 
     /**
      * Loginpage.
      */
-    private LoginPage loginPage = new LoginPage();
+    private LoginPage loginPage;
 
     /**
      * Authenticationmodul.
      */
-    private AuthModule authModule = new AuthModule();
+    private AuthModule authModule;
 
     /**
-     * Logot before and after a test.
+     * Init the instances after the rule has run.
      */
     @Before
+    public void init() {
+        browser = SessionManager.getSession();
+
+        loginPage = new LoginPage();
+
+        authModule = new AuthModule();
+        authModule.logout();
+    }
+
+    /**
+     * Logout after a test.
+     */
     @After
     public void logout() {
         authModule.logout();
