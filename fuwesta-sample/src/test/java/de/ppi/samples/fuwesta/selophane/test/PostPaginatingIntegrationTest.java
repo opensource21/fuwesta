@@ -41,8 +41,8 @@ public class PostPaginatingIntegrationTest extends AbstractPostIntegrationTest {
     @Test
     public void testPostPaginating() {
         browser.getRelativeUrl(URL.Post.LIST);
-        softly.assertThat(postListPage.getTable().getRowCount()).isEqualTo(
-                PAGE_SIZE + 1);
+        softly.assertThat(postListPage.getTable().getNrOfDataRows()).isEqualTo(
+                PAGE_SIZE);
         PaginatingBarChecks.checkPaginating(softly,
                 postListPage.getPaginatingBar(), 1, NUMBER_OF_PAGES);
     }
@@ -57,12 +57,13 @@ public class PostPaginatingIntegrationTest extends AbstractPostIntegrationTest {
         browser.getRelativeUrl(URL.Post.LIST);
         for (int i = 2; i < NUMBER_OF_PAGES; i++) {
             postListPage.getPaginatingBar().getNext().click();
-            softly.assertThat(postListPage.getTable().getRowCount()).isEqualTo(
-                    PAGE_SIZE + 1);
+            softly.assertThat(postListPage.getTable().getNrOfDataRows())
+                    .as("Test page " + i).isEqualTo(PAGE_SIZE);
             PaginatingBarChecks.checkPaginating(softly,
                     postListPage.getPaginatingBar(), i, NUMBER_OF_PAGES);
             softly.assertThat(
-                    postListPage.getTable().getCellAtIndex(1, 1).getText())
+                    postListPage.getTable().getDataRows().get(0).getColumn(1)
+                            .getText())
                     .as("Currentpage=%s, NumberOfPages=%s", i, NUMBER_OF_PAGES)
                     .isEqualTo("Title " + ((i - 1) * PAGE_SIZE + 1));
         }
@@ -94,12 +95,13 @@ public class PostPaginatingIntegrationTest extends AbstractPostIntegrationTest {
         postListPage.getPaginatingBar().getLast().click();
         for (int i = NUMBER_OF_PAGES - 1; i > 1; i--) {
             postListPage.getPaginatingBar().getPrevious().click();
-            softly.assertThat(postListPage.getTable().getRowCount()).isEqualTo(
-                    PAGE_SIZE + 1);
+            softly.assertThat(postListPage.getTable().getNrOfDataRows())
+                    .isEqualTo(PAGE_SIZE);
             PaginatingBarChecks.checkPaginating(softly,
                     postListPage.getPaginatingBar(), i, NUMBER_OF_PAGES);
             softly.assertThat(
-                    postListPage.getTable().getCellAtIndex(1, 1).getText())
+                    postListPage.getTable().getDataRows().get(0).getColumn(1)
+                            .getText())
                     .as("Currentpage=%s, NumberOfPages=%s", i, NUMBER_OF_PAGES)
                     .isEqualTo("Title " + ((i - 1) * PAGE_SIZE + 1));
         }

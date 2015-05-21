@@ -61,9 +61,10 @@ public class PostIntegrationTest extends AbstractPostIntegrationTest {
     public void testPostList() {
         browser.getRelativeUrl(URL.Post.LIST);
         assertThat(browser.getCurrentRelativeUrl()).isEqualTo(URL.Post.LIST);
-        softly.assertThat(postListPage.getTable().getRowCount()).isEqualTo(3);
-        softly.assertThat(postListPage.getTable().getColumnCount())
-                .isEqualTo(3);
+        softly.assertThat(postListPage.getTable().getNrOfDataRows()).isEqualTo(
+                2);
+        softly.assertThat(postListPage.getTable().getNrOfDataColumns())
+                .isEqualTo(2);
         softly.assertThat(postListPage.getPaginatingBar().getNrOfButtons())
                 .isEqualTo(5);
         softly.assertThat(postListPage.getPaginatingBar().getFirst()).hasClass(
@@ -77,5 +78,4 @@ public class PostIntegrationTest extends AbstractPostIntegrationTest {
         softly.assertThat(postListPage.getPaginatingBar().getButton("1"))
                 .hasNotClass(PaginatingBar.CLASS_DISABLED);
     }
-
 }
