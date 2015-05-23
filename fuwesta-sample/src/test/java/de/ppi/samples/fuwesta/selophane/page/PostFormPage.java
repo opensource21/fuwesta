@@ -2,9 +2,12 @@ package de.ppi.samples.fuwesta.selophane.page;
 
 import lombok.Getter;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.support.FindBy;
 import org.selophane.elements.base.Element;
 import org.selophane.elements.widget.Label;
+import org.selophane.elements.widget.LabelImpl;
 import org.selophane.elements.widget.Select;
 
 /**
@@ -53,5 +56,24 @@ public class PostFormPage extends MainPage {
     /** The tags select. */
     @FindBy(id = "tags")
     private Select tagsSelect;
+
+    private final SearchContext searchContext;
+
+    public PostFormPage(SearchContext searchContext) {
+        super(searchContext);
+        this.searchContext = searchContext;
+    }
+
+    public Label getLabelFor(Element element) {
+        final String id = element.getAttribute("id");
+        if (id == null) {
+            return null;
+        }
+        final String xpPath = "label[for=" + id + "]";
+        // TODO would be more sophisticated if
+        // org.selophane.elements.factory.internal.ElementDecorator.proxyForLocator(ClassLoader,
+        // Class<T>, ElementLocator) is used.
+        return new LabelImpl(searchContext.findElement(By.xpath(xpPath)));
+    }
 
 }
