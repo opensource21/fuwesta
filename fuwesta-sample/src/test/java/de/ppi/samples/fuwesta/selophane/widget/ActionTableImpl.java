@@ -7,6 +7,7 @@ import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.selophane.elements.base.UniqueElementLocator;
 
 import de.ppi.samples.fuwesta.selophane.base.Fragment;
 
@@ -20,10 +21,10 @@ public class ActionTableImpl extends Fragment implements ActionTable {
     /**
      * Initiates an object of type ActionTableImpl.
      *
-     * @param element element to wrap up
+     * @param elementLocator the locator of the webelement.
      */
-    public ActionTableImpl(WebElement element) {
-        super(element);
+    public ActionTableImpl(final UniqueElementLocator elementLocator) {
+        super(elementLocator);
     }
 
     /** The data rows. */
@@ -78,10 +79,11 @@ public class ActionTableImpl extends Fragment implements ActionTable {
         /**
          * Initiates an object of type RowImpl.
          *
-         * @param element element to wrap up
+         * @param elementLocator the locator of the webelement.
          */
-        public RowImpl(WebElement element) {
-            super(element);
+        public RowImpl(final UniqueElementLocator elementLocator) {
+            super(elementLocator);
+
         }
 
         /**
@@ -111,10 +113,10 @@ public class ActionTableImpl extends Fragment implements ActionTable {
             /**
              * Initiates an object of type ActionButtonImpl.
              *
-             * @param element element to wrap up.
+             * @param elementLocator the locator of the webelement.
              */
-            public ActionButtonImpl(WebElement element) {
-                super(element);
+            public ActionButtonImpl(final UniqueElementLocator elementLocator) {
+                super(elementLocator);
             }
 
             /**

@@ -2,6 +2,8 @@ package de.ppi.samples.fuwesta.selophane.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.junit.Test;
@@ -10,6 +12,8 @@ import de.ppi.samples.fuwesta.dbunit.dataset.TestData;
 import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.base.AuthRule.Auth;
 import de.ppi.samples.fuwesta.selophane.widget.ActionTable;
+import de.ppi.samples.fuwesta.selophane.widget.ActionTable.Row;
+import de.ppi.samples.fuwesta.selophane.widget.ActionTable.Row.ActionButton;
 import de.ppi.samples.fuwesta.selophane.widget.PaginatingBar;
 
 /**
@@ -66,15 +70,12 @@ public class PostIntegrationTest extends AbstractPostIntegrationTest {
         softly.assertThat(table.getNrOfDataRows()).isEqualTo(2);
         softly.assertThat(table.getNrOfDataColumns()).isEqualTo(2);
         final ActionTable.Row firstRow = table.getDataRows().get(0);
-        softly.assertThat(firstRow.getActions()).hasSize(4);
-        softly.assertThat(firstRow.getActions().get(0).getText()).isEqualTo(
-                "Show");
-        softly.assertThat(firstRow.getActions().get(1).getText()).isEqualTo(
-                "Edit");
-        softly.assertThat(firstRow.getActions().get(2).getText()).isEqualTo(
-                "Partialedit");
-        softly.assertThat(firstRow.getActions().get(3).getText()).isEqualTo(
-                "Delete");
+        final List<ActionButton> actions = firstRow.getActions();
+        softly.assertThat(actions).hasSize(4);
+        softly.assertThat(actions.get(0).getText()).isEqualTo("Show");
+        softly.assertThat(actions.get(1).getText()).isEqualTo("Edit");
+        softly.assertThat(actions.get(2).getText()).isEqualTo("Partialedit");
+        softly.assertThat(actions.get(3).getText()).isEqualTo("Delete");
 
         final PaginatingBar paginatingBar = postListPage.getPaginatingBar();
         softly.assertThat(paginatingBar.getNrOfButtons()).isEqualTo(5);
@@ -88,5 +89,31 @@ public class PostIntegrationTest extends AbstractPostIntegrationTest {
                 PaginatingBar.CLASS_DISABLED);
         softly.assertThat(paginatingBar.getButton("1")).hasNotClass(
                 PaginatingBar.CLASS_DISABLED);
+        final String postId = firstRow.getColumn(0).getText();
+        Row.ActionButton delete = actions.get(3);
+        actions.get(0).click();
+        softly.assertThat(browser).hasRelativeUrl(
+                URL.filledURLWithNamedParams(URL.Post.SHOW, URL.Post.P_POSTID,
+                        postId));
+        browser.navigate().back();
+        // firstRow = postListPage.getTable().getDataRows().get(0);
+        actions.get(1).click();
+        softly.assertThat(browser).hasRelativeUrl(
+                URL.filledURLWithNamedParams(URL.Post.EDIT, URL.Post.P_POSTID,
+                        postId));
+        browser.navigate().back();
+        // firstRow = table.getDataRows().get(0);
+        actions.get(2).click();
+        softly.assertThat(browser).hasRelativeUrl(
+                URL.filledURLWithNamedParams(URL.Post.PARTIALEDIT,
+                        URL.Post.P_POSTID, postId));
+        browser.navigate().back();
+        // firstRow = postListPage.getTable().getDataRows().get(0);
+        delete.click();
+        // actions.get(3).click();
+        softly.assertThat(browser).hasRelativeUrl(
+                URL.filledURLWithNamedParams(URL.Post.DELETE,
+                        URL.Post.P_POSTID, postId));
+
     }
 }

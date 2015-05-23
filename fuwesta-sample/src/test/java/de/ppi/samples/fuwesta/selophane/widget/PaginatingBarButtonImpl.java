@@ -1,8 +1,8 @@
 package de.ppi.samples.fuwesta.selophane.widget;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.selophane.elements.base.ElementImpl;
+import org.selophane.elements.base.UniqueElementLocator;
 
 import de.ppi.selenium.util.CSSHelper;
 
@@ -26,10 +26,10 @@ public class PaginatingBarButtonImpl extends ElementImpl implements
      *
      * Initiates an object of type PaginatingBarButtonImpl.
      *
-     * @param element element to wrap up
+     * @param elementLocator the locator of the webelement.
      */
-    public PaginatingBarButtonImpl(WebElement element) {
-        super(element);
+    public PaginatingBarButtonImpl(final UniqueElementLocator elementLocator) {
+        super(elementLocator);
     }
 
     @Override

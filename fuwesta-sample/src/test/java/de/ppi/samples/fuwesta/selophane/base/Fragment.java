@@ -1,7 +1,8 @@
 package de.ppi.samples.fuwesta.selophane.base;
 
-import org.openqa.selenium.WebElement;
 import org.selophane.elements.base.ElementImpl;
+import org.selophane.elements.base.UniqueElementLocator;
+import org.selophane.elements.factory.api.ChainedElementLocatorFactory;
 import org.selophane.elements.factory.api.ElementFactory;
 
 /**
@@ -14,11 +15,12 @@ public class Fragment extends ElementImpl {
      *
      * Initiates an fragment.
      *
-     * @param webElement the {@link WebElement} which is the parent.
+     * @param elementLocator the locator of the webelement.
      */
-    public Fragment(WebElement webElement) {
-        super(webElement);
-        ElementFactory.initElements(webElement, this);
+    public Fragment(final UniqueElementLocator elementLocator) {
+        super(elementLocator);
+        ElementFactory.initElements(new ChainedElementLocatorFactory(
+                elementLocator), this);
     }
 
 }

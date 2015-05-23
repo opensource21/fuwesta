@@ -4,8 +4,10 @@ import lombok.Getter;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.selophane.elements.base.Element;
+import org.selophane.elements.base.UniqueElementLocator;
 import org.selophane.elements.widget.Label;
 import org.selophane.elements.widget.LabelImpl;
 import org.selophane.elements.widget.Select;
@@ -70,10 +72,12 @@ public class PostFormPage extends MainPage {
             return null;
         }
         final String xpPath = "label[for=" + id + "]";
-        // TODO would be more sophisticated if
-        // org.selophane.elements.factory.internal.ElementDecorator.proxyForLocator(ClassLoader,
-        // Class<T>, ElementLocator) is used.
-        return new LabelImpl(searchContext.findElement(By.xpath(xpPath)));
-    }
+        return new LabelImpl(new UniqueElementLocator() {
 
+            @Override
+            public WebElement findElement() {
+                return searchContext.findElement(By.xpath(xpPath));
+            }
+        });
+    }
 }

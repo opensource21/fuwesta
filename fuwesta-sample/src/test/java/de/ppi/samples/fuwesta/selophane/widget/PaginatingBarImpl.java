@@ -3,8 +3,8 @@ package de.ppi.samples.fuwesta.selophane.widget;
 import java.util.List;
 
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.selophane.elements.base.UniqueElementLocator;
 
 import de.ppi.samples.fuwesta.selophane.base.Fragment;
 
@@ -23,10 +23,10 @@ public class PaginatingBarImpl extends Fragment implements PaginatingBar {
     /**
      * Initiates an object of type PaginatingBarImpl.
      *
-     * @param element the parent-element
+     * @param elementLocator the locator of the webelement.
      */
-    public PaginatingBarImpl(WebElement element) {
-        super(element);
+    public PaginatingBarImpl(final UniqueElementLocator elementLocator) {
+        super(elementLocator);
     }
 
     /**

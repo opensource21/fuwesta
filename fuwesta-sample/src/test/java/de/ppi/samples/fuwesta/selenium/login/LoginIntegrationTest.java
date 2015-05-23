@@ -4,8 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 
-import lombok.Setter;
-
 import org.junit.Before;
 import org.junit.Test;
 

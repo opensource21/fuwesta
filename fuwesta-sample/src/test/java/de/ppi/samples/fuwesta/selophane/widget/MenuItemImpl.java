@@ -3,6 +3,7 @@ package de.ppi.samples.fuwesta.selophane.widget;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.selophane.elements.base.ElementImpl;
+import org.selophane.elements.base.UniqueElementLocator;
 
 import de.ppi.selenium.util.CSSHelper;
 
@@ -15,10 +16,10 @@ public class MenuItemImpl extends ElementImpl implements MenuItem {
     /**
      * Initiates an object of type MenuItemImpl.
      *
-     * @param element element to wrap up
+     * @param elementLocator the locator of the webelement.
      */
-    public MenuItemImpl(WebElement element) {
-        super(element);
+    public MenuItemImpl(final UniqueElementLocator elementLocator) {
+        super(elementLocator);
     }
 
     /**

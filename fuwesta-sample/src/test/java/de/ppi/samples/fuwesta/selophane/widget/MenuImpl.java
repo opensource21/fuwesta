@@ -2,8 +2,8 @@ package de.ppi.samples.fuwesta.selophane.widget;
 
 import java.util.List;
 
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.selophane.elements.base.UniqueElementLocator;
 
 import de.ppi.samples.fuwesta.selophane.base.Fragment;
 
@@ -23,10 +23,10 @@ public class MenuImpl extends Fragment implements Menu {
      *
      * Initiates an object of type Menu.
      *
-     * @param webElement the parent-element.
+     * @param elementLocator the locator of the webelement.
      */
-    public MenuImpl(WebElement webElement) {
-        super(webElement);
+    public MenuImpl(final UniqueElementLocator elementLocator) {
+        super(elementLocator);
     }
 
     /**
