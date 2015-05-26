@@ -11,9 +11,35 @@
         </encoder>
     </appender>
 
-    <appender name="THYMELEAF"
+     <appender name="THYMELEAF"
         class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>thyemleaf.log</file>
+        <file>thymeleaf.log</file>
+        <append>true</append>
+
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>thymeleaf.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>3</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy
+            class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>50MB</maxFileSize>
+        </triggeringPolicy>
+
+
+        <!-- encoders are assigned by default the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+        <encoder>
+            <pattern>
+                %d [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>test.log</file>
         <append>true</append>
 
         <rollingPolicy
@@ -82,6 +108,11 @@
 
     <logger name="org.hibernate" level="WARN" />
 
+    <!-- Auf TRACE setzen bei 400 -Fehlern -->
+    <logger name="org.springframework.web.servlet.mvc.method.annotation" level="WARN">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
     <logger name="org.hibernate.SQL" additivity="FALSE">
         <level value="DEBUG" />
         <appender-ref ref="SQLROLLINGFILE" />
@@ -97,6 +128,7 @@
     </logger>
 
     <root level="INFO">
+        <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </root>
 
