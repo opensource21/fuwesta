@@ -21,7 +21,7 @@ public interface WebTestConstants {
     RuleChain WEBTEST_WITHOUT_AUTHENTICATION = RuleChain
             .outerRule(
                     new WebServerRule(new DelegatingWebServer(
-                            new JettyWebServer(7779, "/fuwesta"))))
+                            new JettyWebServer("/fuwesta"))))
             .around(new WebDriverRule()).around(new ProtocolRule("weblog"));
     /**
      * Standard_Rule for WebTests.

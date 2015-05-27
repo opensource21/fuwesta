@@ -1,5 +1,8 @@
 package de.ppi.selenium.util;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.webapp.WebAppContext;
 
@@ -57,7 +60,7 @@ public final class JettyWebServer implements WebServer {
      * @param contextPart the context.
      */
     public JettyWebServer(String contextPart) {
-        this(Integer.parseInt(System.getProperty("testport", DEFAULT_PORT)),
+        this(Integer.parseInt(System.getProperty("testport", getFreePort())),
                 contextPart);
     }
 
@@ -66,6 +69,30 @@ public final class JettyWebServer implements WebServer {
      */
     public JettyWebServer() {
         this("/");
+    }
+
+    /**
+     * Find a free port for the server.
+     * @return a free port.
+     */
+    private static String getFreePort() {
+        String port = DEFAULT_PORT;
+        ServerSocket s = null;
+        try {
+            s = new ServerSocket(0);
+            port = "" + s.getLocalPort();
+        } catch (IOException e) {
+            // Ignore
+        } finally {
+            if (s != null) {
+                try {
+                    s.close();
+                } catch (IOException e) {
+                    // Ignore
+                }
+            }
+        }
+        return port;
     }
 
     /**
