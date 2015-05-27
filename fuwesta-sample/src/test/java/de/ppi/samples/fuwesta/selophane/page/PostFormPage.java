@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.selophane.elements.base.Element;
@@ -59,11 +60,8 @@ public class PostFormPage extends MainPage {
     @FindBy(id = "tags")
     private Select tagsSelect;
 
-    private final SearchContext searchContext;
-
-    public PostFormPage(SearchContext searchContext) {
-        super(searchContext);
-        this.searchContext = searchContext;
+    public PostFormPage(WebDriver webDriver) {
+        super(webDriver);
     }
 
     public Label getLabelFor(Element element) {
@@ -76,7 +74,12 @@ public class PostFormPage extends MainPage {
 
             @Override
             public WebElement findElement() {
-                return searchContext.findElement(By.xpath(xpPath));
+                return getWebDriver().findElement(By.xpath(xpPath));
+            }
+
+            @Override
+            public WebDriver getWebDriver() {
+                return getWebDriver();
             }
         });
     }

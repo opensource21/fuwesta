@@ -2,8 +2,7 @@ package de.ppi.samples.fuwesta.selophane.page;
 
 import lombok.Getter;
 
-import org.openqa.selenium.SearchContext;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.selophane.elements.base.Element;
 import org.selophane.elements.widget.CheckBox;
@@ -52,10 +51,10 @@ public class LoginPage extends BasePage {
     /**
      * Initiates an object of type LoginPage.
      *
-     * @param context a searchcontext most the webdriver.
+     * @param webDriver a webdriver as searchcontext.
      */
-    public LoginPage(SearchContext context) {
-        super(context);
+    public LoginPage(WebDriver webDriver) {
+        super(webDriver);
     }
 
     /**

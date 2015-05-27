@@ -1,6 +1,6 @@
 package de.ppi.samples.fuwesta.selophane.base;
 
-import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.WebDriver;
 import org.selophane.elements.factory.api.ElementFactory;
 
 /**
@@ -11,18 +11,18 @@ import org.selophane.elements.factory.api.ElementFactory;
 public class BasePage {
 
     /**
-     * The searchcontext of this page.
+     * The webdriver for this page.
      */
-    private final SearchContext searchContext;
+    private final WebDriver webDriver;
 
     /**
      *
      * Initiates an object of type BasePage.
      *
-     * @param searchContext the {@link SearchContext} to find the elements.
+     * @param webDriver the {@link WebDriver} to find the elements.
      */
-    public BasePage(SearchContext searchContext) {
-        this.searchContext = searchContext;
+    public BasePage(WebDriver webDriver) {
+        this.webDriver = webDriver;
         reload();
     }
 
@@ -30,7 +30,16 @@ public class BasePage {
      * Reload the page, this is important if the weblements are chached.
      */
     public final void reload() {
-        ElementFactory.initElements(searchContext, this);
+        ElementFactory.initElements(webDriver, this);
+    }
+
+    /**
+     * Gets the underlying webdriver.
+     *
+     * @return the underlying {@link WebDriver}.
+     */
+    protected WebDriver getWebDriver() {
+        return webDriver;
     }
 
 }

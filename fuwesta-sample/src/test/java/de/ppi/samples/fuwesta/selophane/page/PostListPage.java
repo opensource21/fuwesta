@@ -2,7 +2,7 @@ package de.ppi.samples.fuwesta.selophane.page;
 
 import lombok.Getter;
 
-import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import de.ppi.samples.fuwesta.selophane.widget.ActionTable;
@@ -39,10 +39,10 @@ public class PostListPage extends MainPage {
     /**
      * Initiates an object of type PostList.
      *
-     * @param searchContext the {@link SearchContext}
+     * @param webDriver the {@link WebDriver}
      */
-    public PostListPage(SearchContext searchContext) {
-        super(searchContext);
+    public PostListPage(WebDriver webDriver) {
+        super(webDriver);
     }
 
 }

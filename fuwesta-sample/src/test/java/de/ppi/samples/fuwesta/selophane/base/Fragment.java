@@ -19,8 +19,8 @@ public class Fragment extends ElementImpl {
      */
     public Fragment(final UniqueElementLocator elementLocator) {
         super(elementLocator);
-        ElementFactory.initElements(new ChainedElementLocatorFactory(
-                elementLocator), this);
+        ElementFactory.initElements(elementLocator.getWebDriver(),
+                new ChainedElementLocatorFactory(elementLocator), this);
     }
 
 }

@@ -2,7 +2,7 @@ package de.ppi.samples.fuwesta.selophane.page;
 
 import lombok.Getter;
 
-import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import de.ppi.samples.fuwesta.selophane.base.BasePage;
@@ -25,10 +25,10 @@ public class MainPage extends BasePage {
     /**
      * Initiates an object of type MainPage.
      *
-     * @param searchContext the search context.
+     * @param webDriver the {@link WebDriver} for searches.
      */
-    public MainPage(SearchContext searchContext) {
-        super(searchContext);
+    public MainPage(WebDriver webDriver) {
+        super(webDriver);
     }
 
     /**
