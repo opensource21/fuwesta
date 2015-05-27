@@ -5,9 +5,9 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.selophane.elements.base.Element;
 import org.selophane.elements.base.ImplementedBy;
+import org.selophane.elements.widget.Button;
 
 import de.ppi.samples.fuwesta.selophane.widget.ActionTableImpl.RowImpl;
-import de.ppi.samples.fuwesta.selophane.widget.ActionTableImpl.RowImpl.ActionButtonImpl;
 
 /**
  * A table with actions in the last column.
@@ -64,26 +64,7 @@ public interface ActionTable extends Element {
          *
          * @return the list of {@link ActionButton}.
          */
-        List<ActionButton> getActions();
-
-        /**
-         * An button which defines the action.
-         *
-         */
-        @ImplementedBy(ActionButtonImpl.class)
-        public interface ActionButton extends Element {
-
-            /**
-             * Returns the label of the button.
-             * 
-             * @return the label of the button.
-             */
-            String getLabel();
-
-            @Override
-            void click();
-
-        }
+        List<Button> getActions();
 
     }
 }

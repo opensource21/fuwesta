@@ -3,10 +3,6 @@ package de.ppi.samples.fuwesta.selophane.module;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.page.LoginPage;
 import de.ppi.selenium.browser.SessionManager;
@@ -120,10 +116,7 @@ public class AuthModule {
         if (rememberMe) {
             loginPage.getRememberMeCB().check();
         }
-        final WebDriverWait wait = new WebDriverWait(webBrowser, 10);
-        final WebElement button = loginPage.getLoginBtn().getWrappedElement();
         loginPage.getLoginBtn().click();
-        wait.until(ExpectedConditions.stalenessOf(button));
     }
 
     /**

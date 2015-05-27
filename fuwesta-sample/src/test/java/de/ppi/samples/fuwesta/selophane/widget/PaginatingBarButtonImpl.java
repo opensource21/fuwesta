@@ -1,16 +1,17 @@
 package de.ppi.samples.fuwesta.selophane.widget;
 
-import org.openqa.selenium.By;
-import org.selophane.elements.base.ElementImpl;
+import org.openqa.selenium.support.FindBy;
 import org.selophane.elements.base.UniqueElementLocator;
+import org.selophane.elements.widget.Button;
 
+import de.ppi.samples.fuwesta.selophane.base.Fragment;
 import de.ppi.selenium.util.CSSHelper;
 
 /**
  * Implementation of a {@link PaginatingBarButton}.
  *
  */
-public class PaginatingBarButtonImpl extends ElementImpl implements
+public class PaginatingBarButtonImpl extends Fragment implements
         PaginatingBarButton {
     /**
      * Class of a disabled button.
@@ -21,6 +22,12 @@ public class PaginatingBarButtonImpl extends ElementImpl implements
      * Class of the active button.
      */
     private static final String CLASS_ACTIVE = "active";
+
+    /**
+     * The real link.
+     */
+    @FindBy(tagName = "a")
+    private Button button;
 
     /**
      *
@@ -34,7 +41,7 @@ public class PaginatingBarButtonImpl extends ElementImpl implements
 
     @Override
     public void click() {
-        findElement(By.tagName("a")).click();
+        button.click();
     }
 
     /**

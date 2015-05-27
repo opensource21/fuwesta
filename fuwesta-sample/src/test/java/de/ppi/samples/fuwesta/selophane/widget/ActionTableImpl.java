@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.selophane.elements.base.UniqueElementLocator;
+import org.selophane.elements.widget.Button;
 
 import de.ppi.samples.fuwesta.selophane.base.Fragment;
 
@@ -74,7 +75,7 @@ public class ActionTableImpl extends Fragment implements ActionTable {
          * List of actions.
          */
         @FindBy(xpath = "td[last()]/a")
-        private List<ActionButton> actions;
+        private List<Button> actions;
 
         /**
          * Initiates an object of type RowImpl.
@@ -99,34 +100,8 @@ public class ActionTableImpl extends Fragment implements ActionTable {
          * {@inheritDoc}
          */
         @Override
-        public List<ActionButton> getActions() {
+        public List<Button> getActions() {
             return actions;
-        }
-
-        /**
-         * Default implementation of {@link ActionButton}.
-         *
-         */
-        public static final class ActionButtonImpl extends Fragment implements
-                ActionButton {
-
-            /**
-             * Initiates an object of type ActionButtonImpl.
-             *
-             * @param elementLocator the locator of the webelement.
-             */
-            public ActionButtonImpl(final UniqueElementLocator elementLocator) {
-                super(elementLocator);
-            }
-
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public String getLabel() {
-                return getText();
-            }
-
         }
 
     }

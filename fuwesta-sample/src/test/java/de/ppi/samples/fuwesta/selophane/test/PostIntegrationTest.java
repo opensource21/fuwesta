@@ -7,13 +7,12 @@ import java.util.List;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.junit.Test;
+import org.selophane.elements.widget.Button;
 
 import de.ppi.samples.fuwesta.dbunit.dataset.TestData;
 import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.base.AuthRule.Auth;
 import de.ppi.samples.fuwesta.selophane.widget.ActionTable;
-import de.ppi.samples.fuwesta.selophane.widget.ActionTable.Row;
-import de.ppi.samples.fuwesta.selophane.widget.ActionTable.Row.ActionButton;
 import de.ppi.samples.fuwesta.selophane.widget.PaginatingBar;
 
 /**
@@ -70,7 +69,7 @@ public class PostIntegrationTest extends AbstractPostIntegrationTest {
         softly.assertThat(table.getNrOfDataRows()).isEqualTo(2);
         softly.assertThat(table.getNrOfDataColumns()).isEqualTo(2);
         final ActionTable.Row firstRow = table.getDataRows().get(0);
-        final List<ActionButton> actions = firstRow.getActions();
+        final List<Button> actions = firstRow.getActions();
         softly.assertThat(actions).hasSize(4);
         softly.assertThat(actions.get(0).getText()).isEqualTo("Show");
         softly.assertThat(actions.get(1).getText()).isEqualTo("Edit");
@@ -90,7 +89,7 @@ public class PostIntegrationTest extends AbstractPostIntegrationTest {
         softly.assertThat(paginatingBar.getButton("1")).hasNotClass(
                 PaginatingBar.CLASS_DISABLED);
         final String postId = firstRow.getColumn(0).getText();
-        Row.ActionButton delete = actions.get(3);
+        Button delete = actions.get(3);
         actions.get(0).click();
         softly.assertThat(browser).hasRelativeUrl(
                 URL.filledURLWithNamedParams(URL.Post.SHOW, URL.Post.P_POSTID,

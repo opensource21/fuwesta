@@ -3,7 +3,6 @@ package de.ppi.samples.fuwesta.selophane.page;
 import lombok.Getter;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -60,10 +59,22 @@ public class PostFormPage extends MainPage {
     @FindBy(id = "tags")
     private Select tagsSelect;
 
+    /**
+     *
+     * Initiates an object of type PostFormPage.
+     *
+     * @param webDriver the underlying {@link WebDriver}.
+     */
     public PostFormPage(WebDriver webDriver) {
         super(webDriver);
     }
 
+    /**
+     * Get a label for the given element which must have an id.
+     *
+     * @param element element for which the element is searched.
+     * @return the Label.
+     */
     public Label getLabelFor(Element element) {
         final String id = element.getAttribute("id");
         if (id == null) {

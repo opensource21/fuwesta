@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.selophane.elements.base.Element;
+import org.selophane.elements.widget.Button;
 import org.selophane.elements.widget.CheckBox;
 import org.selophane.elements.widget.TextInput;
 
@@ -38,7 +38,7 @@ public class LoginPage extends BasePage {
 
     /** Login-Button. */
     @FindBy(className = "btn")
-    private Element loginBtn;
+    private Button loginBtn;
 
     /**
      * Initiates an object of type LoginPage.
