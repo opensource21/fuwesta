@@ -40,7 +40,7 @@
     <appender name="FILE"
         class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>test.log</file>
-        <append>true</append>
+        <append>false</append>
 
         <rollingPolicy
             class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
@@ -107,6 +107,13 @@
     <logger name="org.springframework" level="WARN" />
 
     <logger name="org.hibernate" level="WARN" />
+
+    <logger name="de.ppi.samples.fuwesta.selophane" level="DEBUG" />
+    <logger name="de.ppi.selenium" level="DEBUG"/>
+
+    <logger name="org.apache.shiro.realm" level="WARN"></logger>
+
+    <logger name="org.springframework.web.servlet.mvc" level="WARN"></logger>
 
     <!-- Auf TRACE setzen bei 400 -Fehlern -->
     <logger name="org.springframework.web.servlet.mvc.method.annotation" level="WARN">
