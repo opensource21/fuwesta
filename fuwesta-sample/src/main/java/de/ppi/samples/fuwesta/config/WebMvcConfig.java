@@ -18,7 +18,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.support.DomainClassConverter;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor;
 import org.springframework.web.context.request.WebRequestInterceptor;
@@ -32,6 +31,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import de.ppi.fuwesta.spring.mvc.bind.ServletBindingService;
 import de.ppi.fuwesta.spring.mvc.formatter.EnumConverter;
+import de.ppi.fuwesta.spring.mvc.formatter.MessageSourceDateFormatter;
 import de.ppi.fuwesta.spring.mvc.formatter.NonEmptyStringAnnotationFormatterFactory;
 import de.ppi.fuwesta.spring.mvc.oval.DbCheckConfigurer;
 import de.ppi.fuwesta.spring.mvc.oval.JPAAnnotationsConfigurer;
@@ -45,7 +45,7 @@ import de.ppi.samples.fuwesta.frontend.URL;
 
 /**
  * The frontend configuration for Spring.
- * 
+ *
  */
 @Configuration
 @ComponentScan(basePackages = { "de.ppi.samples.fuwesta.frontend",
@@ -91,7 +91,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     /**
      * Initiates the message resolver.
-     * 
+     *
      * @return a message source.
      */
     @Bean(name = "messageSource")
@@ -137,7 +137,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
      * very common in frameworks like Grails or Play. The reason is that you
      * doesn't need so much knowledge about JPA and there is no need to write
      * tons of specific Dao-methods which make eager fetching.
-     * 
+     *
      * @return the {@link WebRequestInterceptor}.
      */
     @Bean
@@ -174,7 +174,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     /**
      * Configures the view resolver for JSPs.
-     * 
+     *
      * @return the view resolver.
      */
     @Bean
@@ -214,15 +214,25 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Override
     protected void addFormatters(FormatterRegistry registry) {
         registry.addFormatterForFieldAnnotation(new NonEmptyStringAnnotationFormatterFactory());
-        registry.addFormatter(new DateFormatter());
+        registry.addFormatter(messageSourceDateFormatter());
         registry.addConverter(new EnumConverter(configureMessageSource()));
         // registry.addConverter(new StringTrimmerConverter(true));
         super.addFormatters(registry);
     }
 
     /**
-     * Register a mapper so that a model entity could be found by id.
+     * Create the {@link MessageSourceDateFormatter}.
      * 
+     * @return the {@link MessageSourceDateFormatter}.
+     */
+    @Bean
+    protected MessageSourceDateFormatter messageSourceDateFormatter() {
+        return new MessageSourceDateFormatter("format.date");
+    }
+
+    /**
+     * Register a mapper so that a model entity could be found by id.
+     *
      * @return a DomainClassConverter.
      */
     @Bean
@@ -233,7 +243,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     /**
      * Creates a small service to bind request data to an object.
-     * 
+     *
      * @return the binding service.
      */
     @Bean

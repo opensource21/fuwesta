@@ -195,7 +195,7 @@
                 <artifactId>maven-jetty-plugin</artifactId>
                 <version>6.1.25</version>
                 <configuration>
-                    <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <scanIntervalSeconds>-1</scanIntervalSeconds>
                     <stopKey>foo</stopKey>
                     <stopPort>9999</stopPort>
                 </configuration>
