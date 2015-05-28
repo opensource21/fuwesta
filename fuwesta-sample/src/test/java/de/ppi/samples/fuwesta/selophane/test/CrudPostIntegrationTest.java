@@ -5,7 +5,6 @@ import org.dbunit.dataset.IDataSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.selophane.elements.widget.Button;
-import org.selophane.elements.widget.Label;
 import org.selophane.elements.widget.Select;
 import org.selophane.elements.widget.TextInput;
 
@@ -77,6 +76,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
         final Button save = formPage.getSave();
         save.click();
 
+        softly.assertThat(browser).hasRelativeUrl(URL.Post.LIST);
     }
 
     public void testValidation() {
