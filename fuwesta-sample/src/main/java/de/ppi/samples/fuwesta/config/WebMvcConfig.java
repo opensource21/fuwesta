@@ -40,6 +40,7 @@ import de.ppi.fuwesta.spring.mvc.oval.MessageLookupMessageValueFormatter;
 import de.ppi.fuwesta.spring.mvc.oval.SpringMvcMessageResolver;
 import de.ppi.fuwesta.spring.mvc.util.ApostropheEscapingPropertiesPersister;
 import de.ppi.fuwesta.spring.mvc.util.EntityPropertiesToMessages;
+import de.ppi.fuwesta.spring.mvc.util.RecursivePropertiesPersister;
 import de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages;
 import de.ppi.samples.fuwesta.frontend.URL;
 
@@ -105,8 +106,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         // Make sure Apostrophs must always be doubled..
         messageSource.setAlwaysUseMessageFormat(true);
         // This persister doubles Apostoph
-        messageSource
-                .setPropertiesPersister(new ApostropheEscapingPropertiesPersister());
+        messageSource.setPropertiesPersister(new RecursivePropertiesPersister(
+                new ApostropheEscapingPropertiesPersister()));
         final Class<?>[] classes = URL.class.getDeclaredClasses();
         final UrlDefinitionsToMessages urlDefinitions =
                 new UrlDefinitionsToMessages(classes);
@@ -222,7 +223,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     /**
      * Create the {@link MessageSourceDateFormatter}.
-     * 
+     *
      * @return the {@link MessageSourceDateFormatter}.
      */
     @Bean
