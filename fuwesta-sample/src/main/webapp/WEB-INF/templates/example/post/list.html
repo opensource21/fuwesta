@@ -16,8 +16,8 @@ pageRequest - the parameter of this search.
     <div th:replace="/example/main::info"></div>
 
     <h3 th:text="#{post.list.title}">List of posts</h3>
-    <a class="btn" href="/" th:href="@{/}"><i class="icon-home"></i>Home</a>
-    <a class="btn" href="/" th:href="@{__#{purl.post.create}__}" th:text="#{label.action.create}">Create a new post</a>
+    <a class="btn" id="homeBtn" href="/" th:href="@{/}"><i class="icon-home"></i>Home</a>
+    <a class="btn" id="createBtn" href="/" th:href="@{__#{purl.post.create}__}" th:text="#{label.action.create}">Create a new post</a>
     <div id="data">
         <span th:if="${#lists.isEmpty(postList)}" th:text="#{label.no_data_found}"></span>
         <table class="table table-striped table-hover">

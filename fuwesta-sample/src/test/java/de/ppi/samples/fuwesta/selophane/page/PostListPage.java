@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.selophane.elements.widget.Button;
 
 import de.ppi.samples.fuwesta.selophane.widget.ActionTable;
 import de.ppi.samples.fuwesta.selophane.widget.PaginatingBar;
@@ -15,6 +16,18 @@ import de.ppi.selenium.browser.SessionManager;
  */
 @Getter
 public class PostListPage extends MainPage {
+
+    /**
+     * Home-Button.
+     */
+    @FindBy(id = "homeBtn")
+    private Button homeButton;
+
+    /**
+     * Create Button.
+     */
+    @FindBy(id = "createBtn")
+    private Button createButton;
 
     /**
      * The table.

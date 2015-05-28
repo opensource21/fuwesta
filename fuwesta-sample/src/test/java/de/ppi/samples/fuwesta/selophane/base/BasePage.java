@@ -1,7 +1,12 @@
 package de.ppi.samples.fuwesta.selophane.base;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.selophane.elements.base.ByUniqueElementLocator;
+import org.selophane.elements.base.Element;
 import org.selophane.elements.factory.api.ElementFactory;
+import org.selophane.elements.widget.Label;
+import org.selophane.elements.widget.LabelImpl;
 
 /**
  * Base class for all pages to have a hook and to do the work of the
@@ -38,8 +43,23 @@ public class BasePage {
      *
      * @return the underlying {@link WebDriver}.
      */
-    protected WebDriver getWebDriver() {
+    public WebDriver getWebDriver() {
         return webDriver;
+    }
+
+    /**
+     * Get a label for the given element which must have an id.
+     *
+     * @param element element for which the element is searched.
+     * @return the Label.
+     */
+    public Label getLabelFor(Element element) {
+        final String id = element.getAttribute("id");
+        if (id == null) {
+            return null;
+        }
+        return new LabelImpl(new ByUniqueElementLocator(getWebDriver(),
+                By.xpath("//label[@for='" + id + "']")));
     }
 
 }
