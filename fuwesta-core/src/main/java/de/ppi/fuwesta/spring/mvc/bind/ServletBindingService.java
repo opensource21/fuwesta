@@ -28,9 +28,16 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  * attributes has changed and think all have changed. To solve this you should
  * read the {@link Entity} first and bind then the data. Have in mind, that
  * {@link InitBinder} has no effect here.
- * 
+ *
  */
 public class ServletBindingService {
+
+    /**
+     * Maximalnumbers of form-elements, see
+     * http://stackoverflow.com/questions/28811498
+     * /can-not-post-form-with-many-over-256-values.
+     */
+    private static final int MAX_NUMBERS_OF_FORM_ELEMENTS = 256;
 
     @Resource
     private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
@@ -40,7 +47,7 @@ public class ServletBindingService {
     /**
      * Bind the given request-data to the object. The object and
      * {@link BindingResult} is put to the model under the given name.
-     * 
+     *
      * @param request the HTTP-request.
      * @param model the model which contains the view-data.
      * @param object the object which should be changed.
@@ -57,7 +64,7 @@ public class ServletBindingService {
     /**
      * Bind the given request-data to the object and validate is. The object and
      * {@link BindingResult} is put to the model under the given name.
-     * 
+     *
      * @param request the HTTP-request.
      * @param model the model which contains the view-data.
      * @param object the object which should be changed.
@@ -89,7 +96,7 @@ public class ServletBindingService {
     /**
      * Register the given custom property editor for all properties of the given
      * type.
-     * 
+     *
      * @param requiredType the type of the property
      * @param propertyEditor the editor to register
      */
@@ -102,6 +109,7 @@ public class ServletBindingService {
         for (Entry<Class<?>, PropertyEditor> editors : customEditors.entrySet()) {
             binder.registerCustomEditor(editors.getKey(), editors.getValue());
         }
+        binder.setAutoGrowCollectionLimit(MAX_NUMBERS_OF_FORM_ELEMENTS);
     }
 
 }
