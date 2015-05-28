@@ -117,13 +117,37 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
 
     /**
      * Test edit.
+     *
+     * @throws DataSetException db-exceptions.
      */
     @Test
-    public void test3Edit() {
+    public void test3Edit() throws DataSetException {
         postModule.navigateToEdit(TEST_TITLE1);
         softly.assertThat(browser).hasRalativeUrlMatching(
                 URL.filledURLWithNamedParams(URL.Post.EDIT, URL.Post.P_POSTID,
                         ".*"));
+        final TextInput title = formPage.getTitleInput();
+        softly.assertThat(formPage.getLabelFor(title)).hasText("Title:");
+        title.set(TEST_TITLE1 + "N");
 
+        final TextInput content = formPage.getContentInput();
+        softly.assertThat(formPage.getLabelFor(content)).hasText("Content:");
+        content.set("This is an example text.\nIt contains newlines.Not really conntent.");
+
+        final TextInput creationTime = formPage.getCreationTimeInput();
+        softly.assertThat(formPage.getLabelFor(creationTime)).hasText(
+                "Creation Time");
+        creationTime.set("30-03-2015");
+
+        final Select user = formPage.getUserInput();
+        softly.assertThat(formPage.getLabelFor(user)).hasText("User:");
+        user.selectByVisibleText("test(Bug, Finda)");
+
+        final Select tags = formPage.getTagsSelect();
+        softly.assertThat(formPage.getLabelFor(tags)).hasText("Tags:");
+        tags.deselectByVisibleText("Test2");
+
+        formPage.getSave().click();
+        checkResult(PostTestData.buildPostEditedDataSet());
     }
 }
