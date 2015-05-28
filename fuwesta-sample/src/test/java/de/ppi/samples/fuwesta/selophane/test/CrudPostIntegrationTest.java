@@ -150,4 +150,32 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
         formPage.getSave().click();
         checkResult(PostTestData.buildPostEditedDataSet());
     }
+
+    /**
+     * Test partial edit.
+     *
+     * @throws DataSetException db-exceptions.
+     */
+    @Test
+    public void test4PartialEdit() throws DataSetException {
+        postModule.navigateToPartialEdit(TEST_TITLE1 + "N");
+        softly.assertThat(browser).hasRalativeUrlMatching(
+                URL.filledURLWithNamedParams(URL.Post.PARTIALEDIT,
+                        URL.Post.P_POSTID, ".*"));
+        final TextInput title = formPage.getTitleInput();
+        softly.assertThat(formPage.getLabelFor(title)).hasText("Title:");
+        title.set(TEST_TITLE1);
+
+        final TextInput content = formPage.getContentInput();
+        softly.assertThat(formPage.getLabelFor(content)).hasText("Content:");
+        content.set("This is an example text.\nIt contains newlines.");
+
+        final TextInput creationTime = formPage.getCreationTimeInput();
+        softly.assertThat(formPage.getLabelFor(creationTime)).hasText(
+                "Creation Time");
+        creationTime.set("30-01-2015");
+
+        formPage.getSave().click();
+        checkResult(PostTestData.buildPostPartialEditedDataSet());
+    }
 }

@@ -81,11 +81,23 @@ public class PostModule {
 
     /**
      * Navigate to the edit-page of the post with the given title.
-     * 
+     *
      * @param title the title of the post.
      */
     public void navigateToEdit(String title) {
+        browser.getRelativeUrl(URL.Post.LIST);
         getRow(title).getActions().get(PostListPage.INDEX_OF_EDIT_BUTTON)
                 .click();
+    }
+
+    /**
+     * Navigate to the partialedit-page of the post with the given title.
+     *
+     * @param title the title of the post.
+     */
+    public void navigateToPartialEdit(String title) {
+        browser.getRelativeUrl(URL.Post.LIST);
+        getRow(title).getActions()
+                .get(PostListPage.INDEX_OF_PARTIALEDIT_BUTTON).click();
     }
 }

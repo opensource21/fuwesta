@@ -45,4 +45,19 @@ public class PostTestData {
         return b.build();
     }
 
+    @SuppressWarnings("boxing")
+    public static IDataSet buildPostPartialEditedDataSet()
+            throws DataSetException {
+        IDataSet oldDataset = TestData.initWithSampleData();
+
+        final DataSetBuilder b = new DataSetBuilder();
+        b.addDataSet(oldDataset);
+        newPost().Id(103L).Version(2L)
+                .Content("This is an example text.\r\nIt contains newlines.")
+                .CreationTime(ts("2015-01-30 00:00:00.0")).Title("Test-Title1")
+                .UserId(12L).addTo(b);
+        newTagPostings().Tags(1L).Postings(103L).addTo(b);
+        return b.build();
+    }
+
 }
