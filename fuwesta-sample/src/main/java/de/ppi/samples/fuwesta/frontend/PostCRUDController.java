@@ -33,7 +33,7 @@ import de.ppi.samples.fuwesta.service.api.PostService;
 
 /**
  * Controller for Create, Read, Update and Delete for the model Post.
- * 
+ *
  */
 @Controller()
 public class PostCRUDController implements InitializingBean {
@@ -75,7 +75,7 @@ public class PostCRUDController implements InitializingBean {
 
     /**
      * Added a {@link StringTrimmerEditor}.
-     * 
+     *
      * @param binder the WebDataBinder
      */
     @InitBinder
@@ -94,7 +94,7 @@ public class PostCRUDController implements InitializingBean {
 
     /**
      * List all posts.
-     * 
+     *
      * @param model the model.
      * @param pageRequest attributes for pagination.
      * @return String which defines the next page.
@@ -116,7 +116,7 @@ public class PostCRUDController implements InitializingBean {
 
     /**
      * Create a new post form.
-     * 
+     *
      * @param model the model.
      * @return String which defines the next page.
      */
@@ -133,14 +133,14 @@ public class PostCRUDController implements InitializingBean {
 
     /**
      * Insert a new post.
-     * 
+     *
      * @param post the post.
      * @param result the binding result.
      * @param model the model.
      * @return String which defines the next page.
      */
     @RequestMapping(value = URL.Post.CREATE, method = RequestMethod.POST)
-    public String insert(@ModelAttribute("newPost") Post post,
+    public String insert(@ModelAttribute("post") Post post,
             BindingResult result, Model model) {
         mvcValidator.validate(post, result);
         if (result.hasErrors()) {
@@ -156,7 +156,7 @@ public class PostCRUDController implements InitializingBean {
 
     /**
      * Create confirmation for deleting a post.
-     * 
+     *
      * @param postId the Id of the post.
      * @param model the datamodel.
      * @return String which defines the next page.
@@ -172,7 +172,7 @@ public class PostCRUDController implements InitializingBean {
 
     /**
      * Delete a post.
-     * 
+     *
      * @param postId the Id of the post.
      * @return String which defines the next page.
      */
@@ -187,7 +187,7 @@ public class PostCRUDController implements InitializingBean {
 
     /**
      * Show a post.
-     * 
+     *
      * @param post der Post.
      * @param model the model.
      * @return String which defines the next page.
@@ -203,7 +203,7 @@ public class PostCRUDController implements InitializingBean {
 
     /**
      * Edit a post.
-     * 
+     *
      * @param postId the Id of the post.
      * @param model the model.
      * @return String which defines the next page.
@@ -226,7 +226,7 @@ public class PostCRUDController implements InitializingBean {
 
     /**
      * Edit a post partial, i.e. the simple fields.
-     * 
+     *
      * @param postId the Id of the post.
      * @param model the model.
      * @return String which defines the next page.
@@ -249,7 +249,7 @@ public class PostCRUDController implements InitializingBean {
 
     /**
      * Get all active tags and tags which are used in the current post.
-     * 
+     *
      * @param post the current post.
      * @return all active tags and tags which are used in the current post.
      */
@@ -267,7 +267,7 @@ public class PostCRUDController implements InitializingBean {
 
     /**
      * Update the post.
-     * 
+     *
      * @param post the post.
      * @param result the bindingsresult.
      * @param model the model
@@ -292,7 +292,7 @@ public class PostCRUDController implements InitializingBean {
 
     /**
      * Update the post.
-     * 
+     *
      * @param post the post.
      * @param request the request with the data.
      * @param model the model
@@ -316,7 +316,7 @@ public class PostCRUDController implements InitializingBean {
 
     /**
      * Adds the standard model data.
-     * 
+     *
      * @param post the post
      * @param url the action URL.
      * @param disabled true if the data should be only show.
