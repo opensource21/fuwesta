@@ -3,8 +3,9 @@ package de.ppi.samples.fuwesta.selophane.test;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.selophane.elements.widget.Button;
+import org.junit.runners.MethodSorters;
 import org.selophane.elements.widget.Select;
 import org.selophane.elements.widget.TextInput;
 
@@ -13,13 +14,19 @@ import de.ppi.samples.fuwesta.dbunit.dataset.TestData;
 import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.page.PostFormPage;
 import de.ppi.selenium.browser.SessionManager;
+import de.ppi.selenium.util.Protocol;
 
 /**
  * Test for the post-page.
  *
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
 
+    /**
+     * TEST-Title.
+     */
+    private static final String TEST_TITLE1 = "Test-Title1";
     /**
      * The formPage.
      */
@@ -43,18 +50,19 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
 
     /**
      * Test creating a new entry.
+     *
+     * @throws Exception if something goes wrong.
      */
     @Test
-    public void testCreate() throws Exception {
-        browser.getRelativeUrl(URL.Post.LIST);
-        postListPage.getCreateButton().click();
+    public void test1Create() throws Exception {
+        postModule.navigateToCreate();
         softly.assertThat(browser)
                 .as("Expect that the new page is the create-url")
                 .hasRelativeUrl(URL.Post.CREATE);
 
         final TextInput title = formPage.getTitleInput();
         softly.assertThat(formPage.getLabelFor(title)).hasText("Title:");
-        title.set("Test-Title1");
+        title.set(TEST_TITLE1);
 
         final TextInput content = formPage.getContentInput();
         softly.assertThat(formPage.getLabelFor(content)).hasText("Content:");
@@ -74,14 +82,48 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
         tags.selectByVisibleText("Test2");
         tags.selectByVisibleText("Test1");
 
-        final Button save = formPage.getSave();
-        save.click();
+        formPage.getSave().click();
 
         softly.assertThat(browser).hasRelativeUrl(URL.Post.LIST);
         checkResult(PostTestData.buildPostCreatedDataSet());
     }
 
-    public void testValidation() {
+    /**
+     * Test checks the validation-messages.
+     */
+    @Test
+    public void test2Validation() {
+        postModule.navigateToCreate();
+        final TextInput creationTime = formPage.getCreationTimeInput();
+        final TextInput title = formPage.getTitleInput();
+        creationTime.sendKeys("11.11.2011");
+        softly.assertThat(creationTime.getText()).isEqualTo("11112011");
+        formPage.getSave().click();
+        softly.assertThat(formPage.getError(title)).hasText(
+                "Title cannot be null");
+        softly.assertThat(formPage.getError(creationTime)).hasText(
+                "Invalid Date (must be dd-MM-yyyy).");
+        Protocol.log("ValidationErrors1", "Validation errors should be shown.",
+                browser);
+        title.set(TEST_TITLE1);
+        formPage.getSave().click();
+        softly.assertThat(formPage.getError(title)).hasText(
+                "Title must be unique");
+        softly.assertThat(formPage.getError(creationTime)).hasText(
+                "Invalid Date (must be dd-MM-yyyy).");
+        Protocol.log("ValidationErrors2", "Validation errors should be shown.",
+                browser);
+    }
+
+    /**
+     * Test edit.
+     */
+    @Test
+    public void test3Edit() {
+        postModule.navigateToEdit(TEST_TITLE1);
+        softly.assertThat(browser).hasRalativeUrlMatching(
+                URL.filledURLWithNamedParams(URL.Post.EDIT, URL.Post.P_POSTID,
+                        ".*"));
 
     }
 }

@@ -12,6 +12,7 @@ import org.selophane.elements.widget.Button;
 import de.ppi.samples.fuwesta.dbunit.dataset.TestData;
 import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.base.AuthRule.Auth;
+import de.ppi.samples.fuwesta.selophane.page.PostListPage;
 import de.ppi.samples.fuwesta.selophane.widget.ActionTable;
 import de.ppi.samples.fuwesta.selophane.widget.PaginatingBar;
 
@@ -71,10 +72,18 @@ public class PostIntegrationTest extends AbstractPostIntegrationTest {
         final ActionTable.Row firstRow = table.getDataRows().get(0);
         final List<Button> actions = firstRow.getActions();
         softly.assertThat(actions).hasSize(4);
-        softly.assertThat(actions.get(0).getText()).isEqualTo("Show");
-        softly.assertThat(actions.get(1).getText()).isEqualTo("Edit");
-        softly.assertThat(actions.get(2).getText()).isEqualTo("Partialedit");
-        softly.assertThat(actions.get(3).getText()).isEqualTo("Delete");
+        softly.assertThat(
+                actions.get(PostListPage.INDEX_OF_SHOW_BUTTON).getText())
+                .isEqualTo("Show");
+        softly.assertThat(
+                actions.get(PostListPage.INDEX_OF_EDIT_BUTTON).getText())
+                .isEqualTo("Edit");
+        softly.assertThat(
+                actions.get(PostListPage.INDEX_OF_PARTIALEDIT_BUTTON).getText())
+                .isEqualTo("Partialedit");
+        softly.assertThat(
+                actions.get(PostListPage.INDEX_OF_DELETE_BUTTON).getText())
+                .isEqualTo("Delete");
 
         final PaginatingBar paginatingBar = postListPage.getPaginatingBar();
         softly.assertThat(paginatingBar.getNrOfButtons()).isEqualTo(5);
@@ -89,20 +98,20 @@ public class PostIntegrationTest extends AbstractPostIntegrationTest {
         softly.assertThat(paginatingBar.getButton("1")).hasNotClass(
                 PaginatingBar.CLASS_DISABLED);
         final String postId = firstRow.getColumn(0).getText();
-        Button delete = actions.get(3);
-        actions.get(0).click();
+        Button delete = actions.get(PostListPage.INDEX_OF_DELETE_BUTTON);
+        actions.get(PostListPage.INDEX_OF_SHOW_BUTTON).click();
         softly.assertThat(browser).hasRelativeUrl(
                 URL.filledURLWithNamedParams(URL.Post.SHOW, URL.Post.P_POSTID,
                         postId));
         browser.navigate().back();
         // firstRow = postListPage.getTable().getDataRows().get(0);
-        actions.get(1).click();
+        actions.get(PostListPage.INDEX_OF_EDIT_BUTTON).click();
         softly.assertThat(browser).hasRelativeUrl(
                 URL.filledURLWithNamedParams(URL.Post.EDIT, URL.Post.P_POSTID,
                         postId));
         browser.navigate().back();
         // firstRow = table.getDataRows().get(0);
-        actions.get(2).click();
+        actions.get(PostListPage.INDEX_OF_PARTIALEDIT_BUTTON).click();
         softly.assertThat(browser).hasRelativeUrl(
                 URL.filledURLWithNamedParams(URL.Post.PARTIALEDIT,
                         URL.Post.P_POSTID, postId));

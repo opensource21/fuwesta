@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.selophane.elements.base.ByUniqueElementLocator;
 import org.selophane.elements.base.Element;
+import org.selophane.elements.base.ElementImpl;
 import org.selophane.elements.factory.api.ElementFactory;
 import org.selophane.elements.widget.Label;
 import org.selophane.elements.widget.LabelImpl;
@@ -60,6 +61,21 @@ public class BasePage {
         }
         return new LabelImpl(new ByUniqueElementLocator(getWebDriver(),
                 By.xpath("//label[@for='" + id + "']")));
+    }
+
+    /**
+     * Get a the validation error-message to an given element.
+     *
+     * @param element element for which the error is searched must have an id.
+     * @return the Label.
+     */
+    public Element getError(Element element) {
+        final String id = element.getAttribute("id");
+        if (id == null) {
+            return null;
+        }
+        return new ElementImpl(new ByUniqueElementLocator(getWebDriver(),
+                By.id("error_" + id)));
     }
 
 }

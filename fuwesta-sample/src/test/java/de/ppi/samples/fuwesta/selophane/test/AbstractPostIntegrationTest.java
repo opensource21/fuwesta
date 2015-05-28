@@ -11,6 +11,7 @@ import com.google.common.annotations.VisibleForTesting;
 
 import de.ppi.samples.fuwesta.dbunit.AbstractFuWeStaSampleDbUnitTest;
 import de.ppi.samples.fuwesta.selophane.base.WebTestConstants;
+import de.ppi.samples.fuwesta.selophane.module.PostModule;
 import de.ppi.samples.fuwesta.selophane.page.PostListPage;
 import de.ppi.selenium.assertj.SeleniumSoftAssertions;
 import de.ppi.selenium.browser.SessionManager;
@@ -86,13 +87,20 @@ public abstract class AbstractPostIntegrationTest extends
     protected PostListPage postListPage;
 
     /**
-     * Init the instances, because the Session shouldn't be access before the 
+     * The postlist-page.
+     */
+    @VisibleForTesting
+    protected PostModule postModule;
+
+    /**
+     * Init the instances, because the Session shouldn't be access before the
      * rule creates one.
      */
     @Before
     public void init() {
         browser = SessionManager.getSession();
 
-        postListPage = new PostListPage();
+        postListPage = new PostListPage(browser);
+        postModule = new PostModule(browser);
     }
 }

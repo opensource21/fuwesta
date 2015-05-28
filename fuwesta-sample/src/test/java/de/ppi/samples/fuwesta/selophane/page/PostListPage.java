@@ -17,6 +17,15 @@ import de.ppi.selenium.browser.SessionManager;
 @Getter
 public class PostListPage extends MainPage {
 
+    /** Index of the button to show the post. */
+    public static final int INDEX_OF_SHOW_BUTTON = 0;
+    /** Index of the button to edit the post. */
+    public static final int INDEX_OF_EDIT_BUTTON = 1;
+    /** Index of the button to partial edit the post. */
+    public static final int INDEX_OF_PARTIALEDIT_BUTTON = 2;
+    /** Index of the button to delete the post. */
+    public static final int INDEX_OF_DELETE_BUTTON = 3;
+
     /**
      * Home-Button.
      */

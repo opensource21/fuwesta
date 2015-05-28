@@ -11,6 +11,7 @@ import static org.dbunit.dataset.builder.ObjectFactory.ts;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.builder.DataSetBuilder;
+import org.dbunit.validator.Validators;
 
 /**
  * Common test-data.
@@ -31,8 +32,10 @@ public class TestData {
         newPost().Id(102L).Content("der zweite Text").Title("Titel 2")
                 .UserId(12L).addTo(b);
 
-        newTag().Id(1L).Active(TRUE).Name("Test1").addTo(b);
-        newTag().Id(2L).Active(TRUE).Name("Test2").addTo(b);
+        newTag().Id(1L).Active(TRUE).Name("Test1").Version(Validators.gt(-1))
+                .addTo(b);
+        newTag().Id(2L).Active(TRUE).Name("Test2").Version(Validators.gt(-1))
+                .addTo(b);
         newTag().Id(3L).Active(FALSE).Name("Test3").addTo(b);
         newTagPostings().Tags(2L).Postings(101L).addTo(b);
         newTagPostings().Tags(2L).Postings(102L).addTo(b);

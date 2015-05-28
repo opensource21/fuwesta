@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 
 import de.ppi.fuwesta.jpa.helper.JPAList;
 import de.ppi.fuwesta.jpa.helper.VersionedModel;
+import de.ppi.fuwesta.oval.validation.Unique;
 import de.ppi.fuwesta.spring.mvc.formatter.NonEmpty;
 
 /**
@@ -26,6 +27,7 @@ public class Post extends VersionedModel {
     /** The title. */
     @Column(nullable = false, length = 30)
     @NonEmpty
+    @Unique
     private String title;
 
     /** The content. */
