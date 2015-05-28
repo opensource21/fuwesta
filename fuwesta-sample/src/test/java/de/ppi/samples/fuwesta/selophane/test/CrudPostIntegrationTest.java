@@ -8,6 +8,7 @@ import org.selophane.elements.widget.Button;
 import org.selophane.elements.widget.Select;
 import org.selophane.elements.widget.TextInput;
 
+import de.ppi.samples.fuwesta.dbunit.dataset.PostTestData;
 import de.ppi.samples.fuwesta.dbunit.dataset.TestData;
 import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.page.PostFormPage;
@@ -44,7 +45,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
      * Test creating a new entry.
      */
     @Test
-    public void testCreate() {
+    public void testCreate() throws Exception {
         browser.getRelativeUrl(URL.Post.LIST);
         postListPage.getCreateButton().click();
         softly.assertThat(browser)
@@ -62,7 +63,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
         final TextInput creationTime = formPage.getCreationTimeInput();
         softly.assertThat(formPage.getLabelFor(creationTime)).hasText(
                 "Creation Time");
-        creationTime.set("2015-01-15");
+        creationTime.set("30-01-2015");
 
         final Select user = formPage.getUserInput();
         softly.assertThat(formPage.getLabelFor(user)).hasText("User:");
@@ -77,6 +78,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
         save.click();
 
         softly.assertThat(browser).hasRelativeUrl(URL.Post.LIST);
+        checkResult(PostTestData.buildPostCreatedDataSet());
     }
 
     public void testValidation() {
