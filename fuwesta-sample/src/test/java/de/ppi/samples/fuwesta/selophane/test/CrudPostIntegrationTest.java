@@ -1,7 +1,5 @@
 package de.ppi.samples.fuwesta.selophane.test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.junit.Before;
@@ -117,6 +115,13 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
                 browser);
     }
 
+    /**
+     * Test if the title and the creationTime field has the right validation
+     * error.
+     * 
+     * @param title title field
+     * @param creationTime creationTime field.
+     */
     private void validateTitleAndCreationTime(final TextInput title,
             final TextInput creationTime) {
         title.clear();
