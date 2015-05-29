@@ -2,10 +2,12 @@ package de.ppi.samples.fuwesta.selophane.base;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 import org.selophane.elements.base.ByUniqueElementLocator;
 import org.selophane.elements.base.Element;
 import org.selophane.elements.base.ElementImpl;
-import org.selophane.elements.factory.api.ElementFactory;
+import org.selophane.elements.factory.api.ElementDecorator;
 import org.selophane.elements.widget.Label;
 import org.selophane.elements.widget.LabelImpl;
 
@@ -36,7 +38,8 @@ public class BasePage {
      * Reload the page, this is important if the weblements are chached.
      */
     public final void reload() {
-        ElementFactory.initElements(webDriver, this);
+        PageFactory.initElements(new ElementDecorator(webDriver,
+                new DefaultElementLocatorFactory(webDriver)), this);
     }
 
     /**
