@@ -12,6 +12,7 @@ import org.selophane.elements.widget.TextInput;
 import de.ppi.samples.fuwesta.dbunit.dataset.PostTestData;
 import de.ppi.samples.fuwesta.dbunit.dataset.TestData;
 import de.ppi.samples.fuwesta.frontend.URL;
+import de.ppi.samples.fuwesta.selophane.page.PartialPostFormPage;
 import de.ppi.samples.fuwesta.selophane.page.PostFormPage;
 import de.ppi.selenium.browser.SessionManager;
 import de.ppi.selenium.util.Protocol;
@@ -27,10 +28,16 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
      * TEST-Title.
      */
     private static final String TEST_TITLE1 = "Test-Title1";
+
     /**
      * The formPage.
      */
     private PostFormPage formPage;
+
+    /**
+     * The formPage.
+     */
+    private PartialPostFormPage partialFormPage;
 
     /**
      * Init the private members.
@@ -38,6 +45,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
     @Before
     public void setUp() {
         formPage = new PostFormPage(SessionManager.getSession());
+        partialFormPage = new PartialPostFormPage(SessionManager.getSession());
     }
 
     /**
@@ -162,20 +170,24 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
         softly.assertThat(browser).hasRalativeUrlMatching(
                 URL.filledURLWithNamedParams(URL.Post.PARTIALEDIT,
                         URL.Post.P_POSTID, ".*"));
-        final TextInput title = formPage.getTitleInput();
-        softly.assertThat(formPage.getLabelFor(title)).hasText("Title:");
+        final TextInput title = partialFormPage.getTitleInput();
+        softly.assertThat(partialFormPage.getLabelFor(title)).hasText("Title:");
         title.set(TEST_TITLE1);
 
-        final TextInput content = formPage.getContentInput();
-        softly.assertThat(formPage.getLabelFor(content)).hasText("Content:");
+        final TextInput content = partialFormPage.getContentInput();
+        softly.assertThat(partialFormPage.getLabelFor(content)).hasText(
+                "Content:");
         content.set("This is an example text.\nIt contains newlines.");
 
-        final TextInput creationTime = formPage.getCreationTimeInput();
-        softly.assertThat(formPage.getLabelFor(creationTime)).hasText(
+        final TextInput creationTime = partialFormPage.getCreationTimeInput();
+        softly.assertThat(partialFormPage.getLabelFor(creationTime)).hasText(
                 "Creation Time");
         creationTime.set("30-01-2015");
 
-        formPage.getSave().click();
+        partialFormPage.getSave().click();
         checkResult(PostTestData.buildPostPartialEditedDataSet());
     }
+
+    // TODO Validation test
+    // Show and Delte.
 }
