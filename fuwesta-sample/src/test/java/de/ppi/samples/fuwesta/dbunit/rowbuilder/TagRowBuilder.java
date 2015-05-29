@@ -1,7 +1,6 @@
 package de.ppi.samples.fuwesta.dbunit.rowbuilder;
 
 import org.dbunit.dataset.builder.BasicDataRowBuilder;
-import org.dbunit.validator.IValidator;
 
 public class TagRowBuilder extends BasicDataRowBuilder {
 
@@ -30,17 +29,7 @@ public class TagRowBuilder extends BasicDataRowBuilder {
         return this;
     }
 
-    public final TagRowBuilder Active (IValidator<?> value) {
-        with(C_ACTIVE, value);
-        return this;
-    }
-
-    public final TagRowBuilder Id (Long value) {
-        with(C_ID, value);
-        return this;
-    }
-
-    public final TagRowBuilder Id (IValidator<?> value) {
+    public final TagRowBuilder Id (Number value) {
         with(C_ID, value);
         return this;
     }
@@ -50,17 +39,7 @@ public class TagRowBuilder extends BasicDataRowBuilder {
         return this;
     }
 
-    public final TagRowBuilder Name (IValidator<?> value) {
-        with(C_NAME, value);
-        return this;
-    }
-
-    public final TagRowBuilder Version (Long value) {
-        with(C_VERSION, value);
-        return this;
-    }
-
-    public final TagRowBuilder Version (IValidator<?> value) {
+    public final TagRowBuilder Version (Number value) {
         with(C_VERSION, value);
         return this;
     }

@@ -1,7 +1,6 @@
 package de.ppi.samples.fuwesta.dbunit.rowbuilder;
 
 import org.dbunit.dataset.builder.BasicDataRowBuilder;
-import org.dbunit.validator.IValidator;
 import java.sql.Timestamp;
 
 public class PostRowBuilder extends BasicDataRowBuilder {
@@ -32,27 +31,12 @@ public class PostRowBuilder extends BasicDataRowBuilder {
         return this;
     }
 
-    public final PostRowBuilder Content (IValidator<?> value) {
-        with(C_CONTENT, value);
-        return this;
-    }
-
     public final PostRowBuilder CreationTime (Timestamp value) {
         with(C_CREATION_TIME, value);
         return this;
     }
 
-    public final PostRowBuilder CreationTime (IValidator<?> value) {
-        with(C_CREATION_TIME, value);
-        return this;
-    }
-
-    public final PostRowBuilder Id (Long value) {
-        with(C_ID, value);
-        return this;
-    }
-
-    public final PostRowBuilder Id (IValidator<?> value) {
+    public final PostRowBuilder Id (Number value) {
         with(C_ID, value);
         return this;
     }
@@ -62,27 +46,12 @@ public class PostRowBuilder extends BasicDataRowBuilder {
         return this;
     }
 
-    public final PostRowBuilder Title (IValidator<?> value) {
-        with(C_TITLE, value);
-        return this;
-    }
-
-    public final PostRowBuilder UserId (Long value) {
+    public final PostRowBuilder UserId (Number value) {
         with(C_USER_ID, value);
         return this;
     }
 
-    public final PostRowBuilder UserId (IValidator<?> value) {
-        with(C_USER_ID, value);
-        return this;
-    }
-
-    public final PostRowBuilder Version (Long value) {
-        with(C_VERSION, value);
-        return this;
-    }
-
-    public final PostRowBuilder Version (IValidator<?> value) {
+    public final PostRowBuilder Version (Number value) {
         with(C_VERSION, value);
         return this;
     }

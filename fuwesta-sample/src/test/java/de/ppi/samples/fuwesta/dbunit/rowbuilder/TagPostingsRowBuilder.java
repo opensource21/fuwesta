@@ -1,7 +1,6 @@
 package de.ppi.samples.fuwesta.dbunit.rowbuilder;
 
 import org.dbunit.dataset.builder.BasicDataRowBuilder;
-import org.dbunit.validator.IValidator;
 
 public class TagPostingsRowBuilder extends BasicDataRowBuilder {
 
@@ -10,7 +9,7 @@ public class TagPostingsRowBuilder extends BasicDataRowBuilder {
     public static final String C_POSTINGS = "POSTINGS";
     public static final String C_TAGS = "TAGS";
 
-    public static final String[] PRIMARY_KEY = {};
+    public static final String[] PRIMARY_KEY = {C_TAGS, C_POSTINGS};
 
     public static final String[] ALL_COLUMNS = {C_POSTINGS, C_TAGS};
 
@@ -21,22 +20,12 @@ public class TagPostingsRowBuilder extends BasicDataRowBuilder {
         addDefaultValue(C_POSTINGS, new Long("0"));
     }
 
-    public final TagPostingsRowBuilder Postings (Long value) {
+    public final TagPostingsRowBuilder Postings (Number value) {
         with(C_POSTINGS, value);
         return this;
     }
 
-    public final TagPostingsRowBuilder Postings (IValidator<?> value) {
-        with(C_POSTINGS, value);
-        return this;
-    }
-
-    public final TagPostingsRowBuilder Tags (Long value) {
-        with(C_TAGS, value);
-        return this;
-    }
-
-    public final TagPostingsRowBuilder Tags (IValidator<?> value) {
+    public final TagPostingsRowBuilder Tags (Number value) {
         with(C_TAGS, value);
         return this;
     }

@@ -1,7 +1,6 @@
 package de.ppi.samples.fuwesta.dbunit.rowbuilder;
 
 import org.dbunit.dataset.builder.BasicDataRowBuilder;
-import org.dbunit.validator.IValidator;
 
 public class TUserRowBuilder extends BasicDataRowBuilder {
 
@@ -31,17 +30,7 @@ public class TUserRowBuilder extends BasicDataRowBuilder {
         return this;
     }
 
-    public final TUserRowBuilder FirstName (IValidator<?> value) {
-        with(C_FIRST_NAME, value);
-        return this;
-    }
-
-    public final TUserRowBuilder Id (Long value) {
-        with(C_ID, value);
-        return this;
-    }
-
-    public final TUserRowBuilder Id (IValidator<?> value) {
+    public final TUserRowBuilder Id (Number value) {
         with(C_ID, value);
         return this;
     }
@@ -51,17 +40,7 @@ public class TUserRowBuilder extends BasicDataRowBuilder {
         return this;
     }
 
-    public final TUserRowBuilder LastName (IValidator<?> value) {
-        with(C_LAST_NAME, value);
-        return this;
-    }
-
     public final TUserRowBuilder Sex (String value) {
-        with(C_SEX, value);
-        return this;
-    }
-
-    public final TUserRowBuilder Sex (IValidator<?> value) {
         with(C_SEX, value);
         return this;
     }
@@ -71,17 +50,7 @@ public class TUserRowBuilder extends BasicDataRowBuilder {
         return this;
     }
 
-    public final TUserRowBuilder UserId (IValidator<?> value) {
-        with(C_USER_ID, value);
-        return this;
-    }
-
-    public final TUserRowBuilder Version (Long value) {
-        with(C_VERSION, value);
-        return this;
-    }
-
-    public final TUserRowBuilder Version (IValidator<?> value) {
+    public final TUserRowBuilder Version (Number value) {
         with(C_VERSION, value);
         return this;
     }
