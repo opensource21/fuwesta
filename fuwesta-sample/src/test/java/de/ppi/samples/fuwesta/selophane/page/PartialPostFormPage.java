@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.selophane.elements.base.Element;
 import org.selophane.elements.widget.Button;
 import org.selophane.elements.widget.TextInput;
 
@@ -32,7 +33,7 @@ public class PartialPostFormPage extends MainPage {
 
     /** Button to reset. */
     @FindBy(css = "input[value='Reset']")
-    private Button reset;
+    private Element reset;
 
     /**
      *

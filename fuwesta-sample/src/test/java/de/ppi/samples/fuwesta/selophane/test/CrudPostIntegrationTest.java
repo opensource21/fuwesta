@@ -1,5 +1,7 @@
 package de.ppi.samples.fuwesta.selophane.test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.junit.Before;
@@ -104,15 +106,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
         postModule.navigateToCreate();
         final TextInput creationTime = formPage.getCreationTimeInput();
         final TextInput title = formPage.getTitleInput();
-        creationTime.sendKeys("11.11.2011");
-        softly.assertThat(creationTime.getText()).isEqualTo("11112011");
-        formPage.getSave().click();
-        softly.assertThat(formPage.getError(title)).hasText(
-                "Title cannot be null");
-        softly.assertThat(formPage.getError(creationTime)).hasText(
-                "Invalid Date (must be dd-MM-yyyy).");
-        Protocol.log("ValidationErrors1", "Validation errors should be shown.",
-                browser);
+        validateTitleAndCreationTime(title, creationTime);
         title.set(TEST_TITLE1);
         formPage.getSave().click();
         softly.assertThat(formPage.getError(title)).hasText(
@@ -123,18 +117,37 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
                 browser);
     }
 
+    private void validateTitleAndCreationTime(final TextInput title,
+            final TextInput creationTime) {
+        title.clear();
+        creationTime.clear();
+        creationTime.sendKeys("11.11.2011");
+        softly.assertThat(creationTime.getText()).isEqualTo("11112011");
+        formPage.getSave().click();
+        softly.assertThat(formPage.getError(title)).hasText(
+                "Title cannot be null");
+        softly.assertThat(formPage.getError(creationTime)).hasText(
+                "Invalid Date (must be dd-MM-yyyy).");
+        Protocol.log("ValidationErrors1", "Validation errors should be shown.",
+                browser);
+    }
+
     /**
      * Test edit.
      *
      * @throws DataSetException db-exceptions.
      */
     @Test
-    public void test3Edit() throws DataSetException {
+    public void test3EditAndValidation() throws DataSetException {
         postModule.navigateToEdit(TEST_TITLE1);
         softly.assertThat(browser).hasRalativeUrlMatching(
                 URL.filledURLWithNamedParams(URL.Post.EDIT, URL.Post.P_POSTID,
                         ".*"));
         final TextInput title = formPage.getTitleInput();
+        final TextInput creationTime = formPage.getCreationTimeInput();
+        softly.assertThat(formPage.getLabelFor(title)).hasText("Title:");
+        validateTitleAndCreationTime(title, creationTime);
+        formPage.getReset().click();
         softly.assertThat(formPage.getLabelFor(title)).hasText("Title:");
         title.set(TEST_TITLE1 + "N");
 
@@ -142,7 +155,6 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
         softly.assertThat(formPage.getLabelFor(content)).hasText("Content:");
         content.set("This is an example text.\nIt contains newlines.Not really conntent.");
 
-        final TextInput creationTime = formPage.getCreationTimeInput();
         softly.assertThat(formPage.getLabelFor(creationTime)).hasText(
                 "Creation Time");
         creationTime.set("30-03-2015");
