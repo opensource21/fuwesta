@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.By;
 import org.selophane.elements.widget.Link;
 import org.selophane.elements.widget.Select;
 import org.selophane.elements.widget.TextInput;
@@ -134,7 +135,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
      * @throws Exception if something goes wrong.
      */
     @Test
-    public void test1Create() throws Exception {
+    public void test10Create() throws Exception {
         postModule.navigateToCreate();
         softly.assertThat(browser)
                 .as("Expect that the new page is the create-url")
@@ -172,7 +173,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
      * Test checks the validation-messages.
      */
     @Test
-    public void test2Validation() {
+    public void test20Validation() {
         postModule.navigateToCreate();
         validateTitleAndCreationTime(formPage);
         TextInput title = formPage.getTitleInput();
@@ -220,7 +221,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
      * @throws DataSetException db-exceptions.
      */
     @Test
-    public void test3EditAndValidation() throws DataSetException {
+    public void test30EditAndValidation() throws DataSetException {
         postModule.navigateToEdit(TEST_TITLE1);
         softly.assertThat(browser).hasRalativeUrlMatching(
                 URL.filledURLWithNamedParams(URL.Post.EDIT, URL.Post.P_POSTID,
@@ -261,7 +262,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
      * @throws DataSetException db-exceptions.
      */
     @Test
-    public void test4PartialEditAndValidation() throws DataSetException {
+    public void test40PartialEditAndValidation() throws DataSetException {
         postModule.navigateToPartialEdit(TEST_TITLE1 + "N");
         softly.assertThat(browser).hasRalativeUrlMatching(
                 URL.filledURLWithNamedParams(URL.Post.PARTIALEDIT,
@@ -287,5 +288,17 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
         checkResult(PostTestData.buildPostPartialEditedDataSet());
     }
 
-    // Show and Delte.
+    /**
+     * Test delete.
+     *
+     * @throws DataSetException db-exceptions.
+     */
+    @Test
+    public void test90Delete() throws DataSetException {
+        postModule.navigateToDelete(TEST_TITLE1);
+        // This is the hacky version. Normally there should be a DeletePage.
+        browser.findElement(By.tagName("form")).submit();
+        checkResult(TestData.initWithSampleData());
+
+    }
 }

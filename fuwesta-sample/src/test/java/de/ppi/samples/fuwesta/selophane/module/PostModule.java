@@ -112,4 +112,16 @@ public class PostModule {
                 .click();
 
     }
+
+    /**
+     * Navigate to the delete confirm-page.
+     * 
+     * @param title ttile of the post
+     */
+    public void navigateToDelete(String title) {
+        browser.getRelativeUrl(URL.Post.LIST);
+        getRow(title).getActions().get(PostListPage.INDEX_OF_DELETE_BUTTON)
+                .click();
+
+    }
 }
