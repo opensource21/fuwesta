@@ -76,7 +76,7 @@ public class PostModule {
             }
 
         }
-        return null;
+        throw new IllegalStateException("Can't found row with title " + title);
     }
 
     /**
@@ -99,5 +99,17 @@ public class PostModule {
         browser.getRelativeUrl(URL.Post.LIST);
         getRow(title).getActions()
                 .get(PostListPage.INDEX_OF_PARTIALEDIT_BUTTON).click();
+    }
+
+    /**
+     * Navigate to the show-page of the post with the given title.
+     *
+     * @param title the title of the post.
+     */
+    public void navigateToShow(String title) {
+        browser.getRelativeUrl(URL.Post.LIST);
+        getRow(title).getActions().get(PostListPage.INDEX_OF_SHOW_BUTTON)
+                .click();
+
     }
 }

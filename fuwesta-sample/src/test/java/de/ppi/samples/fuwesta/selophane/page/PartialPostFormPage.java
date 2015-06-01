@@ -3,6 +3,7 @@ package de.ppi.samples.fuwesta.selophane.page;
 import lombok.Getter;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.selophane.elements.base.Element;
 import org.selophane.elements.widget.Button;
@@ -17,23 +18,38 @@ public class PartialPostFormPage extends MainPage {
 
     /** The title input. */
     @FindBy(id = "title")
+    @CacheLookup
     private TextInput titleInput;
 
     /** The contentinput. */
     @FindBy(id = "content")
+    @CacheLookup
     private TextInput contentInput;
 
     /** The creation time input. */
     @FindBy(id = "creationTime")
+    @CacheLookup
     private TextInput creationTimeInput;
 
     /** Button to save. */
     @FindBy(css = "input[value='Save']")
+    @CacheLookup
     private Button save;
 
     /** Button to reset. */
     @FindBy(css = "input[value='Reset']")
+    @CacheLookup
     private Element reset;
+
+    /** Button to reset. */
+    @FindBy(css = "html/body/a[1]")
+    @CacheLookup
+    private Button home;
+
+    /** Button to reset. */
+    @FindBy(xpath = "html/body/a[2]")
+    @CacheLookup
+    private Button list;
 
     /**
      *

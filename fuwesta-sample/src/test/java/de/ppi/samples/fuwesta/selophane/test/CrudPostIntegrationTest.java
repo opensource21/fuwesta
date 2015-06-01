@@ -1,11 +1,14 @@
 package de.ppi.samples.fuwesta.selophane.test;
 
+import java.util.List;
+
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.selophane.elements.widget.Link;
 import org.selophane.elements.widget.Select;
 import org.selophane.elements.widget.TextInput;
 
@@ -23,6 +26,11 @@ import de.ppi.selenium.util.Protocol;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
+
+    /**
+     * String representation of the first user.
+     */
+    private static final String BEN_NUTZER = "ben(Nutzer, Ben)";
 
     /**
      * TEST-Title.
@@ -57,6 +65,70 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
     }
 
     /**
+     * Test the show page.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    public void test0Show() throws Exception {
+        postModule.navigateToShow("Title 1");
+        softly.assertThat(browser)
+                .as("Expect that the show page is the show-url")
+                .hasRalativeUrlMatching(
+                        URL.filledURLWithNamedParams(URL.Post.SHOW,
+                                URL.Post.P_POSTID, ".*"));
+
+        final TextInput title = formPage.getTitleInput();
+        softly.assertThat(formPage.getLabelFor(title)).hasText("Title:");
+        softly.assertThat(title).isDisplayed().isNotEnabled()
+                .hasText("Title 1");
+
+        final TextInput content = formPage.getContentInput();
+        softly.assertThat(formPage.getLabelFor(content)).hasText("Content:");
+        softly.assertThat(content).isDisplayed().isNotEnabled()
+                .hasText("Ein erster Inhalt");
+
+        final TextInput creationTime = formPage.getCreationTimeInput();
+        softly.assertThat(formPage.getLabelFor(creationTime)).hasText(
+                "Creation Time");
+        softly.assertThat(creationTime).isDisplayed().isNotEnabled()
+                .hasText("12-03-2014");
+
+        final Link user = formPage.getUserLink();
+        softly.assertThat(formPage.getLabelFor(user)).hasText("User:");
+        softly.assertThat(user).hasText(BEN_NUTZER);
+        user.click();
+        softly.assertThat(browser).hasRelativeUrl(
+                URL.filledURLWithNamedParams(URL.User.SHOW, URL.User.P_USERID,
+                        "11"));
+        browser.navigate().back();
+        formPage.reload();
+        List<Link> tags = formPage.getTagList();
+        softly.assertThat(tags).hasSize(2);
+        softly.assertThat(tags.get(0)).hasText("Test2");
+        tags.get(0).click();
+        softly.assertThat(browser)
+                .hasRelativeUrl(
+                        URL.filledURLWithNamedParams(URL.Tag.SHOW,
+                                URL.Tag.P_TAGID, "2"));
+        browser.navigate().back();
+        formPage.reload();
+        tags = formPage.getTagList();
+        softly.assertThat(tags.get(1)).hasText("Test1");
+        tags.get(1).click();
+        softly.assertThat(browser)
+                .hasRelativeUrl(
+                        URL.filledURLWithNamedParams(URL.Tag.SHOW,
+                                URL.Tag.P_TAGID, "1"));
+        browser.navigate().back();
+        formPage.reload();
+        formPage.getList().click();
+
+        softly.assertThat(browser).hasRelativeUrl(URL.Post.LIST);
+        checkResult(TestData.initWithSampleData());
+    }
+
+    /**
      * Test creating a new entry.
      *
      * @throws Exception if something goes wrong.
@@ -83,7 +155,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
 
         final Select user = formPage.getUserInput();
         softly.assertThat(formPage.getLabelFor(user)).hasText("User:");
-        user.selectByVisibleText("ben(Nutzer, Ben)");
+        user.selectByVisibleText(BEN_NUTZER);
 
         final Select tags = formPage.getTagsSelect();
         softly.assertThat(formPage.getLabelFor(tags)).hasText("Tags:");
@@ -102,11 +174,13 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
     @Test
     public void test2Validation() {
         postModule.navigateToCreate();
-        final TextInput creationTime = formPage.getCreationTimeInput();
-        final TextInput title = formPage.getTitleInput();
-        validateTitleAndCreationTime(title, creationTime);
+        validateTitleAndCreationTime(formPage);
+        TextInput title = formPage.getTitleInput();
         title.set(TEST_TITLE1);
         formPage.getSave().click();
+        formPage.reload();
+        final TextInput creationTime = formPage.getCreationTimeInput();
+        title = formPage.getTitleInput();
         softly.assertThat(formPage.getError(title)).hasText(
                 "Title must be unique");
         softly.assertThat(formPage.getError(creationTime)).hasText(
@@ -118,27 +192,30 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
     /**
      * Test if the title and the creationTime field has the right validation
      * error.
-     * 
-     * @param title title field
-     * @param creationTime creationTime field.
+     *
+     * @param thePage page where the validation should be checked.
      */
-    private void validateTitleAndCreationTime(final TextInput title,
-            final TextInput creationTime) {
+    private void validateTitleAndCreationTime(PartialPostFormPage thePage) {
+        TextInput title = thePage.getTitleInput();
+        TextInput creationTime = thePage.getCreationTimeInput();
         title.clear();
         creationTime.clear();
         creationTime.sendKeys("11.11.2011");
         softly.assertThat(creationTime.getText()).isEqualTo("11112011");
-        formPage.getSave().click();
-        softly.assertThat(formPage.getError(title)).hasText(
+        thePage.getSave().click();
+        thePage.reload();
+        title = thePage.getTitleInput();
+        creationTime = thePage.getCreationTimeInput();
+        softly.assertThat(thePage.getError(title)).hasText(
                 "Title cannot be null");
-        softly.assertThat(formPage.getError(creationTime)).hasText(
+        softly.assertThat(thePage.getError(creationTime)).hasText(
                 "Invalid Date (must be dd-MM-yyyy).");
         Protocol.log("ValidationErrors1", "Validation errors should be shown.",
                 browser);
     }
 
     /**
-     * Test edit.
+     * Test edit and validation.
      *
      * @throws DataSetException db-exceptions.
      */
@@ -148,17 +225,19 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
         softly.assertThat(browser).hasRalativeUrlMatching(
                 URL.filledURLWithNamedParams(URL.Post.EDIT, URL.Post.P_POSTID,
                         ".*"));
-        final TextInput title = formPage.getTitleInput();
-        final TextInput creationTime = formPage.getCreationTimeInput();
+        TextInput title = formPage.getTitleInput();
         softly.assertThat(formPage.getLabelFor(title)).hasText("Title:");
-        validateTitleAndCreationTime(title, creationTime);
+        validateTitleAndCreationTime(formPage);
         formPage.getReset().click();
-        softly.assertThat(formPage.getLabelFor(title)).hasText("Title:");
+        softly.assertThat(formPage.getLabelFor(formPage.getTitleInput()))
+                .hasText("Title:");
+        title = formPage.getTitleInput();
         title.set(TEST_TITLE1 + "N");
 
         final TextInput content = formPage.getContentInput();
         softly.assertThat(formPage.getLabelFor(content)).hasText("Content:");
         content.set("This is an example text.\nIt contains newlines.Not really conntent.");
+        final TextInput creationTime = formPage.getCreationTimeInput();
 
         softly.assertThat(formPage.getLabelFor(creationTime)).hasText(
                 "Creation Time");
@@ -177,18 +256,21 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
     }
 
     /**
-     * Test partial edit.
+     * Test partial edit and validation.
      *
      * @throws DataSetException db-exceptions.
      */
     @Test
-    public void test4PartialEdit() throws DataSetException {
+    public void test4PartialEditAndValidation() throws DataSetException {
         postModule.navigateToPartialEdit(TEST_TITLE1 + "N");
         softly.assertThat(browser).hasRalativeUrlMatching(
                 URL.filledURLWithNamedParams(URL.Post.PARTIALEDIT,
                         URL.Post.P_POSTID, ".*"));
-        final TextInput title = partialFormPage.getTitleInput();
+        TextInput title = partialFormPage.getTitleInput();
         softly.assertThat(partialFormPage.getLabelFor(title)).hasText("Title:");
+        softly.assertThat(formPage.getLabelFor(title)).hasText("Title:");
+        validateTitleAndCreationTime(partialFormPage);
+        title = partialFormPage.getTitleInput();
         title.set(TEST_TITLE1);
 
         final TextInput content = partialFormPage.getContentInput();
@@ -205,6 +287,5 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
         checkResult(PostTestData.buildPostPartialEditedDataSet());
     }
 
-    // TODO Validation test
     // Show and Delte.
 }
