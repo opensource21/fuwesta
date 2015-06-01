@@ -9,12 +9,19 @@ import org.selophane.elements.base.Element;
 import org.selophane.elements.widget.Button;
 import org.selophane.elements.widget.TextInput;
 
+import de.ppi.samples.fuwesta.selophane.widget.MessageList;
+
 /**
  * Pageobject for the Postform.
  *
  */
 @Getter
 public class PartialPostFormPage extends MainPage {
+
+    /** List with global errors. */
+    @FindBy(id = "globalErrors")
+    @CacheLookup
+    private MessageList globalErrors;
 
     /** The title input. */
     @FindBy(id = "title")

@@ -70,7 +70,7 @@ errors - eine Liste mit Fehlermeldungen.
             </div>
         </div>
         <div th:fragment="error" th:remove="tag">
-            <div class="alert alert-error" th:if="${#fields.hasGlobalErrors()}">
+            <div class="alert alert-error" id="globalErrors" th:if="${#fields.hasGlobalErrors()}">
                 <ul th:each="error: ${#fields.globalErrors()}">
                     <li th:utext="${error}"></li>
                 </ul>

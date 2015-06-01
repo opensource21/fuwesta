@@ -28,7 +28,7 @@ public class TestData {
                 .UserId("test").addTo(b);
         newPost().Id(101L).Content("Ein erster Inhalt")
                 .CreationTime(ts("2014-03-12 00:00:00.0")).Title("Title 1")
-                .UserId(11L).addTo(b);
+                .UserId(11L).Version(Validators.gt(-1)).addTo(b);
         newPost().Id(102L).Content("der zweite Text").Title("Titel 2")
                 .UserId(12L).addTo(b);
 
