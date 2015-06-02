@@ -4,3 +4,8 @@ jdk:
   - openjdk7
   - oraclejdk7
   - oraclejdk8
+  
+env:
+  - TEST_DIR=fuwesta-core
+  - TEST_DIR=fuwesta-sample
+script: cd $TEST_DIR && mvn test 
