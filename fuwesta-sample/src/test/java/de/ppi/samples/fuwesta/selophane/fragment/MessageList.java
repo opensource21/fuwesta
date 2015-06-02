@@ -1,4 +1,4 @@
-package de.ppi.samples.fuwesta.selophane.widget;
+package de.ppi.samples.fuwesta.selophane.fragment;
 
 import java.util.List;
 

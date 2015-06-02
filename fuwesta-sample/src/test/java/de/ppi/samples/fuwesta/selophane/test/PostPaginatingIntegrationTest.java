@@ -9,7 +9,7 @@ import org.junit.Test;
 import de.ppi.samples.fuwesta.dbunit.dataset.TestData;
 import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.checks.PaginatingBarChecks;
-import de.ppi.samples.fuwesta.selophane.widget.PaginatingBar;
+import de.ppi.samples.fuwesta.selophane.fragment.PaginatingBar;
 
 /**
  * Test for the post-page.

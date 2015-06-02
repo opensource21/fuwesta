@@ -1,4 +1,4 @@
-package de.ppi.samples.fuwesta.selophane.widget;
+package de.ppi.samples.fuwesta.selophane.fragment;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.selophane.elements.base.UniqueElementLocator;
 
 import de.ppi.samples.fuwesta.selophane.base.Fragment;
+import de.ppi.samples.fuwesta.selophane.widget.PaginatingBarButton;
 
 /**
  * Implementation for {@link PaginatingBar}.

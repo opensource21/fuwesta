@@ -1,9 +1,11 @@
-package de.ppi.samples.fuwesta.selophane.widget;
+package de.ppi.samples.fuwesta.selophane.fragment;
 
 import java.util.List;
 
 import org.selophane.elements.base.Element;
 import org.selophane.elements.base.ImplementedBy;
+
+import de.ppi.samples.fuwesta.selophane.widget.PaginatingBarButton;
 
 /**
  * A representation of the paginating bar.

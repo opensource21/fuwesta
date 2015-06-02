@@ -9,7 +9,7 @@ import org.selophane.elements.base.Element;
 import org.selophane.elements.widget.Button;
 import org.selophane.elements.widget.TextInput;
 
-import de.ppi.samples.fuwesta.selophane.widget.MessageList;
+import de.ppi.samples.fuwesta.selophane.fragment.MessageList;
 
 /**
  * Pageobject for the Postform.

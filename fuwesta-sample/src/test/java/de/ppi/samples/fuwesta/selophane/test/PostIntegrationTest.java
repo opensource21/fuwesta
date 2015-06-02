@@ -12,9 +12,9 @@ import org.selophane.elements.widget.Button;
 import de.ppi.samples.fuwesta.dbunit.dataset.TestData;
 import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.base.AuthRule.Auth;
+import de.ppi.samples.fuwesta.selophane.fragment.PaginatingBar;
 import de.ppi.samples.fuwesta.selophane.page.PostListPage;
 import de.ppi.samples.fuwesta.selophane.widget.ActionTable;
-import de.ppi.samples.fuwesta.selophane.widget.PaginatingBar;
 
 /**
  * Test for the post-page.

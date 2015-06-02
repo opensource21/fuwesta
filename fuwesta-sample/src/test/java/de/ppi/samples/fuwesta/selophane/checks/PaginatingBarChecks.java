@@ -2,7 +2,7 @@ package de.ppi.samples.fuwesta.selophane.checks;
 
 import java.util.List;
 
-import de.ppi.samples.fuwesta.selophane.widget.PaginatingBar;
+import de.ppi.samples.fuwesta.selophane.fragment.PaginatingBar;
 import de.ppi.samples.fuwesta.selophane.widget.PaginatingBarButton;
 import de.ppi.selenium.assertj.SeleniumSoftAssertions;
 

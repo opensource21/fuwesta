@@ -6,8 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.selophane.elements.widget.Button;
 
+import de.ppi.samples.fuwesta.selophane.fragment.PaginatingBar;
 import de.ppi.samples.fuwesta.selophane.widget.ActionTable;
-import de.ppi.samples.fuwesta.selophane.widget.PaginatingBar;
 import de.ppi.selenium.browser.SessionManager;
 
 /**
