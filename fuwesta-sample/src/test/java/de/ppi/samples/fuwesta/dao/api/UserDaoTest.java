@@ -64,8 +64,7 @@ public class UserDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
     @BeforeTransaction
     public void setupData() throws Exception {
         if (!deleted && countRowsInTable(USER_TABLE_NAME) > 0) {
-            deleteFromTables(USER_TABLE_NAME);
-            deleteFromTables("POST");
+            deleteFromTables("TAG_POSTINGS", "TAG", "POST", USER_TABLE_NAME);
             deleted = true;
         }
         if (countRowsInTable(USER_TABLE_NAME) == 0) {
