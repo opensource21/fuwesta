@@ -84,8 +84,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User read(Long userId) {
         final User user = userDao.findOne(userId);
-        if (!CollectionUtils.isEmpty(user.getPostings())) {
-            // Ensere all oostings are laoded to enable a test, where no
+        if (user != null && !CollectionUtils.isEmpty(user.getPostings())) {
+            // Ensere all postings are laoded to enable a test, where no
             // no Session is open.
             user.getPostings().size();
         }

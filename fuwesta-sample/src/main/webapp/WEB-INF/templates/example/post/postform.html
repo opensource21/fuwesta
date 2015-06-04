@@ -72,7 +72,7 @@ tags - a list of selectable tag
         <input id="id" type="hidden" th:value="*{id}" name="id"/>
         <input id="version" type="hidden" th:value="*{version}" name="version"/>
 
-        <input type="text" bs:field="title" bs:label="#{${post.class.name} +'.title'}" th:disabled="${disabled}"/>
+        <input type="text" bs:field="title" bs:label="#{${post.class.name} +'.title'}+':'" th:disabled="${disabled}"/>
 
         <textarea rows="4" bs:field="content" th:disabled="${disabled}"></textarea>
 
@@ -90,10 +90,10 @@ tags - a list of selectable tag
             </select>
         </span>
         <span th:if="${disabled}" th:remove="tag">
-            <a th:with="#{par.user.userid}=${post.user.id}" bs:field="#{db.Post.user}" th:href="@{|__#{nurl.user.show}__|}"
+            <a id="user" th:with="#{par.user.userid}=${post.user.id}" bs:field="#{db.Post.user}" th:href="@{|__#{nurl.user.show}__|}"
                 th:text="${post.user.userId} +'(' + ${post.user.lastName} +', '+${post.user.firstName} +')'"
                 th:unless="${post.user==null}">Mustermann, Erwin</a>
-            <ul bs:field="tags">
+            <ul id="tags" bs:field="tags">
                 <li th:each="item : *{tags}"  >
                     <a th:with="#{par.tag.tagid}=${item.id}" th:href="@{|__#{nurl.tag.show}__|}" th:text="${item.name}">Wichtig</a>
                 </li>

@@ -40,16 +40,17 @@ errors - eine Liste mit Fehlermeldungen.
         <div>Sie sind angemeldet als <th:block shiro:principal=""></th:block></div>
         <div class="navbar-inner">
             <ul class="nav">
-                <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/post/')?'active':''}"
+                <li id="nav.post"
+                    th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/post/')||#strings.endsWith(#httpServletRequest.getRequestURI(),'/post')?'active':''}"
                        shiro:hasPermission="post:list">
-                    <a href="#" th:href="@{/post/list}">Post</a></li>
-                <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/tag/')?'active':''}"
+                    <a  href="#" th:href="@{/post/list}">Post</a></li>
+                <li id="nav.tag" th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/tag/')||#strings.endsWith(#httpServletRequest.getRequestURI(),'/tag')?'active':''}"
                         shiro:hasPermission="tag:list">
                     <a href="#" th:href="@{/tag/list}">Tag</a></li>
-                <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/user/')?'active':''}"
+                <li id="nav.user" th:class="${#strings.contains(#httpServletRequest.getRequestURI(),'/user/')||#strings.endsWith(#httpServletRequest.getRequestURI(),'/user')?'active':''}"
                         shiro:hasPermission="user:list">
-                    <a href="#" th:href="@{/user/list}">User</a></li>
-                <li shiro:authenticated="">
+                    <a  href="#" th:href="@{/user/list}">User</a></li>
+                <li id="nav.logout" shiro:authenticated="">
                     <a href="#" th:href="@{/logout}">Logout</a></li>
             </ul>
         </div>
@@ -69,7 +70,7 @@ errors - eine Liste mit Fehlermeldungen.
             </div>
         </div>
         <div th:fragment="error" th:remove="tag">
-            <div class="alert alert-error" th:if="${#fields.hasGlobalErrors()}">
+            <div class="alert alert-error" id="globalErrors" th:if="${#fields.hasGlobalErrors()}">
                 <ul th:each="error: ${#fields.globalErrors()}">
                     <li th:utext="${error}"></li>
                 </ul>
