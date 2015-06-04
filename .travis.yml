@@ -3,6 +3,9 @@ language: java
 jdk:
   - openjdk7
   - oraclejdk7
-  - oraclejdk8
-  
-script: cd fuwesta-core && mvn install && cd ../fuwesta-sample && mvn test 
+
+cache:
+  directories:
+  - $HOME/.m2
+
+script: cd fuwesta-core && mvn install && cd ../fuwesta-sample && mvn test
