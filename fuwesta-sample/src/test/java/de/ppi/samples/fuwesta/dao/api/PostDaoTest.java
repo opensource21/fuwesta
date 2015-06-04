@@ -22,7 +22,7 @@ import de.ppi.samples.fuwesta.model.User;
 /**
  * Test some functionality of {@link PostDao} to get an better understanding of
  * JPA.
- * 
+ *
  */
 @ContextConfiguration(classes = RootConfig.class)
 public class PostDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
@@ -55,16 +55,14 @@ public class PostDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     /**
      * Inserting Testdata.
-     * 
+     *
      * @throws Exception if something fails.
      */
     @BeforeTransaction
     public void setupData() throws Exception {
         if (!deleted
                 && (countRowsInTable(POST_TABLE_NAME) > 0 || countRowsInTable("T_USER") > 0)) {
-            deleteFromTables("T_USER");
-            deleteFromTables("TAG");
-            deleteFromTables(POST_TABLE_NAME);
+            deleteFromTables("TAG_POSTINGS", "TAG", "POST", "T_USER");
             deleted = true;
         }
         if (countRowsInTable(POST_TABLE_NAME) == 0) {
