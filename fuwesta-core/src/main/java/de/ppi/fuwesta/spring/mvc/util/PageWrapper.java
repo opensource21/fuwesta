@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 
 /**
  * A wrapper for {@link Page} which makes pagination easier.
- * 
+ *
  * @param <T> the generic type
  */
 // TODO Test schreiben.
@@ -30,7 +30,7 @@ public class PageWrapper<T> {
 
     /**
      * Gets the url.
-     * 
+     *
      * @return the url
      */
     public String getUrl() {
@@ -39,7 +39,7 @@ public class PageWrapper<T> {
 
     /**
      * Instantiates a new page wrapper.
-     * 
+     *
      * @param page the page
      * @param url the url
      */
@@ -77,7 +77,7 @@ public class PageWrapper<T> {
 
     /**
      * Gets the items.
-     * 
+     *
      * @return the items
      */
     public List<PageItem> getItems() {
@@ -86,7 +86,7 @@ public class PageWrapper<T> {
 
     /**
      * Return the page-object.
-     * 
+     *
      * @return the page-object.
      */
     public Page<T> getPage() {
@@ -95,7 +95,7 @@ public class PageWrapper<T> {
 
     /**
      * Gets the number.
-     * 
+     *
      * @return the number
      */
     public int getNumber() {
@@ -104,7 +104,7 @@ public class PageWrapper<T> {
 
     /**
      * Gets the content.
-     * 
+     *
      * @return the content
      */
     public List<T> getContent() {
@@ -113,7 +113,7 @@ public class PageWrapper<T> {
 
     /**
      * Gets the size.
-     * 
+     *
      * @return the size
      */
     public int getSize() {
@@ -122,7 +122,7 @@ public class PageWrapper<T> {
 
     /**
      * Gets the total pages.
-     * 
+     *
      * @return the total pages
      */
     public int getTotalPages() {
@@ -131,38 +131,38 @@ public class PageWrapper<T> {
 
     /**
      * Checks if is first page.
-     * 
+     *
      * @return true, if is first page
      */
     public boolean isFirstPage() {
-        return page.isFirstPage();
+        return page.isFirst();
     }
 
     /**
      * Checks if is last page.
-     * 
+     *
      * @return true, if is last page
      */
     public boolean isLastPage() {
-        return page.isLastPage();
+        return page.isLast();
     }
 
     /**
      * Checks if is checks for previous page.
-     * 
+     *
      * @return true, if is checks for previous page
      */
     public boolean isHasPreviousPage() {
-        return page.hasPreviousPage();
+        return page.hasPrevious();
     }
 
     /**
      * Checks if is checks for next page.
-     * 
+     *
      * @return true, if is checks for next page
      */
     public boolean isHasNextPage() {
-        return page.hasNextPage();
+        return page.hasNext();
     }
 
     /**
@@ -170,7 +170,7 @@ public class PageWrapper<T> {
      * representation which was modified from: attribute: order to
      * attribute,order. This is necessary in order to built the correct
      * request-url for sorting.
-     * 
+     *
      * @return the modified string representation of the Sort-object.
      */
     public String getSort() {
@@ -196,7 +196,7 @@ public class PageWrapper<T> {
 
         /**
          * Instantiates a new page item.
-         * 
+         *
          * @param number the number
          * @param current the current
          */
@@ -207,7 +207,7 @@ public class PageWrapper<T> {
 
         /**
          * Gets the number.
-         * 
+         *
          * @return the number
          */
         public int getNumber() {
@@ -216,7 +216,7 @@ public class PageWrapper<T> {
 
         /**
          * Checks if is current.
-         * 
+         *
          * @return true, if is current
          */
         public boolean isCurrent() {

@@ -1,13 +1,13 @@
 package de.ppi.fuwesta.thymeleaf.bootstrap2;
 
 import org.thymeleaf.dom.Element;
-import org.thymeleaf.spring3.processor.attr.AbstractSpringFieldAttrProcessor;
+import org.thymeleaf.spring4.processor.attr.AbstractSpringFieldAttrProcessor;
 import org.thymeleaf.standard.StandardDialect;
 
 /**
  * Attribute processor which makes the work easier with Twitter Bootstrap and
  * show a input field from object.
- * 
+ *
  */
 public class Bootstrap2FieldAttrProcessor extends
         AbstractBootstrap2AttrProcessor {
