@@ -197,6 +197,19 @@ public class FuWeStaSampleDatabase implements TestRule {
     }
 
     /**
+     * Delete all data.
+     *
+     */
+    public void clean() {
+        try {
+            InsertIdentityOperation.DELETE.execute(
+                    databaseTester.getConnection(), deleteDataSet);
+        } catch (Exception e) {
+            throw new IllegalStateException("Error during clean", e);
+        }
+    }
+
+    /**
      * Check if the content of the database as expected.
      *
      * @param expected the expected dataset.

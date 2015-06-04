@@ -3,18 +3,16 @@ package de.ppi.samples.fuwesta.service.impl;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.sql.DataSource;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import de.ppi.samples.fuwesta.config.RootConfig;
-import de.ppi.samples.fuwesta.dao.api.PostDao;
-import de.ppi.samples.fuwesta.dao.api.TagDao;
-import de.ppi.samples.fuwesta.dao.api.UserDao;
+import de.ppi.samples.fuwesta.dbunit.FuWeStaSampleDatabase;
 import de.ppi.samples.fuwesta.model.User;
 import de.ppi.samples.fuwesta.service.api.UserService;
 
@@ -30,32 +28,29 @@ public class UserServiceImplReadOnlyTest extends
     @Resource(name = "readOnlyUserService")
     private UserService userService;
 
-    /** The user dao. */
+    /**
+     * The datasource.
+     */
     @Resource
-    private UserDao userDao;
-
-    /** The user dao. */
-    @Resource
-    private PostDao postDao;
-
-    /** The user dao. */
-    @Resource
-    private TagDao tagDao;
+    private DataSource dataSource;
 
     /**
-     * The {@link EntityManager}.
+     * DB-Schema.
      */
-    @PersistenceContext
-    private EntityManager em;
+    @Value("${db.schema}")
+    private String schema;
 
     /**
      * Makes a cleanup.
+     *
+     * @throws Exception problems in init.
      */
     @Before
-    public void tearDown() {
-        postDao.deleteAll();
-        tagDao.deleteAll();
-        userDao.deleteAll();
+    public void init() throws Exception {
+        final FuWeStaSampleDatabase db =
+                new FuWeStaSampleDatabase(dataSource.getConnection(), schema);
+        db.initDatabase();
+        db.clean();
     }
 
     /**
