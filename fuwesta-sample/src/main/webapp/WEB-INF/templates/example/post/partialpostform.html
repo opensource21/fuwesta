@@ -14,7 +14,10 @@ tags - a list of selectable tag
 <th:block th:include="/example/main::head"/>
 <script th:inline="javascript">
     $(function() {
-        $('.datepicker').datepicker(
+        $('.datepicker').each(function(index) {
+                var datefield = $(this);
+                var dateformat = datefield.attr("data-date-format");
+                datefield.datepicker(
                 {
                     showOn : "both",
                     buttonImage : /*[[@{/resources/css/calendar.gif}]]*/ '../../../../resources/css/calendar.gif',
@@ -22,14 +25,16 @@ tags - a list of selectable tag
                     dayNamesMin : [ "So", "Mo", "Di", "Mi", "Do", "Fr", "Sa" ],
                     monthNamesShort : [ "Jan", "Feb", "Mrz", "Apr", "Mai",
                             "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez" ],
-                    dateFormat : "dd.mm.yy",
+                    dateFormat : dateformat,
                     changeMonth : true,
                     changeYear : true,
                     showWeek : true,
                     firstDay : 1
                 });
+          });
     });
 </script>
+
 
     <meta charset="UTF-8" th:remove="all" />
 
@@ -68,11 +73,11 @@ tags - a list of selectable tag
         <input id="id" type="hidden" th:value="*{id}" name="id"/>
         <input id="version" type="hidden" th:value="*{version}" name="version"/>
 
-        <input type="text" bs:field="title" bs:label="#{${post.class.name} +'.title'}" th:disabled="${disabled}"/>
+        <input type="text" bs:field="title" th:disabled="${disabled}"/>
 
         <textarea rows="4" bs:field="content" th:disabled="${disabled}"></textarea>
 
-        <input type="text" class="datepicker" bs:field="creationTime"  th:disabled="${disabled}"/>
+        <input type="text" class="datepicker" th:attr="data-date-format=#{format.dateJS}" bs:field="creationTime"  th:disabled="${disabled}"/>
 
 
         <input name="" value="Save" type="submit" th:if="${not disabled}"/>

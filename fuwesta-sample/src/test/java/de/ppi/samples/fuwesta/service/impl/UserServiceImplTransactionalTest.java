@@ -16,7 +16,7 @@ import de.ppi.samples.fuwesta.service.api.UserService;
 
 /**
  * Class for testing @link {@link UserServiceImpl} in a transactional context.
- * 
+ *
  */
 @ContextConfiguration(classes = RootConfig.class)
 public class UserServiceImplTransactionalTest extends
@@ -37,13 +37,13 @@ public class UserServiceImplTransactionalTest extends
 
     /**
      * Inserting Testdata.
-     * 
+     *
      * @throws Exception if something fails.
      */
     @BeforeTransaction
     public void setupData() throws Exception {
         if (countRowsInTable(USER_TABLE_NAME) != NUMBER_OF_USERS) {
-            deleteFromTables(USER_TABLE_NAME, "POST", "TAG");
+            deleteFromTables("TAG_POSTINGS", "TAG", "POST", "T_USER");
             executeSqlScript("classpath:user-data.sql", false);
 
         }
@@ -123,7 +123,7 @@ public class UserServiceImplTransactionalTest extends
      * Test method for
      * {@link de.ppi.fuwesta.samples.springmvc.service.impl.UserServiceImpl#getUser(int, int, org.springframework.data.domain.Sort.Order[])}
      * .
-     * 
+     *
      * @param skipSize the size of users which should be skipped
      * @param pageSize the pagesize
      */

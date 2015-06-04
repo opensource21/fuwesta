@@ -1,6 +1,5 @@
 // HomeController.java
 //
-// (c) SZE-Development-Team
 
 package de.ppi.samples.fuwesta.frontend;
 

@@ -1,6 +1,5 @@
 // User.java
 //
-// (c) SZE-Development-Team
 
 package de.ppi.samples.fuwesta.model;
 
@@ -18,7 +17,7 @@ import de.ppi.fuwesta.spring.mvc.formatter.NonEmpty;
 
 /**
  * A user who can create blog entries.
- * 
+ *
  * @author niels
  */
 @Entity(name = "T_USER")
@@ -53,7 +52,7 @@ public class User extends VersionedModel {
 
     /**
      * Initiates an object of type User.
-     * 
+     *
      * @param userId the userId
      */
     public User(String userId) {
@@ -63,7 +62,7 @@ public class User extends VersionedModel {
 
     /**
      * Initiates an object of type User.
-     * 
+     *
      */
     public User() {
         super();
@@ -71,7 +70,7 @@ public class User extends VersionedModel {
 
     /**
      * Gets the unique identifier for the user.
-     * 
+     *
      * @return the unique identifier for the user
      */
     public String getUserId() {
@@ -80,7 +79,7 @@ public class User extends VersionedModel {
 
     /**
      * Gets the first name of the user.
-     * 
+     *
      * @return the first name of the user
      */
     public String getFirstName() {
@@ -89,7 +88,7 @@ public class User extends VersionedModel {
 
     /**
      * Sets the first name of the user.
-     * 
+     *
      * @param firstName the new first name of the user
      */
     public void setFirstName(final String firstName) {
@@ -98,7 +97,7 @@ public class User extends VersionedModel {
 
     /**
      * Gets the last name of the user.
-     * 
+     *
      * @return the last name of the user
      */
     public String getLastName() {
@@ -107,7 +106,7 @@ public class User extends VersionedModel {
 
     /**
      * Sets the last name of the user.
-     * 
+     *
      * @param lastName the new last name of the user
      */
     public void setLastName(final String lastName) {
@@ -116,7 +115,7 @@ public class User extends VersionedModel {
 
     /**
      * Gets the sex of the user.
-     * 
+     *
      * @return the sex of the user
      */
     public Sex getSex() {
@@ -125,7 +124,7 @@ public class User extends VersionedModel {
 
     /**
      * Sets the sex of the user.
-     * 
+     *
      * @param sex the new sex of the user
      */
     public void setSex(Sex sex) {
@@ -134,7 +133,7 @@ public class User extends VersionedModel {
 
     /**
      * Sets the unique identifier for the user.
-     * 
+     *
      * @param userId the new unique identifier for the user
      */
     public void setUserId(final String userId) {
@@ -143,7 +142,7 @@ public class User extends VersionedModel {
 
     /**
      * Gets the list of postings the user has created.
-     * 
+     *
      * @return the list of postings the user has created
      */
     public List<Post> getPostings() {
@@ -152,7 +151,7 @@ public class User extends VersionedModel {
 
     /**
      * Delivers definitely a {@link PostList}.
-     * 
+     *
      * @return a PostList which wraps the internal list.
      */
     private PostList getPostingsInternal() {
@@ -168,7 +167,7 @@ public class User extends VersionedModel {
 
     /**
      * Sets the list of postings the user has created.
-     * 
+     *
      * @param postings the new list of postings the user has created
      */
     public void setPostings(final List<Post> postings) {
@@ -187,13 +186,13 @@ public class User extends VersionedModel {
 
     /**
      * List which handles the association between {@link User} and {@link Post}.
-     * 
+     *
      */
     private static final class PostList extends JPAList<Post, User> {
 
         /**
          * Initiates an object of type PostList.
-         * 
+         *
          * @param associatedEntity the user-object
          */
         public PostList(User associatedEntity) {
@@ -202,7 +201,7 @@ public class User extends VersionedModel {
 
         /**
          * Initiates an object of type PostList.
-         * 
+         *
          * @param associatedEntity the user-object
          * @param internalList the internalList to store the entries.
          */

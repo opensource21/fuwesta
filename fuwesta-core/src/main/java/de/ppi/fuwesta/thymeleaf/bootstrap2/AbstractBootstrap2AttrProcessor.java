@@ -20,7 +20,7 @@ import org.thymeleaf.util.Validate;
 
 /**
  * Attribute processor which makes the work easier with Twitter Bootstrap.
- * 
+ *
  */
 public abstract class AbstractBootstrap2AttrProcessor extends
         AbstractAttrProcessor {
@@ -54,7 +54,7 @@ public abstract class AbstractBootstrap2AttrProcessor extends
 
     /**
      * Instantiates a new bootstrap field attr processor.
-     * 
+     *
      * @param attributeName name of the attribute which triggers the processor.
      */
     public AbstractBootstrap2AttrProcessor(String attributeName) {
@@ -110,7 +110,7 @@ public abstract class AbstractBootstrap2AttrProcessor extends
 
     /**
      * Create an expression to get the label, for example #{fieldName}.
-     * 
+     *
      * @param fieldName name of the field
      * @return an valid thymeleafexpression.
      */
@@ -118,7 +118,7 @@ public abstract class AbstractBootstrap2AttrProcessor extends
 
     /**
      * Manipulate the given element by adding some attributes.
-     * 
+     *
      * @param element the inputElement
      * @param fieldName the name of the field.
      */
@@ -127,7 +127,7 @@ public abstract class AbstractBootstrap2AttrProcessor extends
 
     /**
      * Returns true if an error should shown at the field.
-     * 
+     *
      * @return true if the error should be shown.
      */
     protected abstract boolean showError();
@@ -153,7 +153,7 @@ public abstract class AbstractBootstrap2AttrProcessor extends
      * &lt;/div&gt;
      * <br>
      * &lt;/div&gt; </code>
-     * 
+     *
      * @param fieldName the name of the property.
      * @param labelText the label text.
      * @param input the input-node.
@@ -188,6 +188,7 @@ public abstract class AbstractBootstrap2AttrProcessor extends
         if (showError) {
             Element help = new Element("span");
             help.setAttribute(ATTR_CLASS, "help-inline");
+            help.setAttribute("id", "error_" + fieldName);
             help.setAttribute("th:if", "${#fields.hasErrors('" + fieldName
                     + "')}");
             help.setAttribute("th:errors", "*{" + fieldName + "}");

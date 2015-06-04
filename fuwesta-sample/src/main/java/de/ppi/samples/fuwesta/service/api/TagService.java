@@ -1,6 +1,5 @@
 // PostService.java
 //
-// (c) SZE-Development-Team
 
 package de.ppi.samples.fuwesta.service.api;
 
@@ -15,23 +14,23 @@ import de.ppi.samples.fuwesta.model.Tag;
 
 /**
  * Service that handles work which must be done for tag.
- * 
+ *
  * @author niels
- * 
+ *
  */
 public interface TagService {
 
     /**
      * Deliver all existing tags.
-     * 
-     * 
+     *
+     *
      * @return all existing tags.
      */
     Page<Tag> getAllTag();
 
     /**
      * Deliver a page of tags.
-     * 
+     *
      * @param skip the number of entries which should be skipped
      * @param count the number of entries a page should have.
      * @param order information about the ordering of the entries.
@@ -41,7 +40,7 @@ public interface TagService {
 
     /**
      * Deliver a page of tags.
-     * 
+     *
      * @param page information about pagination.
      * @return the page of tags.
      */
@@ -49,40 +48,40 @@ public interface TagService {
 
     /**
      * Save the given tag.
-     * 
+     *
      * @param tag the tag object.
      * @return the tag object which may changed.
-     * 
+     *
      */
     Tag save(Tag tag);
 
     /**
      * Read the tag.
-     * 
+     *
      * @param tagId the ID of the tag-object.
      * @return the tag object.
-     * 
+     *
      */
     Tag read(Long tagId);
 
     /**
      * Delete the tag.
-     * 
+     *
      * @param tagId the ID of the tag-object.
-     * 
+     *
      */
     void delete(Long tagId);
 
     /**
      * Return the number of tags.
-     * 
+     *
      * @return number of tags.
      */
     long getNrOfTags();
 
     /**
      * Return possible Postings in key-value form.
-     * 
+     *
      * @return Map with select options
      */
     List<Post> getPostingSelectOptions();

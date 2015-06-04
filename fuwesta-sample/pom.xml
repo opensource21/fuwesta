@@ -16,6 +16,8 @@
         <org.springframework.version>4.1.5.RELEASE</org.springframework.version>
         <shiro.version>1.2.3</shiro.version>
         <junit.version>4.12</junit.version>
+        <jetty.version>6.1.14</jetty.version>
+        <selenium.version>2.45.0</selenium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <db.username>sa</db.username>
@@ -84,7 +86,7 @@
             <version>2.5</version>
             <scope>provided</scope>
         </dependency>
-        <!--  If you use Layout-Dialect. Here for demonstration in some masks. -->
+        <!-- If you use Layout-Dialect. Here for demonstration in some masks. -->
         <dependency>
             <groupId>nz.net.ultraq.thymeleaf</groupId>
             <artifactId>thymeleaf-layout-dialect</artifactId>
@@ -136,11 +138,113 @@
         </dependency>
 
         <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>1.6.0</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.4</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-util</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jsp-2.1</artifactId>
+            <version>${jetty.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jsp-api-2.1</artifactId>
+            <version>${jetty.version}</version>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>de.ppi.oss</groupId>
+            <artifactId>webtest</artifactId>
+            <version>0.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.dbunit.datasetbuilder</groupId>
+            <artifactId>dbunit-datasetbuilder</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.dbunit.validation</groupId>
+            <artifactId>dbunit-validation</artifactId>
+            <version>0.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-api</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-support</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-remote-driver</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-htmlunit-driver</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://code.google.com/p/selenium/issues/detail?id=8088 -->
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+            <version>1.2.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-phantom-driver</artifactId>
+            <version>1.1.3.Final</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>phantomjsdriver</artifactId>
+                    <groupId>com.github.detro</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-phantom-binary</artifactId>
+            <version>1.9.8</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-ie-driver</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
     <build>
@@ -195,7 +299,7 @@
                 <artifactId>maven-jetty-plugin</artifactId>
                 <version>6.1.25</version>
                 <configuration>
-                    <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <scanIntervalSeconds>-1</scanIntervalSeconds>
                     <stopKey>foo</stopKey>
                     <stopPort>9999</stopPort>
                 </configuration>
@@ -206,7 +310,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>2.15</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>6.5.0</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <configLocation>config/checkstyleChecks.xml</configLocation>
                     <propertyExpansion>samedir=${basedir}/config/</propertyExpansion>
@@ -334,4 +445,13 @@
         </repository>
     </repositories>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>xml-apis</groupId>
+                <artifactId>xml-apis</artifactId>
+                <version>1.4.01</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

@@ -12,23 +12,23 @@
     <ul>
       <li th:class="${page.firstPage}? 'disabled' : ''">
         <span th:if="${page.firstPage}">&larr; First</span>
-        <a th:if="${not page.firstPage}" th:href="@{${page.url}(__#{pg.page.number_size(1,${page.size})}__)}">&larr; First</a>
+        <a th:if="${not page.firstPage}" th:href="@{${page.url}(__#{pg.page.number_size(0,${page.size})}__)}">&larr; First</a>
       </li>
       <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
         <span th:if="${not page.hasPreviousPage}">&laquo;</span>
-        <a th:if="${page.hasPreviousPage}" th:href="@{${page.url}(__#{pg.page.number_size(${page.number-1},${page.size})}__)}" title="Go to previous page">&laquo;</a>
+        <a th:if="${page.hasPreviousPage}" th:href="@{${page.url}(__#{pg.page.number_size(${page.number-2},${page.size})}__)}" title="Go to previous page">&laquo;</a>
       </li>
       <li th:each="item : ${page.items}" th:class="${item.current}? 'active' : ''">
         <span th:if="${item.current}" th:text="${item.number}">1</span>
-        <a th:if="${not item.current}" th:href="@{${page.url}(__#{pg.page.number_size(${item.number},${page.size})}__)}"><span th:text="${item.number}">1</span></a>
+        <a th:if="${not item.current}" th:href="@{${page.url}(__#{pg.page.number_size(${item.number-1},${page.size})}__)}"><span th:text="${item.number}">1</span></a>
       </li>
       <li th:class="${page.hasNextPage}? '' : 'disabled'">
         <span th:if="${not page.hasNextPage}">&raquo;</span>
-        <a th:if="${page.hasNextPage}" th:href="@{${page.url}(__#{pg.page.number_size(${page.number+1},${page.size})}__)}" title="Go to next page">&raquo;</a>
+        <a th:if="${page.hasNextPage}" th:href="@{${page.url}(__#{pg.page.number_size(${page.number},${page.size})}__)}" title="Go to next page">&raquo;</a>
       </li>
       <li th:class="${page.lastPage}? 'disabled' : ''">
         <span th:if="${page.lastPage}">Last &rarr;</span>
-        <a th:if="${not page.lastPage}" th:href="@{${page.url}(__#{pg.page.number_size(${page.totalPages},${page.size})}__)}">Last &rarr;</a>
+        <a th:if="${not page.lastPage}" th:href="@{${page.url}(__#{pg.page.number_size(${page.totalPages-1},${page.size})}__)}">Last &rarr;</a>
       </li>
     </ul>
   </div>

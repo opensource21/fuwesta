@@ -4,3 +4,4 @@
 .*\.UserDaoTest
 .*\.UserServiceImplTransactionalTest
 de.ppi.samples.fuwesta.service.impl.UserServiceImplControllerTest
+.*\.*IntegrationTest
