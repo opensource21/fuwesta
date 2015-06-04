@@ -1,4 +1,4 @@
-package de.ppi.selenium.util;
+package de.ppi.webttest.util;
 
 import java.io.IOException;
 import java.net.ServerSocket;

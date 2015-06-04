@@ -6,7 +6,7 @@ import de.ppi.selenium.junit.DelegatingWebServer;
 import de.ppi.selenium.junit.ProtocolRule;
 import de.ppi.selenium.junit.WebDriverRule;
 import de.ppi.selenium.junit.WebServerRule;
-import de.ppi.selenium.util.JettyWebServer;
+import de.ppi.webttest.util.JettyWebServer;
 
 /**
  * Constants for webtest.

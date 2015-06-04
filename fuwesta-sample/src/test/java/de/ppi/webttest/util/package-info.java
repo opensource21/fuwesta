@@ -2,5 +2,5 @@
  * Helper classes for selenium.
  *
  */
-package de.ppi.selenium.util;
+package de.ppi.webttest.util;
 

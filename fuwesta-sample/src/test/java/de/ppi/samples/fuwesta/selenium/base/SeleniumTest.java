@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.ppi.selenium.junit.WebServer;
-import de.ppi.selenium.util.JettyWebServer;
+import de.ppi.webttest.util.JettyWebServer;
 
 /**
  * Baseclass for tests running with selenium.
