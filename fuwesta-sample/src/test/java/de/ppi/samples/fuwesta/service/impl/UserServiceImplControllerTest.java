@@ -7,19 +7,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TransactionRequiredException;
 
-import org.junit.After;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 import de.ppi.samples.fuwesta.config.RootConfig;
-import de.ppi.samples.fuwesta.dao.api.UserDao;
 import de.ppi.samples.fuwesta.model.User;
 import de.ppi.samples.fuwesta.service.api.UserService;
 
 /**
  * Class for testing @link {@link UserServiceImpl} in with attach and detach.
- * 
+ *
  */
 @ContextConfiguration(classes = RootConfig.class)
 public class UserServiceImplControllerTest extends
@@ -29,10 +27,6 @@ public class UserServiceImplControllerTest extends
     @Resource(name = "userService")
     private UserService userService;
 
-    /** The user dao. */
-    @Resource
-    private UserDao userDao;
-
     /**
      * The {@link EntityManager}.
      */
@@ -40,20 +34,12 @@ public class UserServiceImplControllerTest extends
     private EntityManager em;
 
     /**
-     * Makes a cleanup.
-     */
-    @After
-    public void tearDown() {
-        userDao.deleteAll();
-    }
-
-    /**
      * Test how the Entities are attached and detached.
      */
     @Test
     public void testDetach() {
         // Arrange
-        User testUser = new User("testId");
+        User testUser = new User("testId1");
         Long id = userService.save(testUser).getId();
         resetEntityManager();
         testUser = userService.read(id);
@@ -75,7 +61,7 @@ public class UserServiceImplControllerTest extends
         // Arrange
         final String firstName = "FirstName";
 
-        User testUser = new User("testId");
+        User testUser = new User("testId2");
         Long id = userService.save(testUser).getId();
         resetEntityManager();
         testUser = userService.read(id);
