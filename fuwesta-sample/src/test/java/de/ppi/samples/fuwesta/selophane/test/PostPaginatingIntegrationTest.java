@@ -10,6 +10,7 @@ import de.ppi.samples.fuwesta.dbunit.dataset.TestData;
 import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.checks.PaginatingBarChecks;
 import de.ppi.samples.fuwesta.selophane.fragment.PaginatingBar;
+import de.ppi.selenium.junit.WebDriverRule.Browser;
 
 /**
  * Test for the post-page.
@@ -53,6 +54,7 @@ public class PostPaginatingIntegrationTest extends AbstractPostIntegrationTest {
      */
     @SuppressWarnings("boxing")
     @Test
+    @Browser(cost = 10)
     public void testPostPaginatingNext() {
         browser.getRelativeUrl(URL.Post.LIST);
         for (int i = 2; i < NUMBER_OF_PAGES; i++) {
@@ -90,6 +92,7 @@ public class PostPaginatingIntegrationTest extends AbstractPostIntegrationTest {
      */
     @SuppressWarnings("boxing")
     @Test
+    @Browser(cost = 10)
     public void testPostPaginatingPrevious() {
         browser.getRelativeUrl(URL.Post.LIST);
         postListPage.getPaginatingBar().getLast().click();

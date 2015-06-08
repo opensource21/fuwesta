@@ -24,6 +24,7 @@ import de.ppi.samples.fuwesta.selophane.page.PartialPostFormPage;
 import de.ppi.samples.fuwesta.selophane.page.PostFormPage;
 import de.ppi.selenium.browser.SessionManager;
 import de.ppi.selenium.browser.WebBrowser;
+import de.ppi.selenium.junit.WebDriverRule.Browser;
 import de.ppi.selenium.util.Protocol;
 
 /**
@@ -54,6 +55,7 @@ public class OptimisticLockPostIntegrationTest extends
      * @throws Exception when something goes wrong.
      */
     @Test
+    @Browser(forceRestart = true)
     public void testOptimisticLock() throws Exception {
         // Prepare first browser and goto the edit-page
         final WebBrowser firstBrowser = browser;
