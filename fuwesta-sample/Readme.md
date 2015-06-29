@@ -9,6 +9,9 @@ There are following goals:
  4. Good testability.
  5. Should work smartly together with prototyping.
 
+__Important__ For test this sample use [lombok](http://jnb.ociweb.com/jnb/jnbJan2010.html#installation), 
+so you must install it for your preferred ide or only compile with maven. 
+ 
 ##Architecture
 
 The general structure is front end -> services -> persistence. This means:
@@ -104,7 +107,7 @@ and the class
 You must then adjust `*Config`, `web.xml` and `URL`.
 
 ##Eclipse
-Standard Java-Edition
+Standard Java-Edition for test it needs [lombok](http://jnb.ociweb.com/jnb/jnbJan2010.html#installation).
 ###Config
 ####Content Assist
 Spring recommends that Eclipse users should add
