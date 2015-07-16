@@ -12,16 +12,17 @@ import org.springframework.util.PropertiesPersister;
 
 /**
  * Strategy which replaces all simple apostrophes by double apostrophe during
- * the initial loading of properties files. The storage and usage of XML files
- * is not supported.
+ * the initial loading of properties files and replace the {ovalMessage} to
+ * '{'ovalMessage'}'. The storage and usage of XML files is not supported.
  */
 
 public final class ApostropheEscapingPropertiesPersister implements
         PropertiesPersister {
 
     /**
-     * Replace simple apostrophe with double.
-     * 
+     * Replace simple apostrophe with double and replace the {ovalMessage} to
+     * '{'ovalMessage'}'.
+     *
      * @param props the properties.
      */
     private void escape(Properties props) {
