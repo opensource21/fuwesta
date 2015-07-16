@@ -23,8 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
  * activated by a subclass which is annotated with {@link ControllerAdvice}.
  * It's inspired by
  * http://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc.
- * 
- * 
+ *
+ *
  */
 public abstract class BasicGlobalExceptionHandler {
 
@@ -52,7 +52,7 @@ public abstract class BasicGlobalExceptionHandler {
 
     /**
      * Initiates an object of type BasicGlobalExceptionHandler.
-     * 
+     *
      * @param defaultErrorView the default error view.
      */
     public BasicGlobalExceptionHandler(String defaultErrorView) {
@@ -62,7 +62,7 @@ public abstract class BasicGlobalExceptionHandler {
 
     /**
      * Log information about the request and the exception.
-     * 
+     *
      * @param req the current request.
      * @param e the exception.
      * @return model and view information.
@@ -115,7 +115,7 @@ public abstract class BasicGlobalExceptionHandler {
 
     /**
      * Extract all header-information from the request.
-     * 
+     *
      * @param req the current request.
      * @return a list with header informations.
      */
@@ -133,7 +133,7 @@ public abstract class BasicGlobalExceptionHandler {
 
     /**
      * Extract all parameter from the request.
-     * 
+     *
      * @param req the current request.
      * @return a list with parameter informations.
      */
@@ -154,11 +154,11 @@ public abstract class BasicGlobalExceptionHandler {
     /**
      * Creates a uniqueId which should be unique in a year, if in one thread
      * there are no more then 1 per ms.
-     * 
+     *
      * @return a uniqueId.
      */
     private final String getUniqueId() {
-        StringBuilder result = new StringBuilder(8);
+        StringBuilder result = new StringBuilder(9);
         Calendar now = Calendar.getInstance();
         result.append(INT_TO_BASE_64[(int) (Thread.currentThread().getId() % 64)]);
         result.append(INT_TO_BASE_64[now.get(Calendar.MONTH) % 64]);
