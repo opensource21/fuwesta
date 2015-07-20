@@ -37,6 +37,11 @@
             <artifactId>fuwesta-core</artifactId>
             <version>1.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>de.ppi.oss</groupId>
+            <artifactId>thymeleaf-bootstrap2</artifactId>
+            <version>0.1</version>
+        </dependency>
         <!-- logging -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
