@@ -65,7 +65,7 @@ public class UrlDefinitionsToMessagesTest {
         /**
          * Edit-User-Url.
          */
-        String EDIT = HOME + "/edit/{" + P_USERID + "}";
+        String EDIT = HOME + "/edit/{" + P_USERID + ":[A-Z]{1,2}}";
 
         /**
          * Show-User-Url.
@@ -204,8 +204,8 @@ public class UrlDefinitionsToMessagesTest {
         assertThat(
                 messageSource.getMessage("purl.testclass.edit",
                         new Object[] { longValue }, Locale.CANADA)).isEqualTo(
-                TestClass.EDIT.replaceAll("\\{" + TestClass.P_USERID + "\\}",
-                        "1100"));
+                TestClass.EDIT.replaceAll("\\{" + TestClass.P_USERID
+                        + ":\\[A-Z\\]\\{1,2\\}\\}", "1100"));
         assertThat(
                 messageSource.getMessage("purl.testclass.show", new Object[] {
                         longValue, longValue }, Locale.CANADA)).isEqualTo(

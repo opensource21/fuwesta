@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import de.ppi.fuwesta.spring.mvc.util.URLCleaner;
 import de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages.ParamFormat;
 
 /**
@@ -249,7 +250,10 @@ public final class URL {
      */
     private static UriComponents getUriComponent(String url) {
         if (!URI_MAP.containsKey(url)) {
-            URI_MAP.put(url, UriComponentsBuilder.fromUriString(url).build());
+            URI_MAP.put(
+                    url,
+                    UriComponentsBuilder.fromUriString(
+                            URLCleaner.removeRegexpFromUrl(url)).build());
         }
 
         return URI_MAP.get(url);
