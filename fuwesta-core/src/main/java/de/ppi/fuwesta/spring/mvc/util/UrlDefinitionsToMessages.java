@@ -20,19 +20,19 @@ import org.slf4j.LoggerFactory;
  * <ul>
  * <li>Fieldname starts with "P_" it is a Parameter. It will added with *
  * {@link #paramsAsMessages(Class[])}</li>
- * 
+ *
  * <li>Fieldname starts with "PG_" it is define a Parameter-Group. It will added
  * with {@link #paramGroupAsMessages(Class[])}</li>
- * 
+ *
  * <li>All other fields will be added with
  * {@link #addUrlsAsMessagesWithPositionedParameters()(Class[])} and
  * {@link #addUrlsAsMessagesWithNamedParameters (Class[])}</li>
  * </ul>
- * 
+ *
  * If your parameter isn't a String and you use it via positioned parameter you
  * should use {@link ParamFormat}, which defines a parameter as a integer, but
  * you can overwrite it.
- * 
+ *
  */
 public class UrlDefinitionsToMessages {
 
@@ -71,7 +71,7 @@ public class UrlDefinitionsToMessages {
 
     /**
      * Annotation which defines how a parameter should be formatted.
-     * 
+     *
      */
     @Target({ ElementType.FIELD })
     @Retention(RetentionPolicy.RUNTIME)
@@ -79,7 +79,7 @@ public class UrlDefinitionsToMessages {
         /**
          * The value defines the format for message-formatting. Default is
          * ",number,##".
-         * 
+         *
          */
         String value() default INTEGER;
     }
@@ -99,7 +99,7 @@ public class UrlDefinitionsToMessages {
 
     /**
      * Initiates an object of type UrlDefinitionsToMessages.
-     * 
+     *
      * @param classes the classes with url-infos.
      */
     public UrlDefinitionsToMessages(Class<?>... classes) {
@@ -109,10 +109,10 @@ public class UrlDefinitionsToMessages {
 
     /**
      * Add all URL constants to a {@link Properties} with prefix 'url'.
-     * 
+     *
      * @deprecated Use {@link #addUrlsAsMessagesWithPositionedParameters()}
      *             instead, have in mind that url -> purl
-     * 
+     *
      */
     @Deprecated
     public void addUrlsAsMessages() {
@@ -121,7 +121,7 @@ public class UrlDefinitionsToMessages {
 
     /**
      * Add all URL constants to a {@link Properties} with prefix 'purl'.
-     * 
+     *
      */
     public void addUrlsAsMessagesWithPositionedParameters() {
         addConstantInfosFromClass("purl", classesWithUrlInfos);
@@ -129,7 +129,7 @@ public class UrlDefinitionsToMessages {
 
     /**
      * Add all URL constants to a {@link Properties} with prefix 'nurl'.
-     * 
+     *
      */
     public void addUrlsAsMessagesWithNamedParameters() {
         addConstantInfosFromClass("nurl", classesWithUrlInfos);
@@ -137,7 +137,7 @@ public class UrlDefinitionsToMessages {
 
     /**
      * Add all Params constants to a {@link Properties}.
-     * 
+     *
      */
     public void addParamsAsMessages() {
         addConstantInfosFromClass(MESSAGE_SOURCE_PRAEFIX_PARAMETER,
@@ -148,7 +148,7 @@ public class UrlDefinitionsToMessages {
      * Add all Paramgroup constants to a {@link Properties} this means something
      * like "user_id = {1}, user_name={2}". This can be used in @{url()} in
      * Thymeleaf.
-     * 
+     *
      */
     public void addParamGroupAsMessages() {
         addConstantInfosFromClass(MESSAGE_SOURCE_PRAEFIX_PARAMETER_GROUP,
@@ -171,7 +171,7 @@ public class UrlDefinitionsToMessages {
 
     /**
      * Added the information of formatting parametes to the given map.
-     * 
+     *
      * @param classes classes which declares the parmaters.
      */
     private void fillFormatDefinitions(Class<?>[] classes) {
@@ -212,7 +212,7 @@ public class UrlDefinitionsToMessages {
 
     /**
      * Add all class Constants to a {@link Properties}.
-     * 
+     *
      * @param prefix the prefix for the key.
      * @param classes the list of classes.
      */
@@ -236,7 +236,7 @@ public class UrlDefinitionsToMessages {
 
     /**
      * Analyse the field and add the information to the properties.
-     * 
+     *
      * @param prefix the prefix each key should get.
      * @param formatDefinition the definition for the format of parameters.
      * @param field the field which contains information.
@@ -266,7 +266,7 @@ public class UrlDefinitionsToMessages {
     /**
      * Add alls URLs and prepare paramters, so that the will replaced by
      * position.
-     * 
+     *
      * @param prefix the prefix of the key.
      * @param formatDefinition information about the format defintion.
      * @param field the field whith the url.
@@ -282,14 +282,15 @@ public class UrlDefinitionsToMessages {
                             field.getDeclaringClass().getSimpleName(),
                             field.getName());
             final String urlValue =
-                    createUrl(field.get(null).toString(), formatDefinition);
+                    createUrl(URLCleaner.removeRegexpFromUrl(field.get(null)
+                            .toString()), formatDefinition);
             messages.put(keyName, urlValue);
         }
     }
 
     /**
      * Add alls URLs and prepare paramters, so that the will replaced by name.
-     * 
+     *
      * @param prefix the prefix of the key.
      * @param formatDefinition information about the format defintion.
      * @param field the field whith the url.
@@ -305,15 +306,16 @@ public class UrlDefinitionsToMessages {
                             field.getDeclaringClass().getSimpleName(),
                             field.getName());
             final String urlValue =
-                    createUrlWithNamedParams(field.get(null).toString(),
-                            formatDefinition);
+                    createUrlWithNamedParams(
+                            URLCleaner.removeRegexpFromUrl(field.get(null)
+                                    .toString()), formatDefinition);
             messages.put(keyName, urlValue);
         }
     }
 
     /**
      * Add simple parameter names.
-     * 
+     *
      * @param prefix the prefix of the key.
      * @param field the field whith the url.
      * @throws IllegalAccessException
@@ -331,7 +333,7 @@ public class UrlDefinitionsToMessages {
 
     /**
      * Add group of parameter names.
-     * 
+     *
      * @param prefix the prefix of the key.
      * @param field the field whith the url.
      * @throws IllegalAccessException
@@ -354,7 +356,7 @@ public class UrlDefinitionsToMessages {
     /**
      * Creates the URL from the constant as a message, i.e. named parameters
      * like {user_id} will be replaced by ${user_id}.
-     * 
+     *
      * @param urlAsString the url.
      * @param formatDefinition the format definitions.
      * @return the URL as parameterized message.
@@ -367,7 +369,7 @@ public class UrlDefinitionsToMessages {
         while (tokens.hasMoreTokens()) {
             final String key = tokens.nextToken();
             if (isVariable) {
-                String varName = key.split(":")[0];
+                String varName = key;
                 String format = formatDefinition.get(varName);
                 if (format == null) {
                     LOG.warn("In URL {} you use an undefined parameter {}",
@@ -388,7 +390,7 @@ public class UrlDefinitionsToMessages {
     /**
      * Creates the URL from the constant as a message, i.e. named parameters
      * like {user_id} will be replaced by {0}.
-     * 
+     *
      * @param urlAsString the url.
      * @param formatDefinition the format definitions.
      * @return the URL as parameterized message.
@@ -423,7 +425,7 @@ public class UrlDefinitionsToMessages {
     /**
      * Creates the Paramgroup from the constant as a message, i.e. paramaters
      * will be enriched with ={}
-     * 
+     *
      * @param definitionOfParams the field value.
      * @param formatDefinition the format definition.
      * @return the paramgroup as parameterized message.
@@ -453,7 +455,7 @@ public class UrlDefinitionsToMessages {
 
     /**
      * Create a key name.
-     * 
+     *
      * @param prefix the prefix for the key.
      * @param className the simple name of the declaring class.
      * @param fieldName the field name.
