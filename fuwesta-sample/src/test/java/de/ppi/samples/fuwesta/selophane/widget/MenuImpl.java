@@ -3,9 +3,8 @@ package de.ppi.samples.fuwesta.selophane.widget;
 import java.util.List;
 
 import org.openqa.selenium.support.FindBy;
+import org.selophane.elements.base.Fragment;
 import org.selophane.elements.base.UniqueElementLocator;
-
-import de.ppi.samples.fuwesta.selophane.base.Fragment;
 
 /**
  * Fragment Menu.
