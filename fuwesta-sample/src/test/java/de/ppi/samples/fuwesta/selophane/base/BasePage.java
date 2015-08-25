@@ -24,22 +24,32 @@ public class BasePage {
     private final WebDriver webDriver;
 
     /**
+     * Name of the page.
+     */
+    private final String pageName;
+
+    /**
      *
      * Initiates an object of type BasePage.
      *
      * @param webDriver the {@link WebDriver} to find the elements.
+     * @param pageName name of the page-
      */
-    public BasePage(WebDriver webDriver) {
+    public BasePage(WebDriver webDriver, String pageName) {
         this.webDriver = webDriver;
-        reload();
+        this.pageName = pageName;
+        isReloaded();
+
     }
 
     /**
-     * Reload the page, this is important if the weblements are chached.
+     * Recreate the page after a reload, this is important if the weblements are
+     * cached.
      */
-    public final void reload() {
+    public final void isReloaded() {
         PageFactory.initElements(new ElementDecorator(webDriver,
-                new DefaultElementLocatorFactory(webDriver)), this);
+                new DefaultElementLocatorFactory(webDriver), pageName, ""),
+                this);
     }
 
     /**
@@ -63,7 +73,8 @@ public class BasePage {
             return null;
         }
         return new LabelImpl(new ByUniqueElementLocator(getWebDriver(),
-                By.xpath("//label[@for='" + id + "']")));
+                By.xpath("//label[@for='" + id + "']"), pageName,
+                "Label for " + id));
     }
 
     /**
@@ -78,7 +89,7 @@ public class BasePage {
             return null;
         }
         return new ElementImpl(new ByUniqueElementLocator(getWebDriver(),
-                By.id("error_" + id)));
+                By.id("error_" + id), pageName, "Error for " + id));
     }
 
 }

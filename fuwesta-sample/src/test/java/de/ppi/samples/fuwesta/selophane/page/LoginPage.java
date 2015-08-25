@@ -54,7 +54,7 @@ public class LoginPage extends BasePage {
      * @param webDriver a webdriver as searchcontext.
      */
     public LoginPage(WebDriver webDriver) {
-        super(webDriver);
+        super(webDriver, "Login-Page");
     }
 
     /**

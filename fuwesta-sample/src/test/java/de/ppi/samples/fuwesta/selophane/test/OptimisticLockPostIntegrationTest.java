@@ -32,14 +32,14 @@ import de.ppi.selenium.util.Protocol;
  *
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class OptimisticLockPostIntegrationTest extends
-        AbstractPostIntegrationTest {
+public class OptimisticLockPostIntegrationTest
+        extends AbstractPostIntegrationTest {
 
     /**
      * An instance of the {@link SessionManager}.
      */
-    private static final SessionManager SESSION_MANAGER = SessionManager
-            .getInstance();
+    private static final SessionManager SESSION_MANAGER =
+            SessionManager.getInstance();
 
     /**
      * {@inheritDoc}
@@ -93,21 +93,21 @@ public class OptimisticLockPostIntegrationTest extends
         content.set(changedTitle);
         final String url = firstBrowser.getCurrentUrl();
         firstFormPage.getSave().click();
-        firstFormPage.reload();
+        firstFormPage.isReloaded();
         Protocol.log(changedTitle, "Show optimistic lock-error", firstBrowser);
         final List<Element> messages =
                 firstFormPage.getGlobalErrors().getMessages();
         softly.assertThat(messages).hasSize(1);
         final Element error = messages.get(0);
-        softly.assertThat(error).hasText(
-                "The data was changed by another user. Reload.");
+        softly.assertThat(error)
+                .hasText("The data was changed by another user. Reload.");
         final Link reloadlink =
                 new LinkImpl(new ByUniqueElementLocator(secondBrowser, error,
-                        By.tagName("a")));
+                        By.tagName("a"), "ErrorPage", "reloadLink"));
         assertThat(reloadlink.getAttribute("href")).isEqualTo(url);
         // reload and set the title back.
         reloadlink.click();
-        firstFormPage.reload();
+        firstFormPage.isReloaded();
         final TextInput titleInput = firstFormPage.getTitleInput();
         softly.assertThat(titleInput.getText()).isEqualTo(changedTitle);
         titleInput.set(originalTitle);
