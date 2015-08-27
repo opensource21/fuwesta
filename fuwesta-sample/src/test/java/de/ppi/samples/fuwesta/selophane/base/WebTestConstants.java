@@ -3,10 +3,12 @@ package de.ppi.samples.fuwesta.selophane.base;
 import org.junit.rules.RuleChain;
 
 import de.ppi.selenium.junit.DelegatingWebServer;
+import de.ppi.selenium.junit.EventLogRule;
 import de.ppi.selenium.junit.ProtocolRule;
 import de.ppi.selenium.junit.WebDriverRule;
 import de.ppi.selenium.junit.WebServerRule;
 import de.ppi.webttest.util.TestWebServer;
+import de.ppi.selenium.logevent.backend.H2EventStorage;
 
 /**
  * Constants for webtest.
@@ -22,7 +24,10 @@ public interface WebTestConstants {
      */
     RuleChain WEBTEST_WITHOUT_AUTHENTICATION = RuleChain
             .outerRule(new WebServerRule(new DelegatingWebServer(WEB_SERVER)))
-            .around(new WebDriverRule()).around(new ProtocolRule("weblog"));
+            .around(new EventLogRule(new H2EventStorage(
+                    "jdbc:h2:./dbs/testlog;MODE=PostgreSQL;AUTO_SERVER=TRUE",
+                    "sa", ""))).around(new WebDriverRule())
+            .around(new ProtocolRule("weblog"));
     /**
      * Standard_Rule for WebTests.
      */
