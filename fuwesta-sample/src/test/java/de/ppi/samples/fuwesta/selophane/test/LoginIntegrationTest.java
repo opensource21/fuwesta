@@ -108,7 +108,7 @@ public class LoginIntegrationTest {
         browser.getRelativeUrl(URL.User.HOME);
         assertThat(loginPage.areAllElementsVisible()).isTrue();
         authModule.login("post");
-        assertThat(browser).hasRelativeUrl(URL.User.HOME);
+        assertThat(browser).hasRelativeUrl(URL.Auth.UNAUTHORIZED);
         assertThat(browser.getTitle()).contains("UNAUTHORIZED");
     }
 

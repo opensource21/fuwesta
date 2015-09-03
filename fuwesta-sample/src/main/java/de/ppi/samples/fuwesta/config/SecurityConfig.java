@@ -79,7 +79,7 @@ public class SecurityConfig {
         result.setSecurityManager(securityManager());
         result.setLoginUrl(URL.Auth.LOGIN);
         result.setSuccessUrl(URL.HOME);
-        // result.setUnauthorizedUrl(null);
+        result.setUnauthorizedUrl(URL.Auth.UNAUTHORIZED);
         result.getFilters().put(DefaultFilter.authc.name(),
                 createCustomFormAuthentficationFilter());
         result.getFilters().put(DefaultFilter.perms.name(),

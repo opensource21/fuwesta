@@ -15,13 +15,13 @@ import de.ppi.webttest.util.JettyWebServer;
 // CSOFFALL:
 public interface WebTestConstants {
 
+    JettyWebServer WEB_SERVER = new JettyWebServer("/fuwesta");
+
     /**
      * Standard_Rule for WebTests.
      */
     RuleChain WEBTEST_WITHOUT_AUTHENTICATION = RuleChain
-            .outerRule(
-                    new WebServerRule(new DelegatingWebServer(
-                            new JettyWebServer("/fuwesta"))))
+            .outerRule(new WebServerRule(new DelegatingWebServer(WEB_SERVER)))
             .around(new WebDriverRule()).around(new ProtocolRule("weblog"));
     /**
      * Standard_Rule for WebTests.

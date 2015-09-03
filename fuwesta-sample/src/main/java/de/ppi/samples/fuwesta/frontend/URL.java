@@ -46,6 +46,11 @@ public final class URL {
          */
         String LOGIN = "/login";
 
+        /**
+         * Not authorized.
+         */
+        String UNAUTHORIZED = "/unauthorized";
+
     }
 
     /**

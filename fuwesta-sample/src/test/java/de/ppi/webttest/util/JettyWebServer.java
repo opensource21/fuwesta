@@ -105,8 +105,8 @@ public final class JettyWebServer implements WebServer {
     public void start() throws Exception {
         if (server == null) {
             server =
-                SpringApplication.run(FuWeStaServer.class, "--server.port="
-                        + port, "--server.context-path" + contextPart);
+                    SpringApplication.run(FuWeStaServer.class, "--server.port="
+                            + port, "--server.context-path=" + contextPart);
         }
     }
 
