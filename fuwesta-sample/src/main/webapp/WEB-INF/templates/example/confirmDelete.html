@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html lang="de-DE" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="UTF-8"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="pragma" content="no-cache"/>
+</head>
+<body>
+    <form th:action="@{${deleteURL}}" method="post">
+         Do you really want to delete?
+        <input name="" value="Delete" type="submit"/>
+         <a th:href="@{${cancelURL}}" class="cancel">Cancel</a>
+    </form>
+</body>
+</html>

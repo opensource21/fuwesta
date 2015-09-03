@@ -1,0 +1,14 @@
+<html lang="de-DE" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Spring-MVC-Sample</title>
+</head>
+<body>
+    <ul>
+        <li><a th:href="@{/post/list}">Post</a></li>
+        <li><a th:href="@{/tag/list}">Tag</a></li>
+        <li><a th:href="@{/user/list}">User</a></li>
+    </ul>
+</body>
+</html>

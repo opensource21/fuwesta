@@ -45,14 +45,8 @@ public class ThymeleafConfig {
             configureInternalThymeLeafResourceViewResolver() {
         final ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
-        resolver.setOrder(1);
         resolver.setContentType(MediaType.TEXT_HTML_VALUE);
         resolver.setCharacterEncoding(characterEncoding);
-        resolver.setViewNames(new String[] { "example/user/list",
-                "example/user/userform", "example/post/list",
-                "example/post/postform", "example/post/partialpostform",
-                "example/tag/list", "example/tag/tagform", "example/login",
-                "example/error" });
         return resolver;
     }
 

@@ -27,7 +27,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import de.ppi.fuwesta.spring.mvc.bind.ServletBindingService;
 import de.ppi.fuwesta.spring.mvc.formatter.EnumConverter;
@@ -171,22 +170,6 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     public void configureDefaultServletHandling(
             DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
-    }
-
-    /**
-     * Configures the view resolver for JSPs.
-     *
-     * @return the view resolver.
-     */
-    @Bean
-    public InternalResourceViewResolver
-            configureInternalJspResourceViewResolver() {
-        final InternalResourceViewResolver resolver =
-                new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/views/");
-        resolver.setSuffix(".jsp");
-        resolver.setOrder(2);
-        return resolver;
     }
 
     /**
