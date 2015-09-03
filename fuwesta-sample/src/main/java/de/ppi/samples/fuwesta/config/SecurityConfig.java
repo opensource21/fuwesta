@@ -35,7 +35,7 @@ public class SecurityConfig {
     /**
      * Key for {@link FormAuthenticationFilter}.
      */
-    private static final String AUTHC = "authc";
+    private static final String AUTHC = DefaultFilter.authc.name();
 
     /**
      * Defines the realms.
@@ -58,7 +58,9 @@ public class SecurityConfig {
      *
      */
     private void defineSecurityFilter(Map<String, String> filterMap) {
-        filterMap.put("/resources/**/*", DefaultFilter.anon.name());
+        filterMap.put("/css/**/*", DefaultFilter.anon.name());
+        filterMap.put("/js/**/*", DefaultFilter.anon.name());
+        filterMap.put("/img/**/*", DefaultFilter.anon.name());
         filterMap.put("/logout", DefaultFilter.logout.name());
         filterMap.put("/post/**", AUTHC + ", perms[post:*]");
         filterMap.put("/user/**", AUTHC + ", perms[user:*]");
@@ -91,8 +93,7 @@ public class SecurityConfig {
      *
      * @return a well configured {@link FormAuthenticationFilter}.
      */
-    @Bean(name = AUTHC)
-    public Filter createCustomFormAuthentficationFilter() {
+    private Filter createCustomFormAuthentficationFilter() {
         FormAuthenticationFilter authc = new FormAuthenticationFilter();
         authc.setRememberMeParam("remember-me");
         authc.setEnabled(enabled);

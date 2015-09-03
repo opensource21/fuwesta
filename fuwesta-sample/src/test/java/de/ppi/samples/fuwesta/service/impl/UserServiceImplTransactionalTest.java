@@ -10,7 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.BeforeTransaction;
 
-import de.ppi.samples.fuwesta.config.RootConfig;
+import de.ppi.samples.fuwesta.config.WebMvcConfig;
 import de.ppi.samples.fuwesta.model.User;
 import de.ppi.samples.fuwesta.service.api.UserService;
 
@@ -18,7 +18,7 @@ import de.ppi.samples.fuwesta.service.api.UserService;
  * Class for testing @link {@link UserServiceImpl} in a transactional context.
  *
  */
-@ContextConfiguration(classes = RootConfig.class)
+@ContextConfiguration(classes = WebMvcConfig.class)
 public class UserServiceImplTransactionalTest extends
         AbstractTransactionalJUnit4SpringContextTests {
     /**

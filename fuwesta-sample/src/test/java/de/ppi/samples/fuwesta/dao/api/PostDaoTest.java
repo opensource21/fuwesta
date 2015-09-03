@@ -9,12 +9,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.junit.Test;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.BeforeTransaction;
 
-import de.ppi.samples.fuwesta.config.RootConfig;
+import de.ppi.samples.fuwesta.FuWeStaServer;
 import de.ppi.samples.fuwesta.model.Post;
 import de.ppi.samples.fuwesta.model.Tag;
 import de.ppi.samples.fuwesta.model.User;
@@ -24,7 +24,7 @@ import de.ppi.samples.fuwesta.model.User;
  * JPA.
  *
  */
-@ContextConfiguration(classes = RootConfig.class)
+@SpringApplicationConfiguration(classes = FuWeStaServer.class)
 public class PostDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     /**

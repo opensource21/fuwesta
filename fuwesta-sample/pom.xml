@@ -11,12 +11,17 @@
         <name>PPI AG</name>
         <url>http://www.ppi.de</url>
     </organization>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.2.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
     <properties>
         <java.version>1.7</java.version>
         <org.springframework.version>4.1.5.RELEASE</org.springframework.version>
         <shiro.version>1.2.3</shiro.version>
         <junit.version>4.12</junit.version>
-        <jetty.version>6.1.14</jetty.version>
         <selenium.version>2.45.0</selenium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -47,14 +52,30 @@
             <artifactId>thymeleaf-mailto</artifactId>
             <version>0.1</version>
         </dependency>
-        <!-- logging -->
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.1.2</version>
-            <scope>runtime</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Add tomcat only if I want to run directly -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!-- DB_dependencies -->
         <dependency>
             <groupId>com.jolbox</groupId>
@@ -63,44 +84,13 @@
         </dependency>
 
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.8.Final</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.3.168</version>
-        </dependency>
-
-
-        <!-- Spring -->
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${org.springframework.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${org.springframework.version}</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <!-- Necessary because the WebMvcConfigurationSupport reference it -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
         </dependency>
         <!-- If you use Layout-Dialect. Here for demonstration in some masks. -->
         <dependency>
             <groupId>nz.net.ultraq.thymeleaf</groupId>
             <artifactId>thymeleaf-layout-dialect</artifactId>
-            <version>1.2.4</version>
             <scope>compile</scope>
         </dependency>
         <!-- Security -->
@@ -128,18 +118,13 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${org.springframework.version}</version>
-            <type>jar</type>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
@@ -152,30 +137,6 @@
             <artifactId>lombok</artifactId>
             <version>1.16.4</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty</artifactId>
-            <version>${jetty.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty-util</artifactId>
-            <version>${jetty.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jsp-2.1</artifactId>
-            <version>${jetty.version}</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jsp-api-2.1</artifactId>
-            <version>${jetty.version}</version>
-            <type>jar</type>
         </dependency>
 
         <dependency>
@@ -275,6 +236,8 @@
                 <includes>
                     <include>i18n/*</include>
                     <include>*</include>
+                    <include>templates/**/*</include>
+                    <include>static/**/*</include>
                 </includes>
             </resource>
         </resources>
@@ -283,7 +246,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -295,7 +257,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.8</version>
                 <configuration>
                     <wtpversion>2.0</wtpversion>
                     <downloadSources>true</downloadSources>
@@ -350,7 +311,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
                 <configuration>
                     <archive>
                         <index>true</index>
@@ -367,7 +327,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
                 <configuration>
                     <warSourceExcludes>less/**</warSourceExcludes>
                     <archive>
@@ -385,7 +344,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.5</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
@@ -394,7 +352,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.3</version>
             </plugin>
             <!-- wro4j-plugin see http://code.google.com/p/wro4j/ -->
             <plugin>
@@ -407,9 +364,9 @@
                     <extraConfigFile>${basedir}/config/wro4j/wro.properties</extraConfigFile>
                     <targetGroups></targetGroups>
                     <!-- <cssDestinationFolder>${project.build.directory}/${project.build.finalName}/style/</cssDestinationFolder> -->
-                    <cssDestinationFolder>${basedir}/src/main/webapp/resources/css</cssDestinationFolder>
+                    <cssDestinationFolder>${basedir}/src/main/resources/static/css</cssDestinationFolder>
                     <jsDestinationFolder>${project.build.directory}/${project.build.finalName}/script/</jsDestinationFolder>
-                    <contextFolder>${basedir}/src/main/webapp/</contextFolder>
+                    <contextFolder>${basedir}/src/main/resources/</contextFolder>
                     <ignoreMissingResources>false</ignoreMissingResources>
                 </configuration>
                 <executions>

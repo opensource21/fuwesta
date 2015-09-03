@@ -19,7 +19,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.BeforeTransaction;
 
-import de.ppi.samples.fuwesta.config.RootConfig;
+import de.ppi.samples.fuwesta.config.WebMvcConfig;
 import de.ppi.samples.fuwesta.model.Post;
 import de.ppi.samples.fuwesta.model.User;
 
@@ -30,7 +30,7 @@ import de.ppi.samples.fuwesta.model.User;
  *
  */
 // @ContextConfiguration("classpath:test-context.xml")
-@ContextConfiguration(classes = RootConfig.class)
+@ContextConfiguration(classes = WebMvcConfig.class)
 public class UserDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     /**

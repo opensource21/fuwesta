@@ -3,9 +3,10 @@ package de.ppi.webttest.util;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-import org.mortbay.jetty.Server;
-import org.mortbay.jetty.webapp.WebAppContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
+import de.ppi.samples.fuwesta.FuWeStaServer;
 import de.ppi.selenium.junit.WebServer;
 
 /**
@@ -14,6 +15,7 @@ import de.ppi.selenium.junit.WebServer;
  * <code>-Dtestport=8080</code>.
  *
  */
+// TODO Server start umschreiben.
 public final class JettyWebServer implements WebServer {
 
     /**
@@ -24,7 +26,7 @@ public final class JettyWebServer implements WebServer {
     /**
      * Instance of a running server.
      */
-    private Server server;
+    private ConfigurableApplicationContext server;
 
     /**
      * Port the serber listen.
@@ -73,6 +75,7 @@ public final class JettyWebServer implements WebServer {
 
     /**
      * Find a free port for the server.
+     *
      * @return a free port.
      */
     private static String getFreePort() {
@@ -101,17 +104,10 @@ public final class JettyWebServer implements WebServer {
     @Override
     public void start() throws Exception {
         if (server == null) {
-            server = new Server(port);
-            server.setStopAtShutdown(true);
-
-            WebAppContext webAppContext = new WebAppContext();
-            webAppContext.setContextPath(contextPart);
-            webAppContext.setResourceBase("src/main/webapp");
-            webAppContext.setClassLoader(JettyWebServer.class.getClassLoader());
-            server.addHandler(webAppContext);
-            server.start();
+            server =
+                SpringApplication.run(FuWeStaServer.class, "--server.port="
+                        + port, "--server.context-path" + contextPart);
         }
-
     }
 
     /**
