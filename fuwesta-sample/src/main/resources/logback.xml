@@ -115,6 +115,8 @@
 
     <logger name="org.springframework.web.servlet.mvc" level="WARN"></logger>
 
+    <logger name="org.springframework.boot.context.config.ConfigFileApplicationListener" level="DEBUG"></logger>
+
     <!-- Auf TRACE setzen bei 400 -Fehlern -->
     <logger name="org.springframework.web.servlet.mvc.method.annotation" level="WARN">
         <appender-ref ref="STDOUT"/>

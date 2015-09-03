@@ -15,8 +15,7 @@ import de.ppi.selenium.junit.WebServer;
  * <code>-Dtestport=8080</code>.
  *
  */
-// TODO Server start umschreiben.
-public final class JettyWebServer implements WebServer {
+public final class TestWebServer implements WebServer {
 
     /**
      * The default-port of the server.
@@ -49,7 +48,7 @@ public final class JettyWebServer implements WebServer {
      * @param port the port the server listen.
      * @param contextPart the context.
      */
-    public JettyWebServer(int port, String contextPart) {
+    public TestWebServer(int port, String contextPart) {
         this.port = port;
         this.contextPart = contextPart;
         this.baseUrl = "http://localhost:" + port + contextPart;
@@ -61,7 +60,7 @@ public final class JettyWebServer implements WebServer {
      *
      * @param contextPart the context.
      */
-    public JettyWebServer(String contextPart) {
+    public TestWebServer(String contextPart) {
         this(Integer.parseInt(System.getProperty("testport", getFreePort())),
                 contextPart);
     }
@@ -69,7 +68,7 @@ public final class JettyWebServer implements WebServer {
     /**
      * Initiates an object of type WebServer, for default port and context "/".
      */
-    public JettyWebServer() {
+    public TestWebServer() {
         this("/");
     }
 

@@ -9,14 +9,18 @@ import org.dbunit.dataset.IDataSet;
 import org.junit.AfterClass;
 import org.junit.Rule;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.test.context.web.WebAppConfiguration;
+
+import de.ppi.samples.fuwesta.FuWeStaServer;
 
 /**
  * Class AbstractDbUnitTest.
  *
  */
-@ContextConfiguration(locations = { "/test-config.xml" })
+@SpringApplicationConfiguration(classes = FuWeStaServer.class)
+@WebAppConfiguration
 public abstract class AbstractFuWeStaSampleDbUnitTest extends
         AbstractJUnit4SpringContextTests {
 
@@ -29,7 +33,7 @@ public abstract class AbstractFuWeStaSampleDbUnitTest extends
     /**
      * DB-Schema.
      */
-    @Value("${db.schema}")
+    @Value("${spring.datasource.schema}")
     private String schema;
 
     /**

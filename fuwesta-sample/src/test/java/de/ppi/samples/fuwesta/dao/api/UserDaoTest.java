@@ -10,16 +10,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.junit.Test;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.BeforeTransaction;
+import org.springframework.test.context.web.WebAppConfiguration;
 
-import de.ppi.samples.fuwesta.config.WebMvcConfig;
+import de.ppi.samples.fuwesta.FuWeStaServer;
 import de.ppi.samples.fuwesta.model.Post;
 import de.ppi.samples.fuwesta.model.User;
 
@@ -29,8 +30,8 @@ import de.ppi.samples.fuwesta.model.User;
  * project it's useless to test generated source.
  *
  */
-// @ContextConfiguration("classpath:test-context.xml")
-@ContextConfiguration(classes = WebMvcConfig.class)
+@SpringApplicationConfiguration(classes = FuWeStaServer.class)
+@WebAppConfiguration
 public class UserDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     /**

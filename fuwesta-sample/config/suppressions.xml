@@ -11,5 +11,13 @@
     <suppress checks="MagicNumber" files=".*src.test.java.*.java"/>
     <suppress checks=".*" files=".*src.test.java.de.ppi.samples.fuwesta.dbunit.rowbuilder.*.java"/>
     <suppress checks=".*" files=".*de.ppi.samples.fuwesta.dbunit.dataset.*.java"/>
+    <suppress checks=".*" files=".*.pdf"/>
+    <suppress checks=".*" files=".*.png"/>
+    <suppress checks=".*" files=".*.jpg"/>
+    <suppress checks=".*" files=".*.ico"/>
+    <suppress checks=".*" files=".*.gif"/>
+    <suppress checks=".*" files=".*.js"/>
+    <suppress checks=".*" files=".*.css"/>
+    <suppress checks=".*" files=".*.less"/>
 </suppressions>
 

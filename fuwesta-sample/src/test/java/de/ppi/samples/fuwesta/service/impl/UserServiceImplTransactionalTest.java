@@ -5,12 +5,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import javax.annotation.Resource;
 
 import org.junit.Test;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.data.domain.Page;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.BeforeTransaction;
+import org.springframework.test.context.web.WebAppConfiguration;
 
-import de.ppi.samples.fuwesta.config.WebMvcConfig;
+import de.ppi.samples.fuwesta.FuWeStaServer;
 import de.ppi.samples.fuwesta.model.User;
 import de.ppi.samples.fuwesta.service.api.UserService;
 
@@ -18,7 +19,8 @@ import de.ppi.samples.fuwesta.service.api.UserService;
  * Class for testing @link {@link UserServiceImpl} in a transactional context.
  *
  */
-@ContextConfiguration(classes = WebMvcConfig.class)
+@SpringApplicationConfiguration(classes = FuWeStaServer.class)
+@WebAppConfiguration
 public class UserServiceImplTransactionalTest extends
         AbstractTransactionalJUnit4SpringContextTests {
     /**

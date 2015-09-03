@@ -7,11 +7,12 @@ import javax.sql.DataSource;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.test.context.web.WebAppConfiguration;
 
-import de.ppi.samples.fuwesta.config.WebMvcConfig;
+import de.ppi.samples.fuwesta.FuWeStaServer;
 import de.ppi.samples.fuwesta.dbunit.FuWeStaSampleDatabase;
 import de.ppi.samples.fuwesta.model.User;
 import de.ppi.samples.fuwesta.service.api.UserService;
@@ -20,7 +21,8 @@ import de.ppi.samples.fuwesta.service.api.UserService;
  * Class for testing @link {@link UserServiceImpl} in with attach and detach.
  *
  */
-@ContextConfiguration(classes = WebMvcConfig.class)
+@SpringApplicationConfiguration(classes = FuWeStaServer.class)
+@WebAppConfiguration
 public class UserServiceImplReadOnlyTest extends
         AbstractJUnit4SpringContextTests {
 
@@ -35,10 +37,10 @@ public class UserServiceImplReadOnlyTest extends
     private DataSource dataSource;
 
     /**
-     * DB-Schema.
+     * Datasource configuration.
      */
-    @Value("${db.schema}")
-    private String schema;
+    @Resource
+    private DataSourceProperties dataSourceProperties;
 
     /**
      * Makes a cleanup.
@@ -48,7 +50,8 @@ public class UserServiceImplReadOnlyTest extends
     @Before
     public void init() throws Exception {
         final FuWeStaSampleDatabase db =
-                new FuWeStaSampleDatabase(dataSource.getConnection(), schema);
+                new FuWeStaSampleDatabase(dataSource.getConnection(),
+                        dataSourceProperties.getSchema());
         db.initDatabase();
         db.clean();
     }

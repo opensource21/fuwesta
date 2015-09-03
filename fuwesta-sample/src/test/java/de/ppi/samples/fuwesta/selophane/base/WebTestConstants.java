@@ -6,7 +6,7 @@ import de.ppi.selenium.junit.DelegatingWebServer;
 import de.ppi.selenium.junit.ProtocolRule;
 import de.ppi.selenium.junit.WebDriverRule;
 import de.ppi.selenium.junit.WebServerRule;
-import de.ppi.webttest.util.JettyWebServer;
+import de.ppi.webttest.util.TestWebServer;
 
 /**
  * Constants for webtest.
@@ -15,7 +15,7 @@ import de.ppi.webttest.util.JettyWebServer;
 // CSOFFALL:
 public interface WebTestConstants {
 
-    JettyWebServer WEB_SERVER = new JettyWebServer("/fuwesta");
+    TestWebServer WEB_SERVER = new TestWebServer("/fuwesta");
 
     /**
      * Standard_Rule for WebTests.

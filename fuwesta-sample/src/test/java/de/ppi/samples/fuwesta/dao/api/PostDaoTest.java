@@ -13,6 +13,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.BeforeTransaction;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import de.ppi.samples.fuwesta.FuWeStaServer;
 import de.ppi.samples.fuwesta.model.Post;
@@ -25,6 +26,7 @@ import de.ppi.samples.fuwesta.model.User;
  *
  */
 @SpringApplicationConfiguration(classes = FuWeStaServer.class)
+@WebAppConfiguration
 public class PostDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     /**
