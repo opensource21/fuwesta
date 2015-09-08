@@ -25,6 +25,8 @@ import de.ppi.samples.fuwesta.selophane.page.PostFormPage;
 import de.ppi.selenium.browser.SessionManager;
 import de.ppi.selenium.browser.WebBrowser;
 import de.ppi.selenium.junit.WebDriverRule.Browser;
+import de.ppi.selenium.logevent.api.EventActions;
+import de.ppi.selenium.logevent.api.Priority;
 import de.ppi.selenium.util.Protocol;
 
 /**
@@ -32,14 +34,14 @@ import de.ppi.selenium.util.Protocol;
  *
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class OptimisticLockPostIntegrationTest
-        extends AbstractPostIntegrationTest {
+public class OptimisticLockPostIntegrationTest extends
+        AbstractPostIntegrationTest {
 
     /**
      * An instance of the {@link SessionManager}.
      */
-    private static final SessionManager SESSION_MANAGER =
-            SessionManager.getInstance();
+    private static final SessionManager SESSION_MANAGER = SessionManager
+            .getInstance();
 
     /**
      * {@inheritDoc}
@@ -94,13 +96,18 @@ public class OptimisticLockPostIntegrationTest
         final String url = firstBrowser.getCurrentUrl();
         firstFormPage.getSave().click();
         firstFormPage.isReloaded();
+        EVENT_LOGGER
+                .onDoku(OptimisticLockPostIntegrationTest.class.getName(),
+                        "testOptimisticLock")
+                .withScreenshot(Priority.DOCUMENTATION, firstBrowser)
+                .log(EventActions.TEST_SCREENSHOT, "Show optimistic lock-error");
         Protocol.log(changedTitle, "Show optimistic lock-error", firstBrowser);
         final List<Element> messages =
                 firstFormPage.getGlobalErrors().getMessages();
         softly.assertThat(messages).hasSize(1);
         final Element error = messages.get(0);
-        softly.assertThat(error)
-                .hasText("The data was changed by another user. Reload.");
+        softly.assertThat(error).hasText(
+                "The data was changed by another user. Reload.");
         final Link reloadlink =
                 new LinkImpl(new ByUniqueElementLocator(secondBrowser, error,
                         By.tagName("a"), "ErrorPage", "reloadLink"));

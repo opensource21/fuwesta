@@ -19,6 +19,8 @@ import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.page.PartialPostFormPage;
 import de.ppi.samples.fuwesta.selophane.page.PostFormPage;
 import de.ppi.selenium.browser.SessionManager;
+import de.ppi.selenium.logevent.api.EventActions;
+import de.ppi.selenium.logevent.api.Priority;
 import de.ppi.selenium.util.Protocol;
 
 /**
@@ -186,6 +188,11 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
                 "Title must be unique");
         softly.assertThat(formPage.getError(creationTime)).hasText(
                 "Invalid Date (must be dd-MM-yyyy).");
+        EVENT_LOGGER
+                .onDoku(CrudPostIntegrationTest.class.getName(),
+                        "test20Validation")
+                .withScreenshot(Priority.DOCUMENTATION, browser)
+                .log(EventActions.TEST_SCREENSHOT, "ValidationError2");
         Protocol.log("ValidationErrors2", "Validation errors should be shown.",
                 browser);
     }
@@ -211,6 +218,11 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
                 "Title cannot be null");
         softly.assertThat(thePage.getError(creationTime)).hasText(
                 "Invalid Date (must be dd-MM-yyyy).");
+        EVENT_LOGGER
+                .onDoku(CrudPostIntegrationTest.class.getName(),
+                        "validateTitleAndCreationTime")
+                .withScreenshot(Priority.DOCUMENTATION, browser)
+                .log(EventActions.TEST_SCREENSHOT, "ValidationErrors1");
         Protocol.log("ValidationErrors1", "Validation errors should be shown.",
                 browser);
     }

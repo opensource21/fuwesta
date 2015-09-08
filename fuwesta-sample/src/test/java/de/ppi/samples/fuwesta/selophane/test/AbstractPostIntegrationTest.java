@@ -16,6 +16,8 @@ import de.ppi.samples.fuwesta.selophane.page.PostListPage;
 import de.ppi.selenium.assertj.SeleniumSoftAssertions;
 import de.ppi.selenium.browser.SessionManager;
 import de.ppi.selenium.browser.WebBrowser;
+import de.ppi.selenium.logevent.api.EventLoggerFactory;
+import de.ppi.selenium.logevent.api.EventSource;
 
 /**
  * Base-Class for test for Post-List-Page.
@@ -23,6 +25,10 @@ import de.ppi.selenium.browser.WebBrowser;
  */
 public abstract class AbstractPostIntegrationTest extends
         AbstractFuWeStaSampleDbUnitTest {
+
+    /** Eventlogger-Factory. */
+    protected static final EventLoggerFactory EVENT_LOGGER = EventLoggerFactory
+            .getInstance(EventSource.TEST);
 
     /**
      * Flag which indicate that the db is initialized.
