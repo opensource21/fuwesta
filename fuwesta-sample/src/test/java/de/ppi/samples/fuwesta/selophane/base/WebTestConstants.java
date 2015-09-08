@@ -8,7 +8,9 @@ import de.ppi.selenium.junit.ProtocolRule;
 import de.ppi.selenium.junit.WebDriverRule;
 import de.ppi.selenium.junit.WebServerRule;
 import de.ppi.webttest.util.TestWebServer;
+import de.ppi.selenium.logevent.api.Priority;
 import de.ppi.selenium.logevent.backend.H2EventStorage;
+import de.ppi.selenium.logevent.report.MarkdownReporter;
 
 /**
  * Constants for webtest.
@@ -22,15 +24,19 @@ public interface WebTestConstants {
     /**
      * The system to store the events.
      */
-    H2EventStorage EVENT_STORAGE = new H2EventStorage(
-            "jdbc:h2:./dbs/testlog;MODE=PostgreSQL;AUTO_SERVER=TRUE", "sa", "");
+    H2EventStorage EVENT_STORAGE =
+            new H2EventStorage(
+                    "jdbc:h2:./dbs/testlog;MODE=PostgreSQL;"
+                            + "AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
+                    "sa", "");
 
     /**
      * Standard_Rule for WebTests.
      */
     RuleChain WEBTEST_WITHOUT_AUTHENTICATION = RuleChain
             .outerRule(new WebServerRule(new DelegatingWebServer(WEB_SERVER)))
-            .around(new EventLogRule(EVENT_STORAGE))
+            .around(new EventLogRule(EVENT_STORAGE, new MarkdownReporter(
+                    "weblog", false, Priority.DEBUG)))
             .around(new WebDriverRule()).around(new ProtocolRule("weblog"));
     /**
      * Standard_Rule for WebTests.
