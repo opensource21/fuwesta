@@ -1,13 +1,11 @@
 package de.ppi.samples.fuwesta.selophane.page;
 
-import lombok.Getter;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import de.ppi.samples.fuwesta.selophane.base.BasePage;
 import de.ppi.samples.fuwesta.selophane.widget.Menu;
-import de.ppi.selenium.browser.SessionManager;
+import lombok.Getter;
 
 /**
  * Page for to the main.html-template with is the basic layout.
@@ -26,15 +24,10 @@ public class MainPage extends BasePage {
      * Initiates an object of type MainPage.
      *
      * @param webDriver the {@link WebDriver} for searches.
+     * @param pageName name of the page-
      */
-    public MainPage(WebDriver webDriver) {
-        super(webDriver);
+    public MainPage(WebDriver webDriver, String pageName) {
+        super(webDriver, pageName);
     }
 
-    /**
-     * Initiates an object of type MainPage.
-     */
-    public MainPage() {
-        this(SessionManager.getSession());
-    }
 }

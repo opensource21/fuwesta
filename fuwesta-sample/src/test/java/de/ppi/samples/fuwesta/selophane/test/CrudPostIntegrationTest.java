@@ -19,7 +19,8 @@ import de.ppi.samples.fuwesta.frontend.URL;
 import de.ppi.samples.fuwesta.selophane.page.PartialPostFormPage;
 import de.ppi.samples.fuwesta.selophane.page.PostFormPage;
 import de.ppi.selenium.browser.SessionManager;
-import de.ppi.selenium.util.Protocol;
+import de.ppi.selenium.logevent.api.EventActions;
+import de.ppi.selenium.logevent.api.Priority;
 
 /**
  * Test for the post-page.
@@ -103,7 +104,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
                 URL.filledURLWithNamedParams(URL.User.SHOW, URL.User.P_USERID,
                         "11"));
         browser.navigate().back();
-        formPage.reload();
+        formPage.isReloaded();
         List<Link> tags = formPage.getTagList();
         softly.assertThat(tags).hasSize(2);
         softly.assertThat(tags.get(0)).hasText("Test2");
@@ -113,7 +114,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
                         URL.filledURLWithNamedParams(URL.Tag.SHOW,
                                 URL.Tag.P_TAGID, "2"));
         browser.navigate().back();
-        formPage.reload();
+        formPage.isReloaded();
         tags = formPage.getTagList();
         softly.assertThat(tags.get(1)).hasText("Test1");
         tags.get(1).click();
@@ -122,7 +123,7 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
                         URL.filledURLWithNamedParams(URL.Tag.SHOW,
                                 URL.Tag.P_TAGID, "1"));
         browser.navigate().back();
-        formPage.reload();
+        formPage.isReloaded();
         formPage.getList().click();
 
         softly.assertThat(browser).hasRelativeUrl(URL.Post.LIST);
@@ -179,15 +180,18 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
         TextInput title = formPage.getTitleInput();
         title.set(TEST_TITLE1);
         formPage.getSave().click();
-        formPage.reload();
+        formPage.isReloaded();
         final TextInput creationTime = formPage.getCreationTimeInput();
         title = formPage.getTitleInput();
         softly.assertThat(formPage.getError(title)).hasText(
                 "Title must be unique");
         softly.assertThat(formPage.getError(creationTime)).hasText(
                 "Invalid Date (must be dd-MM-yyyy).");
-        Protocol.log("ValidationErrors2", "Validation errors should be shown.",
-                browser);
+        EVENT_LOGGER
+                .onDoku(CrudPostIntegrationTest.class.getName(),
+                        "test20Validation")
+                .withScreenshot(Priority.DOCUMENTATION, browser)
+                .log(EventActions.TEST_SCREENSHOT, "ValidationError2");
     }
 
     /**
@@ -204,15 +208,18 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
         creationTime.sendKeys("11.11.2011");
         softly.assertThat(creationTime.getText()).isEqualTo("11112011");
         thePage.getSave().click();
-        thePage.reload();
+        thePage.isReloaded();
         title = thePage.getTitleInput();
         creationTime = thePage.getCreationTimeInput();
         softly.assertThat(thePage.getError(title)).hasText(
                 "Title cannot be null");
         softly.assertThat(thePage.getError(creationTime)).hasText(
                 "Invalid Date (must be dd-MM-yyyy).");
-        Protocol.log("ValidationErrors1", "Validation errors should be shown.",
-                browser);
+        EVENT_LOGGER
+                .onDoku(CrudPostIntegrationTest.class.getName(),
+                        "validateTitleAndCreationTime")
+                .withScreenshot(Priority.DOCUMENTATION, browser)
+                .log(EventActions.TEST_SCREENSHOT, "ValidationErrors1");
     }
 
     /**

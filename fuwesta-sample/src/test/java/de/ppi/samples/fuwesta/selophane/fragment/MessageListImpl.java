@@ -7,9 +7,8 @@ import lombok.Getter;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.selophane.elements.base.Element;
+import org.selophane.elements.base.Fragment;
 import org.selophane.elements.base.UniqueElementLocator;
-
-import de.ppi.samples.fuwesta.selophane.base.Fragment;
 
 /**
  * Defualt implementation of {@link MessageList}.

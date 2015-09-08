@@ -1,10 +1,10 @@
 package de.ppi.samples.fuwesta.selophane.widget;
 
 import org.openqa.selenium.support.FindBy;
+import org.selophane.elements.base.Fragment;
 import org.selophane.elements.base.UniqueElementLocator;
 import org.selophane.elements.widget.Button;
 
-import de.ppi.samples.fuwesta.selophane.base.Fragment;
 import de.ppi.selenium.util.CSSHelper;
 
 /**

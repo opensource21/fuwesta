@@ -7,10 +7,9 @@ import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.selophane.elements.base.Fragment;
 import org.selophane.elements.base.UniqueElementLocator;
 import org.selophane.elements.widget.Button;
-
-import de.ppi.samples.fuwesta.selophane.base.Fragment;
 
 /**
  * Implememtation of an ActionTable.

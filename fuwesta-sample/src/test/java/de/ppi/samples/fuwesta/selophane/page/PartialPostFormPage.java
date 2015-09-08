@@ -65,7 +65,7 @@ public class PartialPostFormPage extends MainPage {
      * @param webDriver the underlying {@link WebDriver}.
      */
     public PartialPostFormPage(WebDriver webDriver) {
-        super(webDriver);
+        super(webDriver, "PartialPostPage");
     }
 
 }

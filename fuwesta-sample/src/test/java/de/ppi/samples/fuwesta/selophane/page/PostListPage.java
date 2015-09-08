@@ -64,7 +64,7 @@ public class PostListPage extends MainPage {
      * @param webDriver the {@link WebDriver}
      */
     public PostListPage(WebDriver webDriver) {
-        super(webDriver);
+        super(webDriver, "PostList");
     }
 
 }
