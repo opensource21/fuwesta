@@ -27,7 +27,6 @@ import de.ppi.selenium.browser.WebBrowser;
 import de.ppi.selenium.junit.WebDriverRule.Browser;
 import de.ppi.selenium.logevent.api.EventActions;
 import de.ppi.selenium.logevent.api.Priority;
-import de.ppi.selenium.util.Protocol;
 
 /**
  * Test for the post-page.
@@ -101,7 +100,6 @@ public class OptimisticLockPostIntegrationTest extends
                         "testOptimisticLock")
                 .withScreenshot(Priority.DOCUMENTATION, firstBrowser)
                 .log(EventActions.TEST_SCREENSHOT, "Show optimistic lock-error");
-        Protocol.log(changedTitle, "Show optimistic lock-error", firstBrowser);
         final List<Element> messages =
                 firstFormPage.getGlobalErrors().getMessages();
         softly.assertThat(messages).hasSize(1);

@@ -4,13 +4,12 @@ import org.junit.rules.RuleChain;
 
 import de.ppi.selenium.junit.DelegatingWebServer;
 import de.ppi.selenium.junit.EventLogRule;
-import de.ppi.selenium.junit.ProtocolRule;
 import de.ppi.selenium.junit.WebDriverRule;
 import de.ppi.selenium.junit.WebServerRule;
-import de.ppi.webttest.util.TestWebServer;
 import de.ppi.selenium.logevent.api.Priority;
 import de.ppi.selenium.logevent.backend.H2EventStorage;
 import de.ppi.selenium.logevent.report.MarkdownReporter;
+import de.ppi.webttest.util.TestWebServer;
 
 /**
  * Constants for webtest.
@@ -36,8 +35,8 @@ public interface WebTestConstants {
     RuleChain WEBTEST_WITHOUT_AUTHENTICATION = RuleChain
             .outerRule(new WebServerRule(new DelegatingWebServer(WEB_SERVER)))
             .around(new EventLogRule(EVENT_STORAGE, new MarkdownReporter(
-                    "weblog", false, Priority.DEBUG)))
-            .around(new WebDriverRule()).around(new ProtocolRule("weblog"));
+                    "weblog", true, Priority.DEBUG)))
+            .around(new WebDriverRule());
     /**
      * Standard_Rule for WebTests.
      */

@@ -21,7 +21,6 @@ import de.ppi.samples.fuwesta.selophane.page.PostFormPage;
 import de.ppi.selenium.browser.SessionManager;
 import de.ppi.selenium.logevent.api.EventActions;
 import de.ppi.selenium.logevent.api.Priority;
-import de.ppi.selenium.util.Protocol;
 
 /**
  * Test for the post-page.
@@ -193,8 +192,6 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
                         "test20Validation")
                 .withScreenshot(Priority.DOCUMENTATION, browser)
                 .log(EventActions.TEST_SCREENSHOT, "ValidationError2");
-        Protocol.log("ValidationErrors2", "Validation errors should be shown.",
-                browser);
     }
 
     /**
@@ -223,8 +220,6 @@ public class CrudPostIntegrationTest extends AbstractPostIntegrationTest {
                         "validateTitleAndCreationTime")
                 .withScreenshot(Priority.DOCUMENTATION, browser)
                 .log(EventActions.TEST_SCREENSHOT, "ValidationErrors1");
-        Protocol.log("ValidationErrors1", "Validation errors should be shown.",
-                browser);
     }
 
     /**
