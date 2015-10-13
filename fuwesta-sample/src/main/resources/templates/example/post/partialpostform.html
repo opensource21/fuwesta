@@ -11,7 +11,7 @@ tags - a list of selectable tag
 <head >
 <title th:text="#{App.Title} + ' - ' + #{post.form.title}">
     SpringMVC-Sample - Form of posts</title>
-<th:block th:include="/example/main::head"/>
+<th:block th:include="example/main::head"/>
 <script th:inline="javascript">
     $(function() {
         $('.datepicker').each(function(index) {
@@ -62,13 +62,13 @@ tags - a list of selectable tag
 
 </head>
 <body>
-    <div th:replace="/example/main::.navbar"></div>
-    <div th:replace="/example/main::info"></div>
+    <div th:replace="example/main::.navbar"></div>
+    <div th:replace="example/main::info"></div>
     <h3 th:text="#{post.form.title}">Form of posts</h3>
     <a class="btn" href="/" th:href="@{/}"><i class="icon-home"></i>Home</a>
     <a class="btn" th:href="@{__#{purl.post.list}__}">Goto list</a>
     <form th:action="@{${url}}" class="well form-horizontal" method="post" th:object="${post}">
-        <div th:replace="/example/main::error"></div>
+        <div th:replace="example/main::error"></div>
 
         <input id="id" type="hidden" th:value="*{id}" name="id"/>
         <input id="version" type="hidden" th:value="*{version}" name="version"/>

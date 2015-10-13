@@ -3,12 +3,12 @@
     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head >
     <title th:text="#{App.Title} + ' - ' + #{user.list.title}"></title>
-    <th:block th:include="/example/main::head"/>
+    <th:block th:include="example/main::head"/>
 </head>
 
 <body>
-    <div th:replace="/example/main::.navbar"></div>
-    <div th:replace="/example/main::info"></div>
+    <div th:replace="example/main::.navbar"></div>
+    <div th:replace="example/main::info"></div>
 
     <h3 th:text="#{user.list.title}">List of users</h3>
     <a class="btn" href="/" th:href="@{/}"><i class="icon-home"></i>Home</a>

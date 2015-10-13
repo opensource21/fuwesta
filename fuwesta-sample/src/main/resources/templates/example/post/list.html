@@ -8,12 +8,12 @@ pageRequest - the parameter of this search.
 <html lang="de-DE" xmlns:th="http://www.thymeleaf.org">
 <head >
     <title th:text="#{App.Title} + ' - ' + #{post.list.title}"></title>
-    <th:block th:include="/example/main::head"/>
+    <th:block th:include="example/main::head"/>
 </head>
 
 <body>
-    <div th:replace="/example/main::.navbar"></div>
-    <div th:replace="/example/main::info"></div>
+    <div th:replace="example/main::.navbar"></div>
+    <div th:replace="example/main::info"></div>
 
     <h3 th:text="#{post.list.title}">List of posts</h3>
     <a class="btn" id="homeBtn" href="/" th:href="@{/}"><i class="icon-home"></i>Home</a>
