@@ -4,6 +4,7 @@ import org.junit.rules.RuleChain;
 
 import de.ppi.selenium.junit.DelegatingWebServer;
 import de.ppi.selenium.junit.EventLogRule;
+import de.ppi.selenium.junit.ScreenshotAtErrorRule;
 import de.ppi.selenium.junit.WebDriverRule;
 import de.ppi.selenium.junit.WebServerRule;
 import de.ppi.selenium.logevent.api.Priority;
@@ -36,7 +37,7 @@ public interface WebTestConstants {
             .outerRule(new WebServerRule(new DelegatingWebServer(WEB_SERVER)))
             .around(new EventLogRule(EVENT_STORAGE, new MarkdownReporter(
                     "weblog", true, Priority.DEBUG)))
-            .around(new WebDriverRule());
+            .around(new WebDriverRule()).around(new ScreenshotAtErrorRule());
     /**
      * Standard_Rule for WebTests.
      */
