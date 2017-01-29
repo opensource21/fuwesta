@@ -13,9 +13,9 @@
 
     <properties>
         <java.version>1.7</java.version>
-        <org.springframework.version>4.1.5.RELEASE</org.springframework.version>
-        <thymeleaf.version>2.1.4.RELEASE</thymeleaf.version>
-        <org.slf4j.version>1.7.10</org.slf4j.version>
+        <org.springframework.version>4.3.6.RELEASE</org.springframework.version>
+        <thymeleaf.version>2.1.5.RELEASE</thymeleaf.version>
+        <org.slf4j.version>1.7.22</org.slf4j.version>
         <junit.version>4.12</junit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -157,7 +157,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.8.Final</version>
+            <version>4.3.11.Final</version>
             <scope>test</scope>
         </dependency>
 
