@@ -22,7 +22,7 @@ import de.ppi.selenium.browser.WebBrowser;
  * Test of login.
  *
  */
-@FixMethodOrder
+@FixMethodOrder()
 public class LoginIntegrationTest {
 
     /**
@@ -92,11 +92,11 @@ public class LoginIntegrationTest {
         final MainPage mainPage =
                 new MainPage(SessionManager.getSession(), "MainPage");
         assertThat(mainPage.getMenu().getMenuItems()).hasSize(2);
-        assertThat(mainPage.getMenu().getMenuItem(0).getText())
-                .isEqualTo("Post");
+        assertThat(mainPage.getMenu().getMenuItem(0).getText()).isEqualTo(
+                "Post");
         assertThat(mainPage.getMenu().getMenuItem(0).isActive()).isTrue();
-        assertThat(mainPage.getMenu().getMenuItem(1).getText())
-                .isEqualTo("Logout");
+        assertThat(mainPage.getMenu().getMenuItem(1).getText()).isEqualTo(
+                "Logout");
         assertThat(mainPage.getMenu().getMenuItem(1).isActive()).isFalse();
     }
 
