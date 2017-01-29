@@ -9,9 +9,9 @@ import org.dbunit.dataset.IDataSet;
 import org.junit.AfterClass;
 import org.junit.Rule;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import de.ppi.samples.fuwesta.FuWeStaServer;
 
@@ -19,8 +19,8 @@ import de.ppi.samples.fuwesta.FuWeStaServer;
  * Class AbstractDbUnitTest.
  *
  */
-@SpringApplicationConfiguration(classes = FuWeStaServer.class)
-@WebAppConfiguration
+@SpringBootTest(classes = FuWeStaServer.class,
+        webEnvironment = WebEnvironment.RANDOM_PORT)
 public abstract class AbstractFuWeStaSampleDbUnitTest extends
         AbstractJUnit4SpringContextTests {
 

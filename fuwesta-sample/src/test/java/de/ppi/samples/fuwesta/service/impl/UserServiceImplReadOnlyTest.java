@@ -8,9 +8,9 @@ import javax.sql.DataSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import de.ppi.samples.fuwesta.FuWeStaServer;
 import de.ppi.samples.fuwesta.dbunit.FuWeStaSampleDatabase;
@@ -21,8 +21,8 @@ import de.ppi.samples.fuwesta.service.api.UserService;
  * Class for testing @link {@link UserServiceImpl} in with attach and detach.
  *
  */
-@SpringApplicationConfiguration(classes = FuWeStaServer.class)
-@WebAppConfiguration
+@SpringBootTest(classes = FuWeStaServer.class,
+        webEnvironment = WebEnvironment.RANDOM_PORT)
 public class UserServiceImplReadOnlyTest extends
         AbstractJUnit4SpringContextTests {
 
