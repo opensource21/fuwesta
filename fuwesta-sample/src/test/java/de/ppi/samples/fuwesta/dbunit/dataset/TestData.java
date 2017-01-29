@@ -37,9 +37,9 @@ public class TestData {
         newTag().Id(2L).Active(TRUE).Name("Test2").Version(Validators.gt(-1))
                 .addTo(b);
         newTag().Id(3L).Active(FALSE).Name("Test3").addTo(b);
-        newTagPostings().Tags(2L).Postings(101L).addTo(b);
-        newTagPostings().Tags(2L).Postings(102L).addTo(b);
-        newTagPostings().Tags(1L).Postings(101L).addTo(b);
+        newTagPostings().TagsId(2L).PostingsId(101L).addTo(b);
+        newTagPostings().TagsId(2L).PostingsId(102L).addTo(b);
+        newTagPostings().TagsId(1L).PostingsId(101L).addTo(b);
         return b.build();
     }
 
@@ -60,9 +60,9 @@ public class TestData {
         newTag().Id(1L).Active(TRUE).Name("Test1").addTo(b);
         newTag().Id(2L).Active(TRUE).Name("Test2").addTo(b);
         newTag().Id(3L).Active(FALSE).Name("Test3").addTo(b);
-        newTagPostings().Tags(2L).Postings(101L).addTo(b);
-        newTagPostings().Tags(2L).Postings(102L).addTo(b);
-        newTagPostings().Tags(1L).Postings(101L).addTo(b);
+        newTagPostings().TagsId(2L).PostingsId(101L).addTo(b);
+        newTagPostings().TagsId(2L).PostingsId(102L).addTo(b);
+        newTagPostings().TagsId(1L).PostingsId(101L).addTo(b);
         return b.build();
     }
 }
