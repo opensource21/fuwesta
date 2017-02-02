@@ -11,17 +11,6 @@
         <name>PPI AG</name>
         <url>http://www.ppi.de</url>
     </organization>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.4.RELEASE</version>
-
-        <!-- Overwrite spring-boot-versions -->
-        <hibernate.version>4.3.11.Final</hibernate.version>
-        <thymeleaf-layout-dialect.version>1.2.9</thymeleaf-layout-dialect.version>
-
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
     <properties>
         <java.version>1.7</java.version>
         <org.springframework.version>4.1.5.RELEASE</org.springframework.version>
@@ -29,6 +18,8 @@
         <junit.version>4.12</junit.version>
         <selenium.version>2.45.0</selenium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Overwrite spring-boot-versions -->
+        <thymeleaf-layout-dialect.version>1.2.9</thymeleaf-layout-dialect.version>
 
         <db.username>sa</db.username>
         <db.password />
@@ -38,8 +29,13 @@
         <db.generateDdl>true</db.generateDdl>
         <db.schema>PUBLIC</db.schema>
         <db.hbm2ddl.auto>update</db.hbm2ddl.auto>
-
     </properties>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.4.4.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
     <dependencies>
         <dependency>
