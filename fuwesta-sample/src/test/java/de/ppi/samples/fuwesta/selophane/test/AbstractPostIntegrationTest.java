@@ -104,6 +104,7 @@ public abstract class AbstractPostIntegrationTest extends
      */
     @Before
     public void init() {
+        // EventLoggerFactory.setDefaultScreenPriority(Priority.DEBUG);
         browser = SessionManager.getSession();
 
         postListPage = new PostListPage(browser);

@@ -8,7 +8,6 @@ import net.sf.oval.configuration.annotation.AnnotationsConfigurer;
 import net.sf.oval.integration.spring.SpringCheckInitializationListener;
 import net.sf.oval.integration.spring.SpringValidator;
 
-import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,6 +18,7 @@ import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import de.ppi.fuwesta.spring.mvc.bind.ServletBindingService;
 import de.ppi.fuwesta.spring.mvc.formatter.EnumConverter;
@@ -42,7 +42,7 @@ import de.ppi.samples.fuwesta.frontend.URL;
 @Configuration
 @ComponentScan(basePackages = { "net.sf.oval.integration.spring",
         "de.ppi.fuwesta.jpa.helper" })
-public class WebMvcConfig extends WebMvcAutoConfigurationAdapter {
+public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     /**
      * Page size if no other information is given.

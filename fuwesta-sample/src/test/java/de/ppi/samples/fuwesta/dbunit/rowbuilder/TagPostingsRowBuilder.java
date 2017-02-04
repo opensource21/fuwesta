@@ -6,27 +6,27 @@ public class TagPostingsRowBuilder extends BasicDataRowBuilder {
 
     public static final String TABLE_NAME = "TAG_POSTINGS";
 
-    public static final String C_POSTINGS = "POSTINGS";
-    public static final String C_TAGS = "TAGS";
+    public static final String C_POSTINGS_ID = "POSTINGS_ID";
+    public static final String C_TAGS_ID = "TAGS_ID";
 
-    public static final String[] PRIMARY_KEY = {C_TAGS, C_POSTINGS};
+    public static final String[] PRIMARY_KEY = {C_TAGS_ID, C_POSTINGS_ID};
 
-    public static final String[] ALL_COLUMNS = {C_POSTINGS, C_TAGS};
+    public static final String[] ALL_COLUMNS = {C_POSTINGS_ID, C_TAGS_ID};
 
     public TagPostingsRowBuilder(String... identifierColumns) {
         super(TABLE_NAME, identifierColumns);
         setAllColumnNames(ALL_COLUMNS);
-        addDefaultValue(C_TAGS, new Long("0"));
-        addDefaultValue(C_POSTINGS, new Long("0"));
+        addDefaultValue(C_TAGS_ID, new Long("0"));
+        addDefaultValue(C_POSTINGS_ID, new Long("0"));
     }
 
-    public final TagPostingsRowBuilder Postings (Number value) {
-        with(C_POSTINGS, value);
+    public final TagPostingsRowBuilder PostingsId (Number value) {
+        with(C_POSTINGS_ID, value);
         return this;
     }
 
-    public final TagPostingsRowBuilder Tags (Number value) {
-        with(C_TAGS, value);
+    public final TagPostingsRowBuilder TagsId (Number value) {
+        with(C_TAGS_ID, value);
         return this;
     }
 

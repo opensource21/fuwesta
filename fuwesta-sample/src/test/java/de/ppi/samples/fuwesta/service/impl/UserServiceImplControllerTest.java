@@ -8,9 +8,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TransactionRequiredException;
 
 import org.junit.Test;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import de.ppi.samples.fuwesta.FuWeStaServer;
 import de.ppi.samples.fuwesta.model.User;
@@ -20,8 +20,8 @@ import de.ppi.samples.fuwesta.service.api.UserService;
  * Class for testing @link {@link UserServiceImpl} in with attach and detach.
  *
  */
-@SpringApplicationConfiguration(classes = FuWeStaServer.class)
-@WebAppConfiguration
+@SpringBootTest(classes = FuWeStaServer.class,
+        webEnvironment = WebEnvironment.RANDOM_PORT)
 public class UserServiceImplControllerTest extends
         AbstractTransactionalJUnit4SpringContextTests {
 

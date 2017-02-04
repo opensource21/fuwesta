@@ -11,19 +11,15 @@
         <name>PPI AG</name>
         <url>http://www.ppi.de</url>
     </organization>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
     <properties>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
         <org.springframework.version>4.1.5.RELEASE</org.springframework.version>
         <shiro.version>1.2.3</shiro.version>
         <junit.version>4.12</junit.version>
         <selenium.version>2.45.0</selenium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Overwrite spring-boot-versions -->
+        <thymeleaf-layout-dialect.version>1.2.9</thymeleaf-layout-dialect.version>
 
         <db.username>sa</db.username>
         <db.password />
@@ -33,8 +29,13 @@
         <db.generateDdl>true</db.generateDdl>
         <db.schema>PUBLIC</db.schema>
         <db.hbm2ddl.auto>update</db.hbm2ddl.auto>
-
     </properties>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.4.4.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
     <dependencies>
         <dependency>
@@ -122,7 +123,12 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -135,14 +141,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.4</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>de.ppi.oss</groupId>
             <artifactId>webtest</artifactId>
-            <version>0.10</version>
+            <version>0.12</version>
             <scope>test</scope>
         </dependency>
 
@@ -158,65 +163,6 @@
             <version>0.3</version>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-api</artifactId>
-            <version>${selenium.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-support</artifactId>
-            <version>${selenium.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-remote-driver</artifactId>
-            <version>${selenium.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-htmlunit-driver</artifactId>
-            <version>${selenium.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- https://code.google.com/p/selenium/issues/detail?id=8088 -->
-        <dependency>
-            <groupId>com.codeborne</groupId>
-            <artifactId>phantomjsdriver</artifactId>
-            <version>1.2.1</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.arquillian.extension</groupId>
-            <artifactId>arquillian-phantom-driver</artifactId>
-            <version>1.1.3.Final</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>phantomjsdriver</artifactId>
-                    <groupId>com.github.detro</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.extension</groupId>
-            <artifactId>arquillian-phantom-binary</artifactId>
-            <version>1.9.8</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-ie-driver</artifactId>
-            <version>${selenium.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-
     </dependencies>
     <build>
         <!-- Files in resources should be added -->

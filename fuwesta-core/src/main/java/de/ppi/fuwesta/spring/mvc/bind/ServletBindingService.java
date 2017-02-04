@@ -106,10 +106,10 @@ public class ServletBindingService {
     }
 
     protected void initBinder(final WebDataBinder binder) {
+        binder.setAutoGrowCollectionLimit(MAX_NUMBERS_OF_FORM_ELEMENTS);
         for (Entry<Class<?>, PropertyEditor> editors : customEditors.entrySet()) {
             binder.registerCustomEditor(editors.getKey(), editors.getValue());
         }
-        binder.setAutoGrowCollectionLimit(MAX_NUMBERS_OF_FORM_ELEMENTS);
     }
 
 }

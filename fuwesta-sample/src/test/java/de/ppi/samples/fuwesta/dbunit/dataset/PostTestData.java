@@ -28,10 +28,10 @@ public class PostTestData {
                 .Content("This is an example text.\r\nIt contains newlines.")
                 .CreationTime(ts("2015-01-30 00:00:00.0")).Title("Test-Title1")
                 .UserId(11L).addTo(b);
-        newTagPostings().Tags(1L).Postings(nprop(VARIABLE_TO_STORE_POST_ID))
-                .addTo(b);
-        newTagPostings().Tags(2L).Postings(nprop(VARIABLE_TO_STORE_POST_ID))
-                .addTo(b);
+        newTagPostings().TagsId(1L)
+                .PostingsId(nprop(VARIABLE_TO_STORE_POST_ID)).addTo(b);
+        newTagPostings().TagsId(2L)
+                .PostingsId(nprop(VARIABLE_TO_STORE_POST_ID)).addTo(b);
         return b.build();
     }
 
@@ -48,8 +48,8 @@ public class PostTestData {
                         "This is an example text.\r\nIt contains newlines.Not really conntent.")
                 .CreationTime(ts("2015-03-30 00:00:00.0"))
                 .Title("Test-Title1N").UserId(12L).addTo(b);
-        newTagPostings().Tags(1L).Postings(nprop(VARIABLE_TO_STORE_POST_ID))
-                .addTo(b);
+        newTagPostings().TagsId(1L)
+                .PostingsId(nprop(VARIABLE_TO_STORE_POST_ID)).addTo(b);
         return b.build();
     }
 
@@ -64,8 +64,8 @@ public class PostTestData {
                 .Content("This is an example text.\r\nIt contains newlines.")
                 .CreationTime(ts("2015-01-30 00:00:00.0")).Title("Test-Title1")
                 .UserId(12L).addTo(b);
-        newTagPostings().Tags(1L).Postings(nprop(VARIABLE_TO_STORE_POST_ID))
-                .addTo(b);
+        newTagPostings().TagsId(1L)
+                .PostingsId(nprop(VARIABLE_TO_STORE_POST_ID)).addTo(b);
         return b.build();
     }
 
